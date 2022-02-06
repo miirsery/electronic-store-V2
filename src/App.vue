@@ -1,17 +1,19 @@
 <template>
-<header class="header">
-  
-</header>
+  <Header></Header>
+  <h1>Home</h1>
 
 </template>
 
 <script>
+import Header from "@/components/Header";
 
 export default {
- 
+  components: {
+    Header
+  }
 };
 </script>
 
-<style lang="scss">
+<style lang="sass">
 
 </style>
