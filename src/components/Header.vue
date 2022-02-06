@@ -15,12 +15,17 @@
         </ul>
       </nav>
       <div class="actions">
-        <ul class="actions__menu flex">
+        <ul class="actions__menu flex items-center">
           <li class="actions__item">
             <a href="/" class="actions__link">Shop</a>
           </li>
           <li class="actions__item ml-4">
             <a href="/" class="actions__link">Favorite</a>
+          </li>
+          <li class="actions__item ml-4">
+            <a href="/" class="actions__link avatar">
+              <img src="../assets/avatar.png" alt="logo">
+            </a>
           </li>
         </ul>
       </div>
@@ -38,4 +43,12 @@ export default {};
 
 .wrapper
   width: 100%
+
+.avatar
+  max-width: 36px
+  max-height: 36px
+  display: block
+  img
+    width: 100%
+    object-fit: cover
 </style>

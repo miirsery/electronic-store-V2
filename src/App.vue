@@ -1,15 +1,25 @@
 <template>
-  <Header></Header>
-  <h1>Home</h1>
-
+  <div class="container">
+    <Header></Header>
+    <Offers></Offers>
+    <div class="hero flex mt-2">
+      <AsideCategories class="mr-8"></AsideCategories>
+      <Hero></Hero>
+    </div>
+  </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
-
+import AsideCategories from "@/components/AsideCategories";
+import Hero from "@/components/Hero";
+import Offers from "@/components/Offers";
 export default {
   components: {
-    Header
+    Header,
+    AsideCategories,
+    Hero,
+    Offers
   }
 };
 </script>
