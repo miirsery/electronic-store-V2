@@ -6,7 +6,8 @@
       <AsideCategories class="mr-8"></AsideCategories>
       <Hero></Hero>
     </div>
-    <router-view />
+    <router-view name="catalog" />
+    <router-view name="catalogItem" />
   </div>
 </template>
 

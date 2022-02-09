@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import FullCategoriesPage from "@/views/fullCategories";
+import CatalogItemPage from "@/views/catalogItem";
+
 const routerHistory = createWebHashHistory();
 const routes = createRouter({
   history: routerHistory,
@@ -9,11 +11,28 @@ const routes = createRouter({
       name: "home"
     },
     {
-      path: "/categories",
-      name: "categories",
-      component: FullCategoriesPage
+      path: "/catalog",
+      name: "catalog",
+      components: {
+        default: CatalogItemPage,
+        catalogItem: FullCategoriesPage
+      }
     },
 
+    {
+      // path: '/:PathMatch(.*)*',
+      path: "/catalog/:catalogAlias",
+      name: "catalogItem",
+      components: {
+        default: FullCategoriesPage,
+        catalog: CatalogItemPage
+      }
+    },
+    {
+      // path: '/:PathMatch(.*)*',
+      path: "/product/:productAlias",
+      name: "product"
+    }
   ]
 
 });

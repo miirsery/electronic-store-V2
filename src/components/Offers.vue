@@ -18,7 +18,7 @@ export default {
       items: [
         {
           title: "Каталог",
-          url: "/categories",
+          url: "/catalog",
 
         },
         {

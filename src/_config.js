@@ -16,8 +16,13 @@ export const links = [
     url: "/"
   },
   {
-    title: "Categories",
-    alias: "categories",
-    url: "/categories"
+    title: "Catalog",
+    alias: "catalog",
+    url: "/catalog"
+  },
+  {
+    // path: '/:PathMatch(.*)*',
+    path: "/:CatchAll(.*)",
+    name: "404",
   }
 ];

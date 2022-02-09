@@ -10,7 +10,9 @@
           <div class="aside__link-img inline-block mr-1.5">
             <img :src="item.imgUrl" alt="img" />
           </div>
-          <a href="/" class="aside__link">{{ item.title }}</a>
+          <router-link :to="item.url" class="aside__link">{{
+            item.title
+          }}</router-link>
         </li>
       </ul>
     </nav>
@@ -26,30 +28,35 @@ export default {
           id: 1,
           title: "Телефоны",
           imgUrl: require("../assets/phone.svg"),
+          url: "/catalog/phones"
         },
         {
           id: 2,
           title: "Ноутбуки и компьютеры",
           imgUrl: require("../assets/laptop.svg"),
+          url: "/catalog/laptops"
         },
         {
           id: 3,
           title: "Фото и видео",
           imgUrl: require("../assets/camera.svg"),
+          url: "/catalog/photo-and-video"
         },
         {
           id: 4,
           title: "Товары для авто",
           imgUrl: require("../assets/car.svg"),
+          url: "/catalog/products-for-auto"
         },
         {
           id: 5,
           title: "Техника для дома",
           imgUrl: require("../assets/home.svg"),
-        },
-      ],
+          url: "/catalog/products-for-home"
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 
