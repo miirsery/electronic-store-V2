@@ -1,27 +1,34 @@
 <template>
   <header class="header">
     <div
-      class="container wrapper flex justify-between border-4 items-center border-b-2 border-gray-100"
+      class="wrapper flex justify-between border-4 items-center border-b-2 border-gray-100 p-3"
     >
-      <div class="logo">Logo</div>
+      <a href="/" class="actions__link">Logo</a>
       <nav>
         <ul class="relative flex">
           <li class="item mr-4">
-            <a class="link" href="/"> Home </a>
+            <select name="" id="" class="select-text">
+              <option value="Novosibirsk">Новосибирск</option>
+              <option value="Omsk">Омск</option>
+              <option value="Barnaul">Барнаул</option>
+              <option value="Moscow">Москва</option>
+            </select>
           </li>
           <li class="item">
-            <a class="link" href="/"> About </a>
+            <form class="search border-b-2 w-full">
+              <input class="border-none bg-transparent" type="text" placeholder="Начать поиск...">
+            </form>
           </li>
         </ul>
       </nav>
       <div class="actions">
         <ul class="actions__menu flex items-center">
           <li class="actions__item">
-            <a href="/" class="actions__link">Shop</a>
+            <a href="/" class="actions__link">Cart</a>
           </li>
           <li class="actions__item ml-4">
             <a href="/" class="actions__link icon">
-              <img :src="imgUrl" alt="favorite">
+              <img :src="imgUrl" alt="favorite" />
             </a>
           </li>
           <li class="actions__item ml-4">
@@ -31,33 +38,61 @@
               data-micromodal-trigger="modal-1"
               @click="toggle = !toggle"
             >
-              <img src="../assets/avatar.png" alt="logo">
+              <img src="../assets/avatar.png" alt="logo" />
             </button>
           </li>
         </ul>
-        <div class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-show="toggle">
+        <div
+          class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          v-show="toggle"
+        >
           <div class="modal__top mb-3">
-            <button :class="{active: login}" type="button" @click="login = !login" :disabled="login">Вход /</button>
-            <button :class="{active: !login}" type="button" @click="login = !login" :disabled="!login"> Регистрация
+            <button
+              :class="{ active: login }"
+              type="button"
+              @click="login = !login"
+              :disabled="login"
+            >
+              Вход /
+            </button>
+            <button
+              :class="{ active: !login }"
+              type="button"
+              @click="login = !login"
+              :disabled="!login"
+            >
+              Регистрация
             </button>
           </div>
           <div class="w-full max-w-xs sign-in" v-show="login">
             <form>
               <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="username"
+                >
                   Username
                 </label>
                 <input
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="username" type="text" placeholder="Username">
+                  id="username"
+                  type="text"
+                  placeholder="Username"
+                />
               </div>
               <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="password"
+                >
                   Password
                 </label>
                 <input
                   class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  id="password" type="password" placeholder="******************">
+                  id="password"
+                  type="password"
+                  placeholder="******************"
+                />
                 <p class="text-red-500 text-xs italic">
                   Please choose a password.
                 </p>
@@ -65,10 +100,14 @@
               <div class="flex items-center justify-between">
                 <button
                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button">
+                  type="button"
+                >
                   Sign In
                 </button>
-                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                <a
+                  class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                  href="#"
+                >
                   Forgot Password?
                 </a>
               </div>
@@ -80,20 +119,34 @@
           <div class="w-full max-w-xs sign-in" v-show="!login">
             <form>
               <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="usernameSignUp">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="usernameSignUp"
+                >
                   Username
                 </label>
                 <input
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="usernameSignUp" type="text" placeholder="Username" required>
+                  id="usernameSignUp"
+                  type="text"
+                  placeholder="Username"
+                  required
+                />
               </div>
               <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="email"
+                >
                   Email
                 </label>
                 <input
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="email" type="text" placeholder="Email" required>
+                  id="email"
+                  type="text"
+                  placeholder="Email"
+                  required
+                />
               </div>
               <div class="mb-4">
                 <label
@@ -104,7 +157,11 @@
                 </label>
                 <input
                   class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  id="passwordSignUp" type="password" placeholder="******************" required>
+                  id="passwordSignUp"
+                  type="password"
+                  placeholder="******************"
+                  required
+                />
                 <p class="text-red-500 text-xs italic">
                   Please choose a password.
                 </p>
@@ -118,14 +175,19 @@
                 </label>
                 <input
                   class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  id="passwordRetry" type="password" placeholder="******************" required>
+                  id="passwordRetry"
+                  type="password"
+                  placeholder="******************"
+                  required
+                />
                 <p class="text-red-500 text-xs italic">
                   Please choose a password.
                 </p>
               </div>
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button">
+                type="button"
+              >
                 Sign Up
               </button>
             </form>
@@ -146,7 +208,8 @@ export default {
     return {
       toggle: false,
       login: true,
-      imgUrl: require("../assets/heart.svg"),
+      imgUrl: require("../assets/heart.svg")
+
     };
   }
 };
@@ -188,5 +251,4 @@ export default {
       &.active
         font-weight: 500
         opacity: 1
-
 </style>

@@ -6,6 +6,7 @@
       <AsideCategories class="mr-8"></AsideCategories>
       <Hero></Hero>
     </div>
+    <router-view />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Header from "@/components/Header";
 import AsideCategories from "@/components/AsideCategories";
 import Hero from "@/components/Hero";
 import Offers from "@/components/Offers";
+
 export default {
   components: {
     Header,

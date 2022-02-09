@@ -2,9 +2,13 @@
   <aside class="aside">
     <nav>
       <ul class="aside__menu">
-        <li class="aside__item pl-4 pb-3 pr-4 pt-3" v-for="item in items" :key="item.id">
+        <li
+          class="aside__item pl-4 pb-3 pr-4 pt-3"
+          v-for="item in items"
+          :key="item.id"
+        >
           <div class="aside__link-img inline-block mr-1.5">
-            <img :src="item.imgUrl" alt="img">
+            <img :src="item.imgUrl" alt="img" />
           </div>
           <a href="/" class="aside__link">{{ item.title }}</a>
         </li>
@@ -21,32 +25,31 @@ export default {
         {
           id: 1,
           title: "Телефоны",
-          imgUrl: require("../assets/phone.svg")
+          imgUrl: require("../assets/phone.svg"),
         },
         {
           id: 2,
           title: "Ноутбуки и компьютеры",
-          imgUrl: require("../assets/laptop.svg")
+          imgUrl: require("../assets/laptop.svg"),
         },
         {
           id: 3,
           title: "Фото и видео",
-          imgUrl: require("../assets/camera.svg")
+          imgUrl: require("../assets/camera.svg"),
         },
         {
           id: 4,
           title: "Товары для авто",
-          imgUrl: require("../assets/car.svg")
+          imgUrl: require("../assets/car.svg"),
         },
         {
           id: 5,
           title: "Техника для дома",
-          imgUrl: require("../assets/home.svg")
-        }
-      ]
+          imgUrl: require("../assets/home.svg"),
+        },
+      ],
     };
-  }
-
+  },
 };
 </script>
 

@@ -1,10 +1,14 @@
 <template>
   <div>
-  <h1>Hero content</h1>
+    Hero
   </div>
 </template>
 
 <script>
+// import { Navigation } from "swiper";
+// import "swiper/swiper.scss";
+// import "swiper/modules/navigation/navigation.scss";
+
 export default {
 
 };
