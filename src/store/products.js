@@ -1,6 +1,8 @@
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    items: tmpProducts()
+  },
   getters: {
     all: state => state.items,
     itemsMap(state) {
@@ -16,3 +18,42 @@ export default {
   actions: {}
 };
 
+function tmpProducts() {
+  return [
+    {
+      id: 1,
+      title: "IPhone XYN 10",
+      imgUrl: require("../assets/products/1.jpg"),
+      url: "/iphone-xyn-10-rand001",
+      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
+    },
+    {
+      id: 2,
+      title: "Redmi XZ 1011",
+      imgUrl: require("../assets/products/2.jpg"),
+      url: "/redmi-xz-1001-rand002",
+      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
+    },
+    {
+      id: 3,
+      title: "Redmi XZY 11",
+      imgUrl: require("../assets/products/3.jpg"),
+      url: "/redmi-xzy-11-rand003",
+      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
+    },
+    {
+      id: 4,
+      title: "IPhone Kakoi-to 11",
+      imgUrl: require("../assets/products/4.jpg"),
+      url: "/iphone-kakoi-to-11-rand004",
+      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
+    },
+    {
+      id: 5,
+      title: "IPhone Kakoi-to 12",
+      imgUrl: require("../assets/products/5.jpg"),
+      url: "/iphone-kakoi-to-12-rand005",
+      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
+    }
+  ];
+}

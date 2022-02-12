@@ -24,11 +24,13 @@
       <div class="actions">
         <ul class="actions__menu flex items-center">
           <li class="actions__item">
-            <a href="/" class="actions__link">Cart</a>
+            <router-link to="/cart" class="actions__link icon">
+              <img :src="cartImgUrl" alt="cart">
+            </router-link>
           </li>
           <li class="actions__item ml-4">
             <a href="/" class="actions__link icon">
-              <img :src="imgUrl" alt="favorite" />
+              <img :src="favoriteImgUrl" alt="favorite" />
             </a>
           </li>
           <li class="actions__item ml-4">
@@ -208,8 +210,8 @@ export default {
     return {
       toggle: false,
       login: true,
-      imgUrl: require("../assets/heart.svg")
-
+      favoriteImgUrl: require("../assets/heart.svg"),
+      cartImgUrl: require("../assets/cart.svg"),
     };
   }
 };

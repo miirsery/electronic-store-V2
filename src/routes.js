@@ -1,38 +1,43 @@
 import { createRouter, createWebHistory } from "vue-router";
 import FullCategoriesPage from "@/views/fullCategories";
 import CatalogItemPage from "@/views/catalogItem";
+import HomePage from "@/views/home";
+import CartPage from "@/views/cartPage";
 
 const routes = [
   {
     path: "/",
     name: "home",
+    component: HomePage
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: CartPage
   },
   {
     path: "/catalog",
     name: "catalog",
     components: {
       default: FullCategoriesPage,
-      catalogItem: CatalogItemPage,
-    },
+      catalogItem: CatalogItemPage
+    }
   },
-
   {
-    // path: '/:PathMatch(.*)*',
     path: "/catalog/:id",
     name: "catalogItem",
     components: {
       default: CatalogItemPage,
-      catalog: FullCategoriesPage,
-    },
+      catalog: FullCategoriesPage
+    }
   },
   {
-    // path: '/:PathMatch(.*)*',
-    path: "/product/:id",
-    name: "product",
-  },
+    path: "/:PathMatch(.*)*",
+    name: "error"
+  }
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
 export default router;
