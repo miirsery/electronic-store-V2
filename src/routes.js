@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import FullCategoriesPage from "@/views/fullCategories";
 import CatalogItemPage from "@/views/catalogItem";
 import HomePage from "@/views/home";

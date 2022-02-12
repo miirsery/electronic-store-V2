@@ -4,10 +4,9 @@
     <Offers></Offers>
 
     <router-view />
-
     <router-view name="catalogItem" />
-
     <router-view name="productId" />
+
   </div>
 </template>
 
