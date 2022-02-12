@@ -3,6 +3,7 @@ import FullCategoriesPage from "@/views/fullCategories";
 import CatalogItemPage from "@/views/catalogItem";
 import HomePage from "@/views/home";
 import CartPage from "@/views/cartPage";
+import productPage from "@/views/productPage";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
       default: CatalogItemPage,
       catalog: FullCategoriesPage
     }
+  },
+  {
+    path: "/product/:id",
+    name: "productId",
+    component: productPage
   },
   {
     path: "/:PathMatch(.*)*",

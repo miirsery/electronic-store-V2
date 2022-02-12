@@ -12,6 +12,7 @@
             <h2>{{ product.title }}</h2>
             <hr>
             <p>{{ product.description }}</p>
+            <router-link :to="`/product${product.url}`">Watch</router-link>
           </div>
         </div>
       </div>
