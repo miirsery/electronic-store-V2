@@ -9,7 +9,7 @@
             <a href="/" class="fullCategories__item-content-link">Смартфоны, мобильные телефоны</a>
           </li>
           <li class="fullCategories__item-content-item">
-            <a href="/" class="fullCategories__item-content-link">Новинки</a>
+            <a href="/" class="fullCategories__git item-content-link">Новинки</a>
           </li>
           <li class="fullCategories__item-content-item">
             <a href="/" class="fullCategories__item-content-link">Кнопочные</a>
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
-  computed:{
-    ...mapGetters('categories', categories: 'all')
-  }
+  // computed:{
+  //   ...mapGetters('fullCategories', categories: 'all')
+  // }
 };
 </script>
 
