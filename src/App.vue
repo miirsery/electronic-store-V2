@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+
+    <my-loader v-show="loading"></my-loader>
     <Header></Header>
     <Offers></Offers>
 
@@ -13,13 +15,25 @@
 <script>
 import Header from "@/components/Header";
 import Offers from "@/components/Offers";
+import MyLoader from "@/components/UI/MyLoader";
 
 export default {
   components: {
     Header,
-    Offers
+    Offers,
+    MyLoader
   },
-
+  data() {
+    return {
+      loading: true
+    };
+  },
+  created() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
+  }
 };
 </script>
 
