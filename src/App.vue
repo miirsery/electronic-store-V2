@@ -18,7 +18,8 @@ export default {
   components: {
     Header,
     Offers
-  }
+  },
+
 };
 </script>
 

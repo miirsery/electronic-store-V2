@@ -5,7 +5,7 @@ import CatalogItemPage from "@/views/catalogItem";
 import HomePage from "@/views/home";
 import CartPage from "@/views/cartPage";
 import productPage from "@/views/productPage";
-
+import ErrorPage from '@/views/ePage'
 const routes = [
   {
     path: "/",
@@ -40,7 +40,8 @@ const routes = [
   },
   {
     path: "/:PathMatch(.*)*",
-    name: "error"
+    name: "errorPage",
+    component: ErrorPage
   }
 ];
 const router = createRouter({

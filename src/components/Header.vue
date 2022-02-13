@@ -24,9 +24,10 @@
       <div class="actions">
         <ul class="actions__menu flex items-center">
           <li class="actions__item">
-            <router-link to="/cart" class="actions__link icon">
+            <router-link :to="{ name: 'cart' }" class="actions__link icon">
               <img :src="cartImgUrl" alt="cart">
             </router-link>
+            {{ cartCnt }}
           </li>
           <li class="actions__item ml-4">
             <a href="/" class="actions__link icon">
@@ -205,14 +206,19 @@
 
 <script>
 
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
       toggle: false,
       login: true,
       favoriteImgUrl: require("../assets/heart.svg"),
-      cartImgUrl: require("../assets/cart.svg"),
+      cartImgUrl: require("../assets/cart.svg")
     };
+  },
+  computed: {
+    ...mapGetters("cart", { cartCnt: "length" })
   }
 };
 </script>

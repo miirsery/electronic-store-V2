@@ -9,12 +9,12 @@
     <div class="content">
       <div v-for="item in products" :key="item.title">
         <div v-if="item.url.slice(1) === id" class="product">
-          <div class="product__hero">
+          <div class="product__hero flex">
             <div class="product__img-block mr-10">
               <div class="product__img">
                 <img :src="item.imgUrl" :alt="item.title" />
               </div>
-              <div class="product__img-bottom">
+              <div class="product__img-bottom flex justify-between w-full">
                 <div class="product__img-bottom-item">
                   <img :src="item.imgUrl" :alt="item.title" />
                 </div>
@@ -40,9 +40,18 @@
               </h2>
               <div class="price mt-4">
                 <p class="price__bonus">+270</p>
-                <p class="price__count md:text-2xl">26 990</p>
+                <p class="price__count md:text-2xl">{{ item.price }}</p>
               </div>
               <button
+                v-if="inCart(item.id)"
+                @click="removeFromCart(item.id)"
+                class="flex items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
+              >
+                Убрать из корзины
+              </button>
+              <button
+                v-else
+                @click="addToCart(item.id)"
                 class="flex items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
               >
                 В корзину
@@ -124,7 +133,7 @@
             <div class="characteristics__content">
               <div class="about-product bg-gray-100"
                    :class="{'hidden': openTab !== 1, 'block': openTab === 1}">
-                <div class="characteristics__content-main">
+                <div class="characteristics__content-main flex">
                   <div class="characteristics__content-title mr-16">
                     <p class="sm:text-2xl">Основное</p>
                     <a href="/">Все характеристики</a>
@@ -182,7 +191,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "buttons",
@@ -194,13 +203,18 @@ export default {
   methods: {
     toggleTabs(tabNumber) {
       this.openTab = tabNumber;
-    }
+    },
+    ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
   },
   computed: {
     ...mapGetters("products", { productProxy: "item" }),
     ...mapGetters("products", { products: "all" }),
+    ...mapGetters("cart", { inCart: "has" }),
     id() {
       return this.$route.params.id;
+    },
+    showCart() {
+      return this.items;
     }
   }
 };
@@ -208,9 +222,6 @@ export default {
 
 <style scoped lang="sass">
 .product
-  &__hero
-    display: flex
-
   &__img
     max-width: 300px
 
@@ -219,19 +230,8 @@ export default {
       object-fit: cover
 
     &-bottom
-      display: flex
-      justify-content: space-between
-      width: 100%
-
       &-item
         width: 50px
         height: 55px
 
-.characteristics
-  nav
-    ul
-      display: flex
-
-  &__content-main
-    display: flex
 </style>
