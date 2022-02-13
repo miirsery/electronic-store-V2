@@ -59,6 +59,6 @@ function tmpProducts() {
       imgUrl: require("../assets/products/5.jpg"),
       url: "/iphone-kakoi-to-12-rand005",
       description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
-    }
+    },
   ];
 }

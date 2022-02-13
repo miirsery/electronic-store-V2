@@ -175,6 +175,7 @@
                       <p>есть</p>
                     </div>
                   </div>
+
                 </div>
               </div>
               <div class="accessories" :class="{'hidden': openTab !== 3, 'block': openTab === 3}">

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.4.0",
+    "add": "^2.0.6",
     "autoprefixer": "^9.8.8",
     "core-js": "^3.6.5",
     "postcss": "^7.0.39",
@@ -16,7 +17,9 @@
     "vue": "^3.0.0",
     "vue-router": "^4.0.12",
     "vue-ui-preloader": "^1.2.1",
-    "vuex": "^4.0.2"
+    "vue3-lazyload": "^0.2.5-beta",
+    "vuex": "^4.0.2",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

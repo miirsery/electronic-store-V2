@@ -6,7 +6,7 @@
       <div class="content">
         <div class="content__product mb-4 shadow" v-for="product in products" :key="product.title">
           <div class="content__product-img">
-            <img :src="product.imgUrl" alt="product">
+            <img v-lazy="{src: product.imgUrl, loading: 'Loading...', error: 'Error load'}" :alt="product.title">
           </div>
           <div class="content__product-info">
             <h2>{{ product.title }}</h2>
@@ -43,8 +43,10 @@ export default {
 .content
   &__product
     display: flex
+
     &-img
       max-width: 300px
+      background-color: #f3f3f3
 
       img
         width: 100%

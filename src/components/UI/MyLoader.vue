@@ -3,12 +3,9 @@
     object="#26aef2"
     color1="#ffffff"
     color2="#7d31c9"
-    size="3"
-    speed="2"
-    bg="#343a40"
+    size="3" speed="2" bg="#343a40"
     objectbg="#999793"
     opacity="80"
-    disableScrolling="false"
     name="circular"
   ></loader>
 </template>

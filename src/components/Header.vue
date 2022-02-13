@@ -3,7 +3,7 @@
     <div
       class="wrapper flex justify-between border-4 items-center border-b-2 border-gray-100 p-3"
     >
-      <a href="/" class="actions__link">Logo</a>
+      <router-link to="/" class="actions__link">Logo</router-link>
       <nav>
         <ul class="relative flex">
           <li class="item mr-4">
