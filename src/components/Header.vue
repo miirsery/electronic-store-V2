@@ -100,6 +100,16 @@
                   Please choose a password.
                 </p>
               </div>
+              <div class="flex items-start mb-6">
+                <div class="flex items-center h-5">
+                  <input id="remember" aria-describedby="remember" type="checkbox"
+                         class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                         required>
+                </div>
+                <div class="ml-3 text-sm">
+                  <label for="remember" class="font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+                </div>
+              </div>
               <div class="flex items-center justify-between">
                 <button
                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -114,6 +124,7 @@
                   Forgot Password?
                 </a>
               </div>
+
             </form>
             <p class="text-center text-gray-500 text-xs">
               &copy;2020 Acme Corp. All rights reserved.

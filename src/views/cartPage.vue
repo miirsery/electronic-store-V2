@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="mb-4">Cart <span>1 товар</span></h1>
-    <div class="cart__wrapper flex justify-between">
+    <h2 v-if="products.length === 0">В корзине нет товаров</h2>
+    <div v-else class="cart__wrapper flex justify-between">
       <div class="cart__content w-2/3">
         <div
           v-for="product in products"
@@ -33,11 +33,10 @@
       <div class="cart__make-an-order w-1/4">
         <div class="cart__total">{{ cartCnt }} товар на {{ cartTotal }}</div>
         <p class="cart__availability">В наличии: в 1 магазине</p>
-        <button
-          class="flex items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
-        >
-          Оформить заказ
-        </button>
+        <router-link
+          class="order-btn block font-bold uppercase text-white bg-indigo-400 ml-auto mr-auto mt-4 pt-1 pb-1 pl-2 pr-2"
+          to="/order">Оформить заказ
+        </router-link>
       </div>
     </div>
   </div>
@@ -69,4 +68,8 @@ export default {
     img
       height: 100%
       object-fit: cover
+
+.order-btn
+  max-width: 60%
+  text-align: center
 </style>

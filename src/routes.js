@@ -33,6 +33,11 @@ const routes = [
     component: () => import("@/views/productPage"),
   },
   {
+    path: "/order",
+    name: "order",
+    component: () => import("@/views/orderPage"),
+  },
+  {
     path: "/:PathMatch(.*)*",
     name: "errorPage",
     component: () => import("@/views/ePage"),
