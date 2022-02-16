@@ -1,11 +1,9 @@
 <template>
   <div class="container">
-
-    <my-loader v-show="loading"></my-loader>
     <Header></Header>
     <Offers></Offers>
-
-    <router-view />
+    <Loader v-show="loading"/>
+    <router-view/>
     <router-view name="catalogItem" />
     <router-view name="productId" />
 
@@ -15,13 +13,13 @@
 <script>
 import Header from "@/components/Header";
 import Offers from "@/components/Offers";
-import MyLoader from "@/components/UI/MyLoader";
+import Loader from "@/components/Loader";
 
 export default {
   components: {
     Header,
     Offers,
-    MyLoader
+    Loader
   },
   data() {
     return {

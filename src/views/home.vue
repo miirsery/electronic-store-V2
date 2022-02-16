@@ -1,5 +1,5 @@
 <template>
-  <div class="hero flex mt-2">
+  <div class="hero flex mt-2 w-full">
     <AsideCategories class="mr-8"></AsideCategories>
     <Hero></Hero>
   </div>

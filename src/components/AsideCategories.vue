@@ -13,7 +13,7 @@
           <router-link
             :to="item.url"
             class="aside__link"
-            >{{ item.title }}
+          >{{ item.title }}
           </router-link>
         </li>
       </ul>
@@ -33,6 +33,7 @@ export default {
 
 <style scoped lang="sass">
 .aside
+  width: 40%
   &__menu
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.3)
 
