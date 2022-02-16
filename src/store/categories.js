@@ -21,7 +21,7 @@ export default {
 function tmpCategories() {
   return [
     {
-      id: 'phones',
+      id: "phones",
       title: "Телефоны",
       imgUrl: require("../assets/phone.svg"),
       url: "/catalog/phones"

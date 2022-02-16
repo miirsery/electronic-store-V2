@@ -58,36 +58,37 @@
         >
           <div class="modal__top mb-3">
             <button
-              :class="{ active: login }"
+              :class="{ active: mode === 'signIn' }"
               type="button"
-              @click="login = !login"
-              :disabled="login"
+              @click="mode = isSignInForm ? 'signUp' : 'signIn'"
+              :disabled="isSignInForm"
             >
               Вход /
             </button>
             <button
-              :class="{ active: !login }"
+              :class="{ active: mode === 'signUp' }"
               type="button"
-              @click="login = !login"
-              :disabled="!login"
+              @click="mode = isSignInForm ? 'signUp' : 'signIn'"
+              :disabled="!isSignInForm"
             >
               Регистрация
             </button>
           </div>
-          <div class="w-full max-w-xs sign-in" v-show="login">
-            <form>
+          <div class="w-full max-w-xs sign-in" v-if="mode === 'signIn'">
+            <form @submit.prevent="formSubmit">
               <div class="mb-4">
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
-                  for="username"
+                  for="emailSignIn"
                 >
-                  Username
+                  Email
                 </label>
                 <input
                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="username"
+                  id="emailSignIn"
                   type="text"
-                  placeholder="Username"
+                  placeholder="Email"
+                  v-model="user.email"
                 />
               </div>
               <div class="mb-6">
@@ -101,6 +102,7 @@
                   class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="password"
                   type="password"
+                  v-model="user.password"
                   placeholder="******************"
                 />
                 <p class="text-red-500 text-xs italic">
@@ -111,7 +113,7 @@
                 <div class="flex items-center h-5">
                   <input id="remember" aria-describedby="remember" type="checkbox"
                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                         required>
+                  >
                 </div>
                 <div class="ml-3 text-sm">
                   <label for="remember" class="font-medium text-gray-900 dark:text-gray-300">Remember me</label>
@@ -120,7 +122,7 @@
               <div class="flex items-center justify-between">
                 <button
                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
+                  type="submit"
                 >
                   Sign In
                 </button>
@@ -131,14 +133,13 @@
                   Forgot Password?
                 </a>
               </div>
-
             </form>
             <p class="text-center text-gray-500 text-xs">
               &copy;2020 Acme Corp. All rights reserved.
             </p>
           </div>
-          <div class="w-full max-w-xs sign-in" v-show="!login">
-            <form>
+          <div class="w-full max-w-xs sign-up" v-if="mode === 'signUp'">
+            <form @submit.prevent="formSubmit">
               <div class="mb-4">
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
@@ -167,6 +168,7 @@
                   type="text"
                   placeholder="Email"
                   required
+                  v-model="user.email"
                 />
               </div>
               <div class="mb-4">
@@ -207,7 +209,7 @@
               </div>
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
+                type="submit"
               >
                 Sign Up
               </button>
@@ -224,21 +226,77 @@
 
 <script>
 
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
+  created() {
+    this.setUser(JSON.parse(localStorage.getItem("user")));
+  },
   data() {
     return {
       toggle: false,
-      login: true,
       favoriteImgUrl: require("../assets/heart.svg"),
       cartImgUrl: require("../assets/cart.svg"),
+      user: {
+        username: "",
+        password: "",
+        email: ""
+      },
+      mode: "signIn",
+      errors: []
     };
   },
-  computed: {
-    ...mapGetters("cart", { cartCnt: "length" })
+
+  methods: {
+    ...mapActions({ setUser: "user/setUser" }),
+    formSubmit() {
+      if (this.isSignInForm) {
+        this.signIn();
+      } else {
+        this.signUp();
+      }
+    },
+    close() {
+      this.$emit("close");
+    },
+    async signIn() {
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: this.user.email,
+            password: this.user.password
+          })
+        });
+        const data = await res.json();
+        if (res.status === 200 || res.status === 201) {
+          console.log(data);
+          localStorage.setItem("user", JSON.stringify(data));
+          this.$store.dispatch("user/setUser");
+          this.$emit("close");
+        } else {
+          this.errors = data;
+          console.error(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    signUp() {
+    }
   },
-};
+  computed: {
+    ...mapGetters("cart", { cartCnt: "length" }),
+    isSignInForm() {
+      return this.mode === "signIn";
+    }
+  }
+}
+;
 </script>
 
 <style scoped lang="sass">
