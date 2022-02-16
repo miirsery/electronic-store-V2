@@ -46,7 +46,7 @@
           </li>
         </ul>
         <div
-          class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
           v-show="toggle"
         >
           <div class="modal__top mb-3">
