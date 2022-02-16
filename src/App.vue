@@ -1,11 +1,13 @@
 <template>
-  <div class="container">
+  <div class="container wrapper">
     <Header></Header>
-    <Offers></Offers>
-    <Loader v-show="loading" />
-    <router-view />
-    <router-view name="catalogItem" />
-    <router-view name="productId" />
+    <main class="main">
+      <Offers></Offers>
+      <Loader v-show="loading" />
+      <router-view />
+      <router-view name="catalogItem" />
+      <router-view name="productId" />
+    </main>
     <my-footer />
   </div>
 </template>
@@ -37,6 +39,9 @@ export default {
 };
 </script>
 
-<style lang="sass">
-
+<style lang="sass" scoped>
+.wrapper
+  display: flex
+  min-height: 100vh
+  flex-direction: column
 </style>

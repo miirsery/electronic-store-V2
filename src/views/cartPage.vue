@@ -1,6 +1,17 @@
 <template>
   <div>
-    <h2 v-if="products.length === 0">В корзине нет товаров</h2>
+    <div v-if="products.length === 0" class="empty-cart">
+      <div class="empty-cart__wrapper">
+        <h2 class="empty-cart__title mb-4 font-bold">В корзине нет товаров</h2>
+        <div class="search mb-4">
+          Воспользуйтесь <span class="underline text-blue-400"><a href="/">поиском</a></span>
+        </div>
+        <div>
+          Или же <span><router-link to="/catalog"
+                                    class="underline text-blue-400">вернитесь к категориям</router-link></span>
+        </div>
+      </div>
+    </div>
     <div v-else class="cart__wrapper flex justify-between">
       <div class="cart__content w-2/3">
         <div
@@ -72,4 +83,16 @@ export default {
 .order-btn
   max-width: 60%
   text-align: center
+
+.empty-cart
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+
+  &__title
+    font-size: 1.5rem
+
+  &__wrapper
+    text-align: center
 </style>
