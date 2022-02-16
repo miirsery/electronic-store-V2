@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ category.title }} </h2>
+    <h2 class="title mb-8">{{ category.title }} </h2>
     <hr>
     <div class="container">
       <div class="content">
@@ -40,15 +40,20 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.title
+  font-size: 28px
+  font-weight: bold
 .content
   &__product
     display: flex
 
     &-img
-      max-width: 300px
+      max-width: 160px
+      height: 260px
       background-color: #f3f3f3
 
       img
         width: 100%
+        height: 100%
         object-fit: cover
 </style>
