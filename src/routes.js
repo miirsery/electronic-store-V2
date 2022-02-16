@@ -16,7 +16,7 @@ const routes = [
     name: "catalog",
     components: {
       default: () => import("@/views/fullCategories"),
-      catalogItem: () => import("@/views/catalogItem"),
+      catalogItem: () => import("@/views/catalogItem")
     }
   },
   {
@@ -30,21 +30,21 @@ const routes = [
   {
     path: "/product/:id",
     name: "productId",
-    component: () => import("@/views/productPage"),
+    component: () => import("@/views/productPage")
   },
   {
     path: "/order",
     name: "order",
-    component: () => import("@/views/orderPage"),
+    component: () => import("@/views/orderPage")
   },
   {
     path: "/:PathMatch(.*)*",
     name: "errorPage",
-    component: () => import("@/views/ePage"),
+    component: () => import("@/views/ePage")
   }
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 });
 export default router;

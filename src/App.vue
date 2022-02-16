@@ -1,9 +1,9 @@
 <template>
   <div class="container wrapper">
-    <Header></Header>
+    <Header />
     <main class="main">
-      <Offers></Offers>
-      <Loader v-show="loading" />
+      <Offers />
+      <Loader v-if="showLoading" />
       <router-view />
       <router-view name="catalogItem" />
       <router-view name="productId" />
@@ -17,6 +17,7 @@ import Header from "@/components/Header";
 import Offers from "@/components/Offers";
 import Loader from "@/components/Loader";
 import MyFooter from "@/components/MyFooter";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -30,11 +31,16 @@ export default {
       loading: true
     };
   },
-  created() {
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
+  // created() {
+  //   this.loading = true;
+  //   setTimeout(() => {
+  //     this.loading = false;
+  //   }, 2000);
+  // },
+  computed: {
+    ...mapState({
+      showLoading: (state) => state.showLoading,
+    })
   }
 };
 </script>
