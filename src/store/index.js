@@ -14,13 +14,14 @@ export default createStore({
   },
   state() {
     return {
-      showLoading: false
+      showLoading: false,
     };
   },
+
   mutations: {
     [LOADING_SPINNER_SHOW_MUTATIONS](state, payload) {
       state.showLoading = payload;
-    }
+    },
   },
   strict: process.env.NODE_ENV !== "production"
 });

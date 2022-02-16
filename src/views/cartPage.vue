@@ -4,7 +4,9 @@
       <div class="empty-cart__wrapper">
         <h2 class="empty-cart__title mb-4 font-bold">В корзине нет товаров</h2>
         <div class="search mb-4">
-          Воспользуйтесь <span class="underline text-blue-400"><a href="/">поиском</a></span>
+          Воспользуйтесь <span class="underline text-blue-400"><span
+          class="cursor-pointer"
+        >поиском</span></span>
         </div>
         <div>
           Или же <span><router-link to="/catalog"

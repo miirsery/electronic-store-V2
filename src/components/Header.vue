@@ -16,7 +16,14 @@
           </li>
           <li class="item">
             <form class="search border-b-2 w-full">
-              <input class="border-none bg-transparent" type="text" placeholder="Начать поиск...">
+              <input
+                class="border-none bg-transparent"
+                type="text"
+                placeholder="Начать поиск..."
+                @focus="focused = true"
+                @blur="focused = false"
+                @onFocus="focusThis"
+              >
             </form>
           </li>
         </ul>
@@ -225,12 +232,12 @@ export default {
       toggle: false,
       login: true,
       favoriteImgUrl: require("../assets/heart.svg"),
-      cartImgUrl: require("../assets/cart.svg")
+      cartImgUrl: require("../assets/cart.svg"),
     };
   },
   computed: {
     ...mapGetters("cart", { cartCnt: "length" })
-  }
+  },
 };
 </script>
 
