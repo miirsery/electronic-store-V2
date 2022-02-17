@@ -263,7 +263,7 @@ export default {
       },
       mode: "signIn",
       errors: [],
-      auth: false
+      auth: true
     };
   },
 
