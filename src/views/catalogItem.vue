@@ -1,16 +1,27 @@
 <template>
   <div>
-    <h2 class="title mb-8">{{ category.title }} </h2>
-    <hr>
+    <h2 class="title mb-8">{{ category.title }}</h2>
+    <hr />
     <div class="container flex w-full">
       <div class="content">
-        <div class="content__product mb-4 shadow" v-for="product in products" :key="product.title">
+        <div
+          class="content__product mb-4 shadow"
+          v-for="product in products"
+          :key="product.title"
+        >
           <div class="content__product-img">
-            <img v-lazy="{src: product.imgUrl, loading: 'Loading...', error: 'Error load'}" :alt="product.title">
+            <img
+              v-lazy="{
+                src: product.imgUrl,
+                loading: 'Loading...',
+                error: 'Error load',
+              }"
+              :alt="product.title"
+            />
           </div>
           <div class="content__product-info">
             <h2>{{ product.title }}</h2>
-            <hr>
+            <hr />
             <p>{{ product.description }}</p>
             <router-link :to="`/product${product.url}`">Watch</router-link>
           </div>
@@ -33,11 +44,15 @@
             <p class="filter__title mb-2">Наличие товара</p>
             <div>
               <input id="availability-pickup" type="checkbox" checked />
-              <label class="ml-2" for="availability-pickup">Доступен самовывоз</label>
+              <label class="ml-2" for="availability-pickup"
+                >Доступен самовывоз</label
+              >
             </div>
             <div>
               <input id="availability-fast-pickup" type="checkbox" />
-              <label class="ml-2" for="availability-fast-pickup">Забрать через 15 минут</label>
+              <label class="ml-2" for="availability-fast-pickup"
+                >Забрать через 15 минут</label
+              >
             </div>
           </div>
           <div class="mb-4">
@@ -53,15 +68,15 @@
             <div class="mb-4">
               <p class="filter__title mb-2">Товары со скидкой</p>
               <div>
-                <input id="promo-any" type="radio" checked name="promo">
+                <input id="promo-any" type="radio" checked name="promo" />
                 <label for="promo-any">Любой</label>
               </div>
               <div>
-                <input id="promo-five" type="radio" checked name="promo">
+                <input id="promo-five" type="radio" checked name="promo" />
                 <label for="promo-five">5% и больше</label>
               </div>
               <div>
-                <input id="promo-ten" type="radio" checked name="promo">
+                <input id="promo-ten" type="radio" checked name="promo" />
                 <label for="promo-ten">10% и больше</label>
               </div>
             </div>
@@ -69,7 +84,7 @@
         </form>
       </aside>
     </div>
-    <hr>
+    <hr />
   </div>
 </template>
 
@@ -78,15 +93,18 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters("categories", { categoryProxy: "item", productProxy: "item" }),
+    ...mapGetters("categories", {
+      categoryProxy: "item",
+      productProxy: "item",
+    }),
     ...mapGetters("products", { products: "all" }),
     id() {
       return this.$route.params.id;
     },
     category() {
       return this.categoryProxy(this.id);
-    }
-  }
+    },
+  },
 };
 </script>
 
