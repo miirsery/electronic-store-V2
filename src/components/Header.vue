@@ -48,7 +48,7 @@
               type="button"
               class="actions__link icon"
               data-micromodal-trigger="modal-1"
-              @click="toggle = !toggle"
+              @click="toggleType"
             >
               <img src="../assets/avatar.png" alt="logo" />
             </button>
@@ -56,7 +56,7 @@
         </ul>
         <div
           class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
-          v-show="toggle && !auth"
+          v-if="!auth"
         >
           <div class="modal__top mb-3">
             <button
@@ -224,8 +224,19 @@
             </p>
           </div>
         </div>
-        <div class="profile-settings" v-if="toggle && auth">
-          <h2>Not anon</h2>
+        <div class="profile-settings" v-if="toggle && auth && mode==='auth'">
+          <h2>Здравствуйте {{ user.name }}</h2>
+          <router-link to="/" class="mb-2 mt-4 block">
+            Настройки
+          </router-link>
+          <router-link to="/" class="mb-2 block">
+            Сообщения
+          </router-link>
+          <button
+            type="button" class="cursor-pointer"
+            @click="logOut"
+          >Выход
+          </button>
         </div>
       </div>
     </div>
@@ -258,7 +269,10 @@ export default {
   },
 
   methods: {
-    ...mapActions({ setUser: "user/setUser" }),
+    ...mapActions({
+      setUser: "user/setUser",
+      deleteUser: "user/deleteUser"
+    }),
     formSubmit() {
       if (this.isSignInForm) {
         this.signIn();
@@ -268,6 +282,21 @@ export default {
     },
     close() {
       this.$emit("close");
+    },
+    logOut() {
+      this.$api.auth.logout();
+      localStorage.removeItem("user");
+      this.deleteUser();
+      this.mode = "signIn";
+      this.$router.push({ name: "home" });
+    },
+    toggleType() {
+      if (this.mode !== "auth") {
+        this.auth = !this.auth;
+      }
+      if (this.mode === "auth") {
+        this.toggle = !this.toggle;
+      }
     },
     async signIn() {
       try {
@@ -282,6 +311,7 @@ export default {
         this.$store.dispatch("user/setUser");
         this.$emit("close");
         this.mode = "auth";
+        this.auth = true;
       } catch (error) {
         console.log(error.response.data);
       }
@@ -300,6 +330,8 @@ export default {
         localStorage.setItem("user", JSON.stringify(data));
         this.$store.dispatch("user/setUser");
         this.$emit("close");
+        this.mode = "auth";
+        this.auth = true;
       } catch (error) {
         console.log(error.response.data);
       }
@@ -364,6 +396,7 @@ export default {
     color: #fff
     z-index: 10
     font-size: 14px
+
     &::after
       content: ''
       position: absolute
