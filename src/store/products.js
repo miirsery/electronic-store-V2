@@ -26,7 +26,33 @@ function tmpProducts() {
       price: 19999,
       imgUrl: require("../assets/products/1.jpg"),
       url: "/iphone-xyn-10-rand001",
-      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'
+      description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.',
+      smallImages: [
+        {
+          id: 1,
+          img: require("../assets/products/1.jpg"),
+        },
+        {
+          id: 2,
+          img: require("../assets/products/1.jpg"),
+        },
+        {
+          id: 3,
+          img: require("../assets/products/1.jpg"),
+        },
+        {
+          id: 4,
+          img: require("../assets/products/1.jpg"),
+        },
+        {
+          id: 5,
+          img: require("../assets/products/1.jpg"),
+        },
+        {
+          id: 6,
+          img: require("../assets/products/1.jpg"),
+        }
+      ]
     },
     {
       id: 2,
@@ -47,7 +73,7 @@ function tmpProducts() {
     {
       id: 4,
       title: "IPhone Kakoi-to 11",
-      price: 93999,
+      price: 9399,
       imgUrl: require("../assets/products/4.jpg"),
       url: "/iphone-kakoi-to-11-rand004",
       description: 'Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.'

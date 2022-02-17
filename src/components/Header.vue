@@ -31,10 +31,12 @@
       <div class="actions">
         <ul class="actions__menu flex items-center">
           <li class="actions__item">
-            <router-link :to="{ name: 'cart' }" class="actions__link icon">
+            <router-link :to="{ name: 'cart' }" class="actions__link icon cart">
               <img :src="cartImgUrl" alt="cart">
+              <p class="cart__cnt">
+                {{ cartCnt }}
+              </p>
             </router-link>
-            {{ cartCnt }}
           </li>
           <li class="actions__item ml-4">
             <a href="/" class="actions__link icon">
@@ -350,6 +352,31 @@ export default {
       &.active
         font-weight: 500
         opacity: 1
+
+.cart
+  position: relative
+  display: block
+
+  &__cnt
+    position: absolute
+    top: 0
+    left: 0
+    color: #fff
+    z-index: 10
+    font-size: 14px
+    &::after
+      content: ''
+      position: absolute
+      top: -2px
+      left: -5px
+      height: 20px
+      width: 20px
+      background-color: rgb(86, 195, 205)
+      border-radius: 50%
+      color: #ffffff
+      text-align: left
+      z-index: -1
+
 
 .profile-settings
   background-color: #fff

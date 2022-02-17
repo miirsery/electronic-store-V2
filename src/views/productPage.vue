@@ -10,26 +10,12 @@
       <div v-for="item in products" :key="item.title">
         <div v-if="item.url.slice(1) === id" class="product">
           <div class="product__hero flex">
-            <div class="product__img-block mr-10">
+            <div class="product__img-block mr-10 max-w-sm">
               <div class="product__img">
                 <img :src="item.imgUrl" :alt="item.title" />
               </div>
               <div class="product__img-bottom flex justify-between w-full">
-                <div class="product__img-bottom-item">
-                  <img :src="item.imgUrl" :alt="item.title" />
-                </div>
-                <div class="product__img-bottom-item">
-                  <img :src="item.imgUrl" :alt="item.title" />
-                </div>
-                <div class="product__img-bottom-item">
-                  <img :src="item.imgUrl" :alt="item.title" />
-                </div>
-                <div class="product__img-bottom-item">
-                  <img :src="item.imgUrl" :alt="item.title" />
-                </div>
-                <div class="product__img-bottom-item">
-                  <img :src="item.imgUrl" :alt="item.title" />
-                </div>
+                <small-image-swiper />
               </div>
             </div>
             <div class="product__info">
@@ -39,20 +25,20 @@
                 {{ item.title }}
               </h2>
               <div class="price mt-4">
-                <p class="price__bonus">+270</p>
-                <p class="price__count md:text-2xl">{{ item.price }}</p>
+                <p class="price__bonus text-gray-400 font-light mb-4">+270 бонусов</p>
+                <p class="price__count md:text-3xl mb-6">{{ item.price }} ₽</p>
               </div>
               <button
                 v-if="inCart(item.id)"
                 @click="removeFromCart(item.id)"
-                class="flex items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
+                class="mb-8 items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
               >
                 Убрать из корзины
               </button>
               <button
                 v-else
                 @click="addToCart(item.id)"
-                class="flex items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
+                class="mb-8 flex items-center justify-center px-6 py-5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-2 md:text-lg md:px-5"
               >
                 В корзину
               </button>
@@ -61,7 +47,7 @@
                   <a href="/" class="text-indigo-600">Доставка </a>будет в
                   такие-то дни
                 </p>
-                <p class="text-sm max-w-2xl">
+                <p class="text-sm max-w-2xl mt-4">
                   Можно забрать самому. Но тут всякие очереди, сам понимаешь,
                   что будешь дольше. Ну и нам денюшка капнет. Закажи лучше,
                   плз))0)
@@ -193,9 +179,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import SmallImageSwiper from "@/components/SmallImage-Swiper";
 
 export default {
   name: "buttons",
+  components: { SmallImageSwiper },
   data() {
     return {
       openTab: 1
@@ -208,8 +196,7 @@ export default {
     ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
   },
   computed: {
-    ...mapGetters("products", { productProxy: "item" }),
-    ...mapGetters("products", { products: "all" }),
+    ...mapGetters("products", { productProxy: "item", products: "all" }),
     ...mapGetters("cart", { inCart: "has" }),
     id() {
       return this.$route.params.id;
@@ -234,5 +221,10 @@ export default {
       &-item
         width: 50px
         height: 55px
+.button
+  margin-bottom: 2rem
+.price
+  &__bonus
+    font-size: 14px
 
 </style>

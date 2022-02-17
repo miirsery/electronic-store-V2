@@ -25,20 +25,25 @@
             <img :src="product.imgUrl" :alt="product.title" />
           </div>
           <div class="cart__title-block">
-            <p class="cart__title">{{ product.title }}</p>
-            <button @click="remove(product.id)">Удалить товар</button>
+            <p class="cart__title mb-4">{{ product.title }}</p>
+            <button
+              @click="remove(product.id)">Удалить товар</button>
           </div>
-          <div class="cart__count">
-            <button @click="setCnt({ id: product.id, cnt: product.cnt - 1})">
+          <div class="cart__count flex items-center">
+            <button
+              class="mr-4"
+              @click="setCnt({ id: product.id, cnt: product.cnt - 1})">
               -
             </button>
-            1
-            <button @click="setCnt({ id: product.id, cnt: product.cnt + 1})">
+            {{ product.cnt }}
+            <button
+              class="ml-4"
+              @click="setCnt({ id: product.id, cnt: product.cnt + 1})">
               +
             </button>
           </div>
           <div class="cart__price-and-availability">
-            <p class="cart__price">{{ product.price }}</p>
+            <p class="cart__price">{{ product.price * product.cnt }} ₽</p>
             <p class="cart__availability">В наличии: в 1 магазине</p>
           </div>
         </div>
