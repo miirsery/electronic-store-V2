@@ -56,7 +56,7 @@
         </ul>
         <div
           class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
-          v-if="!auth"
+          v-if="!auth && auth"
         >
           <div class="modal__top mb-3">
             <button
@@ -244,7 +244,6 @@
 </template>
 
 <script>
-
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -338,8 +337,7 @@ export default {
     }
   },
   computed: {
-    ...
-      mapGetters("cart", { cartCnt: "length" }),
+    ...mapGetters("cart", { cartCnt: "length" }),
     isSignInForm() {
       return this.mode === "signIn";
     }
