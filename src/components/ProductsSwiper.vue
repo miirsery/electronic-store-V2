@@ -54,7 +54,6 @@ export default {
 
 <style scoped lang="sass">
 .offers
-  box-shadow: 0 10px 13px rgba(0, 0, 0, 0.3)
   border-radius: 10px
   padding: 15px
   width: 100%

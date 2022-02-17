@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header container">
     <div
       class="wrapper flex justify-between border-4 items-center border-b-2 border-gray-100 p-3"
     >
@@ -54,7 +54,7 @@
         </ul>
         <div
           class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
-          v-show="toggle"
+          v-show="toggle && !auth"
         >
           <div class="modal__top mb-3">
             <button
@@ -152,6 +152,7 @@
                   id="usernameSignUp"
                   type="text"
                   placeholder="Username"
+                  v-model="user.username"
                   required
                 />
               </div>
@@ -183,6 +184,7 @@
                   id="passwordSignUp"
                   type="password"
                   placeholder="******************"
+                  v-model="user.password"
                   required
                 />
                 <p class="text-red-500 text-xs italic">
@@ -202,6 +204,7 @@
                   type="password"
                   placeholder="******************"
                   required
+                  v-model="user.retryPassword"
                 />
                 <p class="text-red-500 text-xs italic">
                   Please choose a password.
@@ -218,6 +221,9 @@
               &copy;2020 Acme Corp. All rights reserved.
             </p>
           </div>
+        </div>
+        <div class="profile-settings" v-if="toggle && auth">
+          <h2>Not anon</h2>
         </div>
       </div>
     </div>
@@ -240,10 +246,12 @@ export default {
       user: {
         username: "",
         password: "",
-        email: ""
+        email: "",
+        retryPassword: ""
       },
       mode: "signIn",
-      errors: []
+      errors: [],
+      auth: false
     };
   },
 
@@ -261,36 +269,43 @@ export default {
     },
     async signIn() {
       try {
-        const res = await fetch("https://jsonplaceholder.typicode.com/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          credentials: "include",
-          body: JSON.stringify({
+        const data = (
+          await this.$api.auth.signIn({
             email: this.user.email,
             password: this.user.password
           })
-        });
-        const data = await res.json();
-        if (res.status === 200 || res.status === 201) {
-          console.log(data);
-          localStorage.setItem("user", JSON.stringify(data));
-          this.$store.dispatch("user/setUser");
-          this.$emit("close");
-        } else {
-          this.errors = data;
-          console.error(data);
-        }
+        ).data;
+        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        this.$store.dispatch("user/setUser");
+        this.$emit("close");
+        this.mode = "auth";
       } catch (error) {
-        console.error(error);
+        console.log(error.response.data);
       }
     },
-    signUp() {
+    async signUp() {
+      try {
+        const data = (
+          await this.$api.auth.signUp({
+            email: this.user.email,
+            password: this.user.password,
+            retryPassword: this.user.retryPassword,
+            username: this.user.username
+          })
+        ).data;
+        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        this.$store.dispatch("user/setUser");
+        this.$emit("close");
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
   },
   computed: {
-    ...mapGetters("cart", { cartCnt: "length" }),
+    ...
+      mapGetters("cart", { cartCnt: "length" }),
     isSignInForm() {
       return this.mode === "signIn";
     }
@@ -335,4 +350,11 @@ export default {
       &.active
         font-weight: 500
         opacity: 1
+
+.profile-settings
+  background-color: #fff
+  height: 300px
+  width: 350px
+  position: absolute
+  z-index: 10
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="container wrapper">
+  <div class="wrapper">
     <Header />
-    <main class="main">
+    <main class="main container">
       <Offers />
       <Loader v-if="showLoading" />
       <router-view />
