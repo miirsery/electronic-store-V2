@@ -3,27 +3,24 @@
     <h2 class="title mb-8">{{ category.title }}</h2>
     <hr />
     <div class="container flex w-full">
-      <div class="content">
+      <div class="content w-2/3">
         <div
           class="content__product mb-4 shadow"
           v-for="product in products"
           :key="product.title"
         >
-          <div class="content__product-img">
-            <img
-              v-lazy="{
-                src: product.imgUrl,
-                loading: 'Loading...',
-                error: 'Error load',
-              }"
-              :alt="product.title"
-            />
-          </div>
+          <product-slider />
           <div class="content__product-info">
             <h2>{{ product.title }}</h2>
             <hr />
-            <p>{{ product.description }}</p>
-            <router-link :to="`/product${product.url}`">Watch</router-link>
+            <div class="product-info">
+              <div v-for="(value, index) in product.specifications" :key="index">
+                <div v-for="spec in value" :key="spec">
+                  {{ spec }}
+                </div>
+              </div>
+            </div>
+            <router-link :to="`/product${product.url}`">Подробнее</router-link>
           </div>
         </div>
       </div>
@@ -45,13 +42,13 @@
             <div>
               <input id="availability-pickup" type="checkbox" checked />
               <label class="ml-2" for="availability-pickup"
-                >Доступен самовывоз</label
+              >Доступен самовывоз</label
               >
             </div>
             <div>
               <input id="availability-fast-pickup" type="checkbox" />
               <label class="ml-2" for="availability-fast-pickup"
-                >Забрать через 15 минут</label
+              >Забрать через 15 минут</label
               >
             </div>
           </div>
@@ -90,12 +87,16 @@
 
 <script>
 import { mapGetters } from "vuex";
+import ProductSlider from "@/components/ProductSlider";
 
 export default {
+  components: {
+    ProductSlider
+  },
   computed: {
     ...mapGetters("categories", {
       categoryProxy: "item",
-      productProxy: "item",
+      productProxy: "item"
     }),
     ...mapGetters("products", { products: "all" }),
     id() {
@@ -103,8 +104,8 @@ export default {
     },
     category() {
       return this.categoryProxy(this.id);
-    },
-  },
+    }
+  }
 };
 </script>
 
