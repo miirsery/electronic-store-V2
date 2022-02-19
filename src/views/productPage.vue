@@ -15,7 +15,7 @@
                 <img :src="item.imgUrl" :alt="item.title" />
               </div>
               <div class="product__img-bottom flex justify-between w-full">
-                <small-image-swiper />
+                <small-image-swiper :item="item" />
               </div>
             </div>
             <div class="product__info">
@@ -196,7 +196,7 @@ export default {
     ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
   },
   computed: {
-    ...mapGetters("products", { productProxy: "item", products: "all" }),
+    ...mapGetters("products", { products: "all" }),
     ...mapGetters("cart", { inCart: "has" }),
     id() {
       return this.$route.params.id;

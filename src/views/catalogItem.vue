@@ -1,26 +1,30 @@
 <template>
   <div>
     <h2 class="title mb-8">{{ category.title }}</h2>
+    <a
+      @click="$router.go(-1)"
+      class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
+    >Вернуться назад</a>
     <hr />
     <div class="container flex w-full">
       <div class="content w-2/3">
         <div
-          class="content__product mb-4 shadow"
+          class="content__product mb-4 shadow p-4"
           v-for="product in products"
           :key="product.title"
         >
-          <product-slider />
+          <product-slider :product="product" />
           <div class="content__product-info">
-            <h2>{{ product.title }}</h2>
+            <h2 class="product__title">{{ product.title }}</h2>
             <hr />
             <div class="product-info">
               <div v-for="(value, index) in product.specifications" :key="index">
-                <div v-for="spec in value" :key="spec">
+                <div v-for="spec in value" :key="spec" class="product-info__item">
                   {{ spec }}
                 </div>
               </div>
             </div>
-            <router-link :to="`/product${product.url}`">Подробнее</router-link>
+            <router-link :to="`/product${product.url}`" class="catalog__link">Подробнее</router-link>
           </div>
         </div>
       </div>
@@ -98,7 +102,9 @@ export default {
       categoryProxy: "item",
       productProxy: "item"
     }),
-    ...mapGetters("products", { products: "all" }),
+    ...mapGetters("products", {
+      products: "all"
+    }),
     id() {
       return this.$route.params.id;
     },
@@ -113,6 +119,23 @@ export default {
 .title
   font-size: 28px
   font-weight: bold
+
+.catalog
+  &__link
+    font-size: 18px
+    background-color: #50a0cd
+    color: #ffffff
+    margin-top: 1rem
+    display: block
+    max-width: 35%
+    text-align: center
+    padding: 0.5rem 0
+    text-transform: uppercase
+    transition: all 0.3s
+    border-radius: 5px
+
+    &:hover
+      background-color: #4687af
 
 .content
   &__product
@@ -130,4 +153,17 @@ export default {
 
 .filters
   width: 300px
+
+.product
+  &__title
+    font-size: 1.5rem
+    font-weight: bold
+    padding: 0.5em 0
+
+  &-info
+    &__item
+      margin-bottom: 0.5rem
+
+      &:first-child
+        margin-top: 0.5rem
 </style>

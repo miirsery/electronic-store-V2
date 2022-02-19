@@ -1,19 +1,15 @@
 <template>
-  <div
-    v-for="(item, index) in products"
-    :key="index"
-    class="product-slider-wrapper"
-  >
+  <div>
     <article class="product">
       <div class="product__image">
         <div class="product__switch image-switch">
           <div
             class="image-switch__item"
-            v-for="(img, i_index) in item.smallImages"
+            v-for="(img, i_index) in product.smallImages"
             :key="i_index"
           >
             <div class="image-switch__img">
-              <img :src="img.img" :alt="item.title">
+              <img :src="img.img" :alt="product.title">
             </div>
           </div>
         </div>
@@ -29,6 +25,9 @@
 import { mapGetters } from "vuex";
 
 export default {
+  props: {
+    product: Object,
+  },
   methods: {
     pagination() {
       console.log(this.products);
@@ -42,8 +41,9 @@ export default {
 
 <style scoped lang="sass">
 .product
-  width: 100%
-  height: 100%
+  width: 285px
+  padding: 15px
+  background-color: #fff
   position: relative
 
   &__image
@@ -112,11 +112,6 @@ export default {
     border-radius: 100%
     margin: 0 3px
     background-color: #fff
-
-.product-slider-wrapper
-  width: 285px
-  padding: 15px
-  background-color: #fff
 
 .product-slider-wrapper:not(:first-child)
   display: none
