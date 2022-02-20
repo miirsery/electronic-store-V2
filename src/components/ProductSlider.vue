@@ -10,7 +10,7 @@
             :key="i_index"
           >
             <div class="image-switch__img">
-              <img :src="img.img" :alt="product.title">
+              <img :src="img.img" :alt="product.title" />
             </div>
           </router-link>
         </div>
@@ -22,13 +22,14 @@
     <article class="product-short" v-if="displayType === 'shorted'">
       <div class="product-short__image">
         <div class="product__switch image-switch">
-          <router-link :to="`/product${product.url}`"
-                       class="image-switch__item"
-                       v-for="(img, i_index) in product.smallImages"
-                       :key="i_index"
+          <router-link
+            :to="`/product${product.url}`"
+            class="image-switch__item"
+            v-for="(img, i_index) in product.smallImages"
+            :key="i_index"
           >
             <div class="image-switch__img">
-              <img :src="img.img" :alt="product.title">
+              <img :src="img.img" :alt="product.title" />
             </div>
           </router-link>
         </div>

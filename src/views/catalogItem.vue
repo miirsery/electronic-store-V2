@@ -193,6 +193,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
+
 .range-slider
   margin: auto 16px
   text-align: center

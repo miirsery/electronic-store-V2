@@ -39,7 +39,7 @@ export default {
   // },
   computed: {
     ...mapState({
-      showLoading: (state) => state.showLoading,
+      showLoading: (state) => state.showLoading
     })
   }
 };

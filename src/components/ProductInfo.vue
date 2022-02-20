@@ -12,21 +12,30 @@
       </div>
       <router-link :to="`/product${product.url}`" class="product__link">Подробнее</router-link>
     </div>
-    <router-link :to="`/product${product.url}`" class="content__product-info-short" v-if="displayType === 'shorted'">
-      <h2 class="product-short__title">{{ product.title }}</h2>
-      <hr>
+    <div class="content__product-info-short" v-if="displayType === 'shorted'">
+      <router-link :to="`/product${product.url}`" class="product-short__title">{{ product.title }}</router-link>
+      <hr />
       <p class="product-short__price flex justify-between">
         {{ product.price }}
-        <button type="button">Add to cart</button>
+        <button
+          type="button"
+          @click="addToCart(product.id)"
+        >Add to cart
+        </button>
       </p>
-    </router-link>
+    </div>
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   props: {
     product: Object,
     displayType: String
+  },
+  methods: {
+    ...mapActions("cart", { addToCart: "add" })
   }
 };
 </script>

@@ -2,9 +2,9 @@
   <div>
     <a
       @click="$router.go(-1)"
-      class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
-    >Вернуться назад</a
-    >
+      class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900">
+      Вернуться назад
+    </a>
     <hr />
     <div class="content">
       <div v-for="item in products" :key="item.title">
@@ -221,8 +221,10 @@ export default {
       &-item
         width: 50px
         height: 55px
+
 .button
   margin-bottom: 2rem
+
 .price
   &__bonus
     font-size: 14px
