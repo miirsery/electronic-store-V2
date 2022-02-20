@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content__product-info" v-if="displayType === 'detailed' ">
+    <div class="content__product-info" v-if="displayType === 'detailed'">
       <h2 class="product__title">{{ product.title }}</h2>
       <hr />
       <div class="product-info">
@@ -10,17 +10,19 @@
           </div>
         </div>
       </div>
-      <router-link :to="`/product${product.url}`" class="product__link">Подробнее</router-link>
+      <router-link :to="`/product${product.url}`" class="product__link"
+        >Подробнее</router-link
+      >
     </div>
     <div class="content__product-info-short" v-if="displayType === 'shorted'">
-      <router-link :to="`/product${product.url}`" class="product-short__title">{{ product.title }}</router-link>
+      <router-link :to="`/product${product.url}`" class="product-short__title">
+        {{ product.title }}
+      </router-link>
       <hr />
       <p class="product-short__price flex justify-between">
         {{ product.price }}
-        <button
-          type="button"
-          @click="addToCart(product.id)"
-        >Add to cart
+        <button type="button" @click="addToCart(product.id)">
+          Add to cart
         </button>
       </p>
     </div>
@@ -32,11 +34,11 @@ import { mapActions } from "vuex";
 export default {
   props: {
     product: Object,
-    displayType: String
+    displayType: String,
   },
   methods: {
-    ...mapActions("cart", { addToCart: "add" })
-  }
+    ...mapActions("cart", { addToCart: "add" }),
+  },
 };
 </script>
 

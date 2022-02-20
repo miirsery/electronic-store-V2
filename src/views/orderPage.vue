@@ -1,8 +1,7 @@
 <template>
-  <h2 class="title">Страница заказа</h2>
+  <h2 class="title mb-8 mt-4 font-bold text-2xl">Страница заказа</h2>
   <form
     class="max-w-2xl"
-    action="https://jsonplaceholder.typicode.com/posts"
     @submit.prevent="sendForm"
     novalidate
   >
@@ -61,7 +60,7 @@
       </div>
 
     </div>
-    <div class="delivery" id="delivery">
+    <div class="delivery" v-if="delivery" id="delivery">
       <label
         for="address"
         class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -80,7 +79,7 @@
       <textarea id="additionalInformation" class="resize-none rounded-md w-full">
       </textarea>
     </div>
-    <div class="pickup" id="pickup">
+    <div class="pickup" v-if="!delivery" id="pickup">
 
     </div>
     <button
@@ -93,6 +92,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -113,14 +113,25 @@ export default {
     redirect() {
       this.$router.push("/");
     },
-    sendForm() {
+    async sendForm() {
       console.log("Отправка JSON", this.form);
+      try {
+        const data = (
+          await this.$api.order.sendOrder({
+            name: this.form.name,
+            surname: this.form.surname,
+            phone: this.form.phone
+          })
+        ).data;
+        console.log(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
   }
 };
 </script>
 
 <style scoped lang="sass">
-.delivery
-  display: none
+
 </style>
