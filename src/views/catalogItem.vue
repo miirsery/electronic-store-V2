@@ -4,28 +4,19 @@
     <a
       @click="$router.go(-1)"
       class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
-    >Вернуться назад</a>
+    >Вернуться назад</a
+    >
     <hr />
+
     <div class="container flex w-full">
       <div class="content w-2/3">
         <div
           class="content__product mb-4 shadow p-4"
-          v-for="product in products"
+          v-for="product in filteredProducts"
           :key="product.title"
         >
           <product-slider :product="product" />
-          <div class="content__product-info">
-            <h2 class="product__title">{{ product.title }}</h2>
-            <hr />
-            <div class="product-info">
-              <div v-for="(value, index) in product.specifications" :key="index">
-                <div v-for="spec in value" :key="spec" class="product-info__item">
-                  {{ spec }}
-                </div>
-              </div>
-            </div>
-            <router-link :to="`/product${product.url}`" class="catalog__link">Подробнее</router-link>
-          </div>
+          <product-info :product="product" />
         </div>
       </div>
       <aside class="filters pt-2 pl-4 pr-4">
@@ -37,9 +28,33 @@
           <div>
             <input type="text" placeholder="Поиск по фильтрам..." />
           </div>
-          <div class="flex w-full justify-between">
-            <input class="w-1/3 mr-1" type="text" value="1500" />
-            <input class="w-1/3" type="text" value="1000" />
+          <div class="w-full">
+            <div class="values flex">
+              <input class="w-1/3 mr-1" type="text" :value="minPrice" />
+              <input class="w-1/3" type="text" :value="maxPrice" />
+            </div>
+            <div class="range-slider w-full">
+              <input
+                type="range"
+                min="0"
+                max="300000"
+                step="1000"
+                v-model.number="minPrice"
+                @change="setChangeSlider"
+              />
+              <input
+                type="range"
+                min="0"
+                max="300000"
+                step="1000"
+                v-model.number="maxPrice"
+                @change="setChangeSlider"
+              />
+            </div>
+            <div class="range-values">
+              <p>Min: {{ minPrice }}</p>
+              <p>Max: {{ maxPrice }}</p>
+            </div>
           </div>
           <div class="mb-4">
             <p class="filter__title mb-2">Наличие товара</p>
@@ -85,17 +100,42 @@
         </form>
       </aside>
     </div>
-    <hr />
   </div>
+  <hr />
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import ProductSlider from "@/components/ProductSlider";
+import ProductInfo from "@/components/ProductInfo";
 
 export default {
   components: {
-    ProductSlider
+    ProductSlider,
+    ProductInfo
+  },
+
+  data() {
+    return {
+      minPrice: 0,
+      maxPrice: 3000000,
+      sortedProducts: []
+    };
+  },
+  methods: {
+    setChangeSlider() {
+      if (this.minPrice > this.maxPrice) {
+        let tmp = this.maxPrice;
+        this.maxPrice = this.minPrice;
+        this.minPrice = tmp;
+      }
+      this.sortByCategories();
+    },
+    sortByCategories() {
+      let vm = this;
+      this.sortedProducts = [...this.products];
+      this.sortedProducts = this.sortedProducts.filter(item => item.price >= vm.minPrice && item.price <= vm.maxPrice);
+    }
   },
   computed: {
     ...mapGetters("categories", {
@@ -110,12 +150,35 @@ export default {
     },
     category() {
       return this.categoryProxy(this.id);
+    },
+    filteredProducts() {
+      if (this.sortedProducts.length) return this.sortedProducts;
+      else return null;
     }
+  },
+  mounted() {
+    this.sortByCategories();
   }
 };
 </script>
 
 <style scoped lang="sass">
+.range-slider
+  margin: auto 16px
+  text-align: center
+  position: relative
+
+  input[type=range]
+    position: absolute
+    left: 0
+    bottom: 0
+
+    &::-webkit-slider-thumb
+      z-index: 2
+      position: relative
+      top: 2px
+      margin-top: -7px
+
 .title
   font-size: 28px
   font-weight: bold
@@ -166,4 +229,5 @@ export default {
 
       &:first-child
         margin-top: 0.5rem
+
 </style>

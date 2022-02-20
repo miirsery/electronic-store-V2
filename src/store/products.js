@@ -12,7 +12,7 @@ export default {
       });
       return map;
     },
-    item: (state, getters) => (id) => state.items[getters.itemsMap[id]],
+    item: (state, getters) => (id) => state.items[getters.itemsMap[id]]
   },
   mutations: {},
   actions: {}
@@ -23,7 +23,9 @@ function tmpProducts() {
     {
       id: 1,
       title: "IPhone XYN 10",
-      price: 19999,
+      price: 99999,
+      available: true,
+      pickup: true,
       imgUrl: require("../assets/products/1.jpg"),
       url: "/iphone-xyn-10-rand001",
       description: "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
@@ -60,14 +62,17 @@ function tmpProducts() {
           resolution: "1400x1080",
           processor: "Qualcomm Snapdragon 860, 2960МГц, 0-ми ядерный",
           ram: "Объем оперативной памяти 18 ГБ",
-          rom: "Объем встроенной памяти 2526 ГБ"
+          rom: "Объем встроенной памяти 2526 ГБ",
+          price: 99999,
         }
       ]
     },
     {
       id: 2,
       title: "Redmi XZ 1011",
-      price: 39999,
+      price: 999999,
+      available: true,
+      pickup: false,
       imgUrl: require("../assets/products/2.jpg"),
       url: "/redmi-xz-1001-rand002",
       description: "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
@@ -78,7 +83,8 @@ function tmpProducts() {
           resolution: "2400x1080",
           processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
           ram: "Объем оперативной памяти 8 ГБ",
-          rom: "Объем встроенной памяти 256 ГБ"
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
         }
       ],
       smallImages: [
@@ -111,9 +117,11 @@ function tmpProducts() {
     {
       id: 3,
       title: "Redmi XZY 11",
-      price: 92999,
+      price: 999999,
       imgUrl: require("../assets/products/3.jpg"),
       url: "/redmi-xzy-11-rand003",
+      available: false,
+      pickup: true,
       description: "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
       specifications: [
         {
@@ -122,7 +130,8 @@ function tmpProducts() {
           resolution: "2400x1080",
           processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
           ram: "Объем оперативной памяти 8 ГБ",
-          rom: "Объем встроенной памяти 256 ГБ"
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
         }
       ],
       smallImages: [
@@ -156,6 +165,8 @@ function tmpProducts() {
       id: 4,
       title: "IPhone Kakoi-to 11",
       price: 9399,
+      available: true,
+      pickup: false,
       imgUrl: require("../assets/products/4.jpg"),
       url: "/iphone-kakoi-to-11-rand004",
       description: "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
@@ -166,7 +177,8 @@ function tmpProducts() {
           resolution: "2400x1080",
           processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
           ram: "Объем оперативной памяти 8 ГБ",
-          rom: "Объем встроенной памяти 256 ГБ"
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
         }
       ],
       smallImages: [
@@ -200,6 +212,8 @@ function tmpProducts() {
       id: 5,
       title: "IPhone Kakoi-to 12",
       price: 29999,
+      available: true,
+      pickup: true,
       imgUrl: require("../assets/products/5.jpg"),
       url: "/iphone-kakoi-to-12-rand005",
       description: "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
@@ -210,7 +224,8 @@ function tmpProducts() {
           resolution: "2400x1080",
           processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
           ram: "Объем оперативной памяти 8 ГБ",
-          rom: "Объем встроенной памяти 256 ГБ"
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
         }
       ],
       smallImages: [
