@@ -1,29 +1,42 @@
 <template>
   <div>
     <h2 class="title mb-8">{{ category.title }}</h2>
-    <a
-      @click="$router.go(-1)"
-      class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
-    >Вернуться назад</a
-    >
+    <div class="top w-2/3 flex justify-between">
+      <a
+        @click="$router.go(-1)"
+        class="block ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
+      >Вернуться назад</a
+      >
+      <div class="sort flex justify-between w-1/6 mr-6">
+        <button type="button" @click="toggleDisplayType('detailed')">
+          Подробный
+        </button>
+        <button type="button" @click="toggleDisplayType('shorted')" class="ml-2">
+          Краткий
+        </button>
+      </div>
+    </div>
     <hr />
 
     <div class="container flex w-full">
-      <div class="content w-2/3">
+      <div class="content w-2/3"
+           :class="parentClassObject"
+      >
         <div
           class="content__product mb-4 shadow p-4"
           v-for="product in filteredProducts"
           :key="product.title"
+          :class="childClassObject"
         >
-          <product-slider :product="product" />
-          <product-info :product="product" />
+          <product-slider :product="product" :display-type="displayType" />
+          <product-info :product="product" :display-type="displayType" />
         </div>
       </div>
       <aside class="filters pt-2 pl-4 pr-4">
         <form>
           <div class="filters__top flex justify-between">
             <h2 class="filters__title font-bold text-2xl">Фильтры</h2>
-            <button class="filters__clear">Отчистить</button>
+            <button class="filters__clear" type="button" @click="clearFilters">Отчистить</button>
           </div>
           <div>
             <input type="text" placeholder="Поиск по фильтрам..." />
@@ -50,10 +63,6 @@
                 v-model.number="maxPrice"
                 @change="setChangeSlider"
               />
-            </div>
-            <div class="range-values">
-              <p>Min: {{ minPrice }}</p>
-              <p>Max: {{ maxPrice }}</p>
             </div>
           </div>
           <div class="mb-4">
@@ -119,7 +128,9 @@ export default {
     return {
       minPrice: 0,
       maxPrice: 3000000,
-      sortedProducts: []
+      sortedProducts: [],
+      displayType: "detailed",
+      shorted: false
     };
   },
   methods: {
@@ -135,6 +146,15 @@ export default {
       let vm = this;
       this.sortedProducts = [...this.products];
       this.sortedProducts = this.sortedProducts.filter(item => item.price >= vm.minPrice && item.price <= vm.maxPrice);
+    },
+    clearFilters() {
+      this.sortedProducts = this.products;
+      this.maxPrice = 3000000;
+      this.minPrice = 0;
+    },
+    toggleDisplayType(name) {
+      this.displayType = name;
+      this.shorted = this.displayType === "shorted";
     }
   },
   computed: {
@@ -153,7 +173,17 @@ export default {
     },
     filteredProducts() {
       if (this.sortedProducts.length) return this.sortedProducts;
-      else return null;
+      else return this.sortedProducts;
+    },
+    parentClassObject() {
+      return {
+        "flex flex-wrap": this.shorted
+      };
+    },
+    childClassObject() {
+      return {
+        "flex-col": this.shorted
+      };
     }
   },
   mounted() {
@@ -183,22 +213,6 @@ export default {
   font-size: 28px
   font-weight: bold
 
-.catalog
-  &__link
-    font-size: 18px
-    background-color: #50a0cd
-    color: #ffffff
-    margin-top: 1rem
-    display: block
-    max-width: 35%
-    text-align: center
-    padding: 0.5rem 0
-    text-transform: uppercase
-    transition: all 0.3s
-    border-radius: 5px
-
-    &:hover
-      background-color: #4687af
 
 .content
   &__product
@@ -216,18 +230,6 @@ export default {
 
 .filters
   width: 300px
-
-.product
-  &__title
-    font-size: 1.5rem
-    font-weight: bold
-    padding: 0.5em 0
-
-  &-info
-    &__item
-      margin-bottom: 0.5rem
-
-      &:first-child
-        margin-top: 0.5rem
+  background-color: #eaeaea
 
 </style>

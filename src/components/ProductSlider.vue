@@ -1,9 +1,10 @@
 <template>
   <div>
-    <article class="product">
+    <article class="product" v-if="displayType === 'detailed'">
       <div class="product__image">
         <div class="product__switch image-switch">
-          <div
+          <router-link
+            :to="`/product${product.url}`"
             class="image-switch__item"
             v-for="(img, i_index) in product.smallImages"
             :key="i_index"
@@ -11,12 +12,27 @@
             <div class="image-switch__img">
               <img :src="img.img" :alt="product.title">
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
       <ul class="product__image-pagination image-pagination" aria-hidden="true">
         <li class="image-pagination__item"></li>
       </ul>
+    </article>
+    <article class="product-short" v-if="displayType === 'shorted'">
+      <div class="product-short__image">
+        <div class="product__switch image-switch">
+          <router-link :to="`/product${product.url}`"
+                       class="image-switch__item"
+                       v-for="(img, i_index) in product.smallImages"
+                       :key="i_index"
+          >
+            <div class="image-switch__img">
+              <img :src="img.img" :alt="product.title">
+            </div>
+          </router-link>
+        </div>
+      </div>
     </article>
   </div>
 </template>
@@ -27,6 +43,7 @@ import { mapGetters } from "vuex";
 export default {
   props: {
     product: Object,
+    displayType: String
   },
   methods: {
     pagination() {
@@ -115,4 +132,16 @@ export default {
 
 .product-slider-wrapper:not(:first-child)
   display: none
+
+.product-short
+  width: 215px
+  padding: 15px
+  background-color: #fff
+  position: relative
+
+  &__image
+    position: relative
+    display: block
+    height: 140px
+    overflow: hidden
 </style>

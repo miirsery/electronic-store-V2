@@ -117,7 +117,7 @@ function tmpProducts() {
     {
       id: 3,
       title: "Redmi XZY 11",
-      price: 999999,
+      price: 9999,
       imgUrl: require("../assets/products/3.jpg"),
       url: "/redmi-xzy-11-rand003",
       available: false,
@@ -131,7 +131,7 @@ function tmpProducts() {
           processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
           ram: "Объем оперативной памяти 8 ГБ",
           rom: "Объем встроенной памяти 256 ГБ",
-          price: 29999,
+          price: 9999,
         }
       ],
       smallImages: [
