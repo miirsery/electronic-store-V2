@@ -1,5 +1,10 @@
 <template>
   <h2 class="title mb-8 mt-4 font-bold text-2xl">Страница заказа</h2>
+  <a
+    @click="redirect"
+    class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900">
+    Вернуться назад
+  </a>
   <form
     class="max-w-2xl"
     @submit.prevent="sendForm"

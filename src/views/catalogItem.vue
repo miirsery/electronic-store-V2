@@ -36,15 +36,17 @@
         <form>
           <div class="filters__top flex justify-between">
             <h2 class="filters__title font-bold text-2xl">Фильтры</h2>
-            <button class="filters__clear" type="button" @click="clearFilters">Отчистить</button>
+            <button class="filters__clear" type="button" @click="clearFilters">
+              Отчистить
+            </button>
           </div>
           <div>
-            <input type="text" placeholder="Поиск по фильтрам..." />
+            <input class="filters__input" type="text" placeholder="Поиск по фильтрам..." />
           </div>
           <div class="w-full">
-            <div class="values flex">
-              <input class="w-1/3 mr-1" type="text" :value="minPrice" />
-              <input class="w-1/3" type="text" :value="maxPrice" />
+            <div class="values flex justify-between">
+              <input class="filters__input w-1/3 mr-1" type="text" :value="minPrice" />
+              <input class="filters__input w-1/3" type="text" :value="maxPrice" />
             </div>
             <div class="range-slider w-full">
               <input
@@ -76,8 +78,7 @@
             <div>
               <input id="availability-fast-pickup" type="checkbox" />
               <label class="ml-2" for="availability-fast-pickup"
-              >Забрать через 15 минут</label
-              >
+              >Забрать через 15 минут</label>
             </div>
           </div>
           <div class="mb-4">
@@ -203,6 +204,7 @@ export default {
     position: absolute
     left: 0
     bottom: 0
+    width: 90%
 
     &::-webkit-slider-thumb
       z-index: 2
@@ -232,5 +234,10 @@ export default {
 .filters
   width: 300px
   background-color: #eaeaea
+
+  &__input
+    margin-bottom: 1rem
+    border: 0
+    background: none
 
 </style>
