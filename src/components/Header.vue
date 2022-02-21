@@ -77,153 +77,211 @@
               Регистрация
             </button>
           </div>
-          <div class="w-full max-w-xs sign-in" v-if="mode === 'signIn'">
-            <form @submit.prevent="formSubmit">
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="emailSignIn"
-                >
-                  Email
-                </label>
-                <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="emailSignIn"
-                  type="text"
-                  placeholder="Email"
-                  v-model="user.email"
-                />
-              </div>
-              <div class="mb-6">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  Password
-                </label>
-                <input
-                  class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  id="password"
-                  type="password"
-                  v-model="user.password"
-                  placeholder="******************"
-                />
-                <p class="text-red-500 text-xs italic">
-                  Please choose a password.
-                </p>
-              </div>
-              <div class="flex items-start mb-6">
-                <div class="flex items-center h-5">
-                  <input id="remember" aria-describedby="remember" type="checkbox"
-                         class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                  >
-                </div>
-                <div class="ml-3 text-sm">
-                  <label for="remember" class="font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <button
-                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="submit"
-                >
-                  Sign In
-                </button>
-                <a
-                  class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                  href="#"
-                >
-                  Forgot Password?
-                </a>
-              </div>
-            </form>
-            <p class="text-center text-gray-500 text-xs">
-              &copy;2020 Acme Corp. All rights reserved.
-            </p>
-          </div>
-          <div class="w-full max-w-xs sign-up" v-if="mode === 'signUp'">
-            <form @submit.prevent="formSubmit">
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="usernameSignUp"
-                >
-                  Username
-                </label>
-                <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="usernameSignUp"
-                  type="text"
-                  placeholder="Username"
-                  v-model="user.username"
-                  required
-                />
-              </div>
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="email"
-                >
-                  Email
-                </label>
-                <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="email"
-                  type="text"
-                  placeholder="Email"
-                  required
-                  v-model="user.email"
-                />
-              </div>
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="passwordSignUp"
-                >
-                  Password
-                </label>
-                <input
-                  class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  id="passwordSignUp"
-                  type="password"
-                  placeholder="******************"
-                  v-model="user.password"
-                  required
-                />
-                <p class="text-red-500 text-xs italic">
-                  Please choose a password.
-                </p>
-              </div>
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="passwordRetry"
-                >
-                  Повторите пароль
-                </label>
-                <input
-                  class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  id="passwordRetry"
-                  type="password"
-                  placeholder="******************"
-                  required
-                  v-model="user.retryPassword"
-                />
-                <p class="text-red-500 text-xs italic">
-                  Please choose a password.
-                </p>
-              </div>
-              <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Sign Up
-              </button>
-            </form>
-            <p class="text-center text-gray-500 text-xs">
-              &copy;2020 Acme Corp. All rights reserved.
-            </p>
-          </div>
+          <!--          <div class="w-full max-w-xs sign-in" v-if="mode === 'signIn'">-->
+          <!--            <form @submit.prevent="formSubmit">-->
+          <!--              <div class="mb-4">-->
+          <!--                <label-->
+          <!--                  class="block text-gray-700 text-sm font-bold mb-2"-->
+          <!--                  for="emailSignIn"-->
+          <!--                >-->
+          <!--                  Email-->
+          <!--                </label>-->
+          <!--                <input-->
+          <!--                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"-->
+          <!--                  id="emailSignIn"-->
+          <!--                  type="text"-->
+          <!--                  placeholder="Email"-->
+          <!--                  v-model="user.email"-->
+          <!--                />-->
+          <!--              </div>-->
+          <!--              <div class="mb-6">-->
+          <!--                <label-->
+          <!--                  class="block text-gray-700 text-sm font-bold mb-2"-->
+          <!--                  for="password"-->
+          <!--                >-->
+          <!--                  Password-->
+          <!--                </label>-->
+          <!--                <input-->
+          <!--                  class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"-->
+          <!--                  id="password"-->
+          <!--                  type="password"-->
+          <!--                  v-model="user.password"-->
+          <!--                  placeholder="******************"-->
+          <!--                />-->
+          <!--                <p class="text-red-500 text-xs italic">-->
+          <!--                  Please choose a password.-->
+          <!--                </p>-->
+          <!--              </div>-->
+          <!--              <div class="flex items-start mb-6">-->
+          <!--                <div class="flex items-center h-5">-->
+          <!--                  <input id="remember" aria-describedby="remember" type="checkbox"-->
+          <!--                         class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"-->
+          <!--                  >-->
+          <!--                </div>-->
+          <!--                <div class="ml-3 text-sm">-->
+          <!--                  <label for="remember" class="font-medium text-gray-900 dark:text-gray-300">Remember me</label>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--              <div class="flex items-center justify-between">-->
+          <!--                <button-->
+          <!--                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"-->
+          <!--                  type="submit"-->
+          <!--                >-->
+          <!--                  Sign In-->
+          <!--                </button>-->
+          <!--                <a-->
+          <!--                  class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"-->
+          <!--                  href="#"-->
+          <!--                >-->
+          <!--                  Forgot Password?-->
+          <!--                </a>-->
+          <!--              </div>-->
+          <!--            </form>-->
+          <!--            <p class="text-center text-gray-500 text-xs">-->
+          <!--              &copy;2020 Acme Corp. All rights reserved.-->
+          <!--            </p>-->
+          <!--          </div>-->
+          <!--          <div class="w-full max-w-xs sign-up" v-if="mode === 'signUp'">-->
+          <!--            <form @submit.prevent="formSubmit">-->
+          <!--              <div class="mb-4">-->
+          <!--                <label-->
+          <!--                  class="block text-gray-700 text-sm font-bold mb-2"-->
+          <!--                  for="usernameSignUp"-->
+          <!--                >-->
+          <!--                  Username-->
+          <!--                </label>-->
+          <!--                <input-->
+          <!--                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"-->
+          <!--                  id="usernameSignUp"-->
+          <!--                  type="text"-->
+          <!--                  placeholder="Username"-->
+          <!--                  v-model="user.username"-->
+          <!--                  required-->
+          <!--                />-->
+          <!--              </div>-->
+          <!--              <div class="mb-4">-->
+          <!--                <label-->
+          <!--                  class="block text-gray-700 text-sm font-bold mb-2"-->
+          <!--                  for="email"-->
+          <!--                >-->
+          <!--                  Email-->
+          <!--                </label>-->
+          <!--                <input-->
+          <!--                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"-->
+          <!--                  id="email"-->
+          <!--                  type="text"-->
+          <!--                  placeholder="Email"-->
+          <!--                  required-->
+          <!--                  v-model="user.email"-->
+          <!--                />-->
+          <!--              </div>-->
+          <!--              <div class="mb-4">-->
+          <!--                <label-->
+          <!--                  class="block text-gray-700 text-sm font-bold mb-2"-->
+          <!--                  for="passwordSignUp"-->
+          <!--                >-->
+          <!--                  Password-->
+          <!--                </label>-->
+          <!--                <input-->
+          <!--                  class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"-->
+          <!--                  id="passwordSignUp"-->
+          <!--                  type="password"-->
+          <!--                  placeholder="******************"-->
+          <!--                  v-model="user.password"-->
+          <!--                  required-->
+          <!--                />-->
+          <!--                <p class="text-red-500 text-xs italic">-->
+          <!--                  Please choose a password.-->
+          <!--                </p>-->
+          <!--              </div>-->
+          <!--              <div class="mb-4">-->
+          <!--                <label-->
+          <!--                  class="block text-gray-700 text-sm font-bold mb-2"-->
+          <!--                  for="passwordRetry"-->
+          <!--                >-->
+          <!--                  Повторите пароль-->
+          <!--                </label>-->
+          <!--                <input-->
+          <!--                  class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"-->
+          <!--                  id="passwordRetry"-->
+          <!--                  type="password"-->
+          <!--                  placeholder="******************"-->
+          <!--                  required-->
+          <!--                  v-model="user.retryPassword"-->
+          <!--                />-->
+          <!--                <p class="text-red-500 text-xs italic">-->
+          <!--                  Please choose a password.-->
+          <!--                </p>-->
+          <!--              </div>-->
+          <!--              <button-->
+          <!--                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"-->
+          <!--                type="submit"-->
+          <!--              >-->
+          <!--                Sign Up-->
+          <!--              </button>-->
+          <!--            </form>-->
+          <!--            <p class="text-center text-gray-500 text-xs">-->
+          <!--              &copy;2020 Acme Corp. All rights reserved.-->
+          <!--            </p>-->
+          <!--          </div>-->
+          <Form
+            @submit="onSubmit"
+            :validation-schema="schemaSignIn"
+            @invalid-submit="onInvalidSubmit"
+            v-if="mode === 'signIn'"
+          >
+            <TextInput
+              name="name"
+              type="text"
+              label="Username"
+              placeholder="Your username"
+              success-message="Nice to meet you!"
+            />
+            <TextInput
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Your password"
+              success-message="Nice and secure!"
+            />
+            <button class="submit-btn" type="submit">Submit</button>
+          </Form>
+          <Form
+            @submit="onSubmit"
+            :validation-schema="schema"
+            @invalid-submit="onInvalidSubmit"
+            v-if="mode === 'signUp'"
+          >
+            <TextInput
+              name="name"
+              type="text"
+              label="Username"
+              placeholder="Your username"
+              success-message="Nice to meet you!"
+            />
+            <TextInput
+              name="email"
+              type="email"
+              label="E-mail"
+              placeholder="Your email address"
+              success-message="Got it, we won't spam you!"
+            />
+            <TextInput
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Your password"
+              success-message="Nice and secure!"
+            />
+            <TextInput
+              name="confirm_password"
+              type="password"
+              label="Confirm Password"
+              placeholder="Type it again"
+              success-message="Glad you remembered it!"
+            />
+            <button class="submit-btn" type="submit">Submit</button>
+          </Form>
         </div>
         <div class="profile-settings" v-if="toggle && auth && mode==='auth'">
           <h2>Здравствуйте {{ user.name }}</h2>
@@ -246,12 +304,31 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { Form } from "vee-validate";
+import * as Yup from "yup";
+import TextInput from "@/components/UI/TextInput";
 
 export default {
+  components: {
+    Form,
+    TextInput
+  },
   created() {
     this.setUser(JSON.parse(localStorage.getItem("user")));
   },
   data() {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string().email().required(),
+      password: Yup.string().min(6).required(),
+      confirm_password: Yup.string()
+        .required()
+        .oneOf([Yup.ref("password")], "Passwords do not match")
+    });
+    const schemaSignIn = Yup.object().shape({
+      name: Yup.string().required(),
+      password: Yup.string().min(6).required()
+    });
     return {
       toggle: false,
       favoriteImgUrl: require("../assets/heart.svg"),
@@ -264,21 +341,26 @@ export default {
       },
       mode: "signIn",
       errors: [],
-      auth: true
+      auth: true,
+      schema,
+      schemaSignIn
     };
   },
-
   methods: {
     ...mapActions({
       setUser: "user/setUser",
       deleteUser: "user/deleteUser"
     }),
-    formSubmit() {
-      if (this.isSignInForm) {
-        this.signIn();
-      } else {
-        this.signUp();
-      }
+    onSubmit(values) {
+      if (this.isSignInForm) this.signIn(values)
+      else this.signUp(values)
+    },
+    onInvalidSubmit() {
+      const submitBtn = document.querySelector(".submit-btn");
+      submitBtn.classList.add("invalid");
+      setTimeout(() => {
+        submitBtn.classList.remove("invalid");
+      }, 1000);
     },
     close() {
       this.$emit("close");
@@ -298,16 +380,14 @@ export default {
         this.toggle = !this.toggle;
       }
     },
-    async signIn() {
+    async signIn(data) {
+      console.log(data);
       try {
-        const data = (
-          await this.$api.auth.signIn({
-            email: this.user.email,
-            password: this.user.password
-          })
+        const responseData = (
+          await this.$api.auth.signIn(data)
         ).data;
-        console.log(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        console.log(responseData);
+        localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
         this.$emit("close");
         this.mode = "auth";
@@ -316,18 +396,14 @@ export default {
         console.log(error.response.data);
       }
     },
-    async signUp() {
+    async signUp(data) {
+      console.log(data);
       try {
-        const data = (
-          await this.$api.auth.signUp({
-            email: this.user.email,
-            password: this.user.password,
-            retryPassword: this.user.retryPassword,
-            username: this.user.username
-          })
+        const responseData = (
+          await this.$api.auth.signUp(data)
         ).data;
-        console.log(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        console.log(responseData);
+        localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
         this.$emit("close");
         this.mode = "auth";

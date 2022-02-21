@@ -21,7 +21,8 @@
     "vue-router": "^4.0.12",
     "vue3-lazyload": "^0.2.5-beta",
     "vuex": "^4.0.2",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.17",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

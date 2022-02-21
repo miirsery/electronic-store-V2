@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="title mb-8">{{ category.title }}</h2>
+    <h2 class="title mb-6 mt-6">{{ category.title }} <span>{{ filteredProducts.length }}</span></h2>
     <div class="top w-2/3 flex justify-between">
       <a
         @click="$router.go(-1)"
@@ -17,7 +17,13 @@
       </div>
     </div>
     <hr />
-
+    <form class="filters__top flex">
+      <div>по популярности</div>
+      <div>по рейтингу</div>
+      <div>по отзывам</div>
+      <div>по обзорам</div>
+      <div>по названию</div>
+    </form>
     <div class="container flex w-full">
       <div class="content w-2/3"
            :class="parentClassObject"
@@ -239,5 +245,18 @@ export default {
     margin-bottom: 1rem
     border: 0
     background: none
+
+  &__top
+    margin: 1rem 0
+
+    div
+      font-size: 0.8rem
+      margin-right: 1rem
+      cursor: pointer
+      color: rgba(0, 0, 0, 0.7)
+      font-weight: bold
+
+      &:hover
+        color: #000
 
 </style>
