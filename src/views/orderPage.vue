@@ -83,34 +83,30 @@ export default {
     TextInput
   },
   data() {
-    const schema = Yup.object().shape({
+    let schemaData = {
       name: Yup.string().required(),
       surname: Yup.string().required(),
       phone: Yup.string().required(),
-      address: Yup.string().min(6).required()
-    });
-    const schemaPickUp = Yup.object().shape({
-      name: Yup.string().required(),
-      surname: Yup.string().required(),
-      phone: Yup.string().required(),
-      address: Yup.string().min(6)
-    });
+      address: Yup.string().min(6).required(),
+    };
     return {
       delivery: true,
       disabled: true,
+
+      schema: {},
       form: {
         name: this.name,
         surname: this.surname,
         phone: this.phone
       },
-      schema,
-      schemaPickUp
+      schemaData,
     };
   },
   methods: {
     toggleType() {
       this.delivery = !this.delivery;
       this.disabled = !this.disabled;
+      this.schema = this.changeSchema(this.delivery);
     },
     redirect() {
       this.$router.push("/");
@@ -132,6 +128,13 @@ export default {
       setTimeout(() => {
         submitBtn.classList.remove("invalid");
       }, 1000);
+    },
+    changeSchema(delivery) {
+      const newData = this.schemaData
+      if (!delivery) {
+        newData['address'] = Yup.string().min(6)
+      }
+      return Yup.object().shape(newData)
     }
   }
 };
