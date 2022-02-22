@@ -48,7 +48,7 @@ export default {
     placeholder: {
       type: String,
       default: ""
-    }
+    },
   },
   setup(props) {
     // we don't provide any rules here because we are using form-level validation
