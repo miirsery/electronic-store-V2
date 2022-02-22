@@ -139,7 +139,8 @@
             />
             <button
               class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
-              type="submit">
+              type="submit"
+            >
               Подтвердить
             </button>
           </Form>
