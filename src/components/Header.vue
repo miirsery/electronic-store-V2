@@ -54,96 +54,102 @@
             </button>
           </li>
         </ul>
-        <div
-          class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
-          v-if="!auth && mode!==auth"
-
-        >
-          <div class="modal__top mb-3">
-            <button
-              :class="{ active: mode === 'signIn' }"
-              type="button"
-              @click="mode = isSignInForm ? 'signUp' : 'signIn'"
-              :disabled="isSignInForm"
-            >
-              Вход /
-            </button>
-            <button
-              :class="{ active: mode === 'signUp' }"
-              type="button"
-              @click="mode = isSignInForm ? 'signUp' : 'signIn'"
-              :disabled="!isSignInForm"
-            >
-              Регистрация
-            </button>
-          </div>
-          <Form
-            @submit="onSubmit"
-            :validation-schema="schemaSignIn"
-            @invalid-submit="onInvalidSubmit"
-            v-if="mode === 'signIn'"
-          >
-            <TextInput
-              name="name"
-              type="text"
-              label="Username"
-              placeholder="Your username"
-              success-message="Nice to meet you!"
-            />
-            <TextInput
-              name="password"
-              type="password"
-              label="Password"
-              placeholder="Your password"
-              success-message="Nice and secure!"
-            />
-            <button
-              class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
-              type="submit">
-              Подтвердить
-            </button>
-          </Form>
-          <Form
-            @submit="onSubmit"
-            :validation-schema="schema"
-            @invalid-submit="onInvalidSubmit"
-            v-if="mode === 'signUp'"
-          >
-            <TextInput
-              name="name"
-              type="text"
-              label="Username"
-              placeholder="Your username"
-              success-message="Nice to meet you!"
-            />
-            <TextInput
-              name="email"
-              type="email"
-              label="E-mail"
-              placeholder="Your email address"
-              success-message="Got it, we won't spam you!"
-            />
-            <TextInput
-              name="password"
-              type="password"
-              label="Password"
-              placeholder="Your password"
-              success-message="Nice and secure!"
-            />
-            <TextInput
-              name="confirm_password"
-              type="password"
-              label="Confirm Password"
-              placeholder="Type it again"
-              success-message="Glad you remembered it!"
-            />
-            <button
-              class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
-              type="submit"
-            >
-              Подтвердить
-            </button>
-          </Form>
+        <div class="on" v-if="!auth && mode!==auth" @close="auth = true">
+          <transition name="modal">
+            <div class="modal-mask">
+              <div class="modal-wrapper" @click="$emit('close')">
+                <div
+                  class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
+                  >
+                  <div class="modal__top mb-3">
+                    <button
+                      :class="{ active: mode === 'signIn' }"
+                      type="button"
+                      @click="mode = isSignInForm ? 'signUp' : 'signIn'"
+                      :disabled="isSignInForm"
+                    >
+                      Вход /
+                    </button>
+                    <button
+                      :class="{ active: mode === 'signUp' }"
+                      type="button"
+                      @click="mode = isSignInForm ? 'signUp' : 'signIn'"
+                      :disabled="!isSignInForm"
+                    >
+                      Регистрация
+                    </button>
+                  </div>
+                  <Form
+                    @submit="onSubmit"
+                    :validation-schema="schemaSignIn"
+                    @invalid-submit="onInvalidSubmit"
+                    v-if="mode === 'signIn'"
+                  >
+                    <TextInput
+                      name="name"
+                      type="text"
+                      label="Username"
+                      placeholder="Your username"
+                      success-message="Nice to meet you!"
+                    />
+                    <TextInput
+                      name="password"
+                      type="password"
+                      label="Password"
+                      placeholder="Your password"
+                      success-message="Nice and secure!"
+                    />
+                    <button
+                      class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
+                      type="submit">
+                      Подтвердить
+                    </button>
+                  </Form>
+                  <Form
+                    @submit="onSubmit"
+                    :validation-schema="schema"
+                    @invalid-submit="onInvalidSubmit"
+                    v-if="mode === 'signUp'"
+                  >
+                    <TextInput
+                      name="name"
+                      type="text"
+                      label="Username"
+                      placeholder="Your username"
+                      success-message="Nice to meet you!"
+                    />
+                    <TextInput
+                      name="email"
+                      type="email"
+                      label="E-mail"
+                      placeholder="Your email address"
+                      success-message="Got it, we won't spam you!"
+                    />
+                    <TextInput
+                      name="password"
+                      type="password"
+                      label="Password"
+                      placeholder="Your password"
+                      success-message="Nice and secure!"
+                    />
+                    <TextInput
+                      name="confirm_password"
+                      type="password"
+                      label="Confirm Password"
+                      placeholder="Type it again"
+                      success-message="Glad you remembered it!"
+                    />
+                    <button
+                      class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
+                      type="submit"
+                    >
+                      Подтвердить
+                    </button>
+                  </Form>
+                </div>
+              </div>
+            </div>
+          </transition>
         </div>
         <div class="profile-settings" v-if="toggle && auth && mode==='auth'">
           <h2>Здравствуйте {{ user.name }}</h2>
@@ -204,6 +210,7 @@ export default {
       mode: "signIn",
       errors: [],
       auth: true,
+      showModal: false,
       schema,
       schemaSignIn
     };
@@ -286,6 +293,23 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.modal
+  &-mask
+    position: fixed
+    z-index: 9998
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(0, 0, 0, .5)
+    display: table
+    transition: opacity .3s ease
+
+  &-wrapper
+    display: table-cell
+    vertical-align: middle
+
+
 .logo
   padding: 15px 0
 

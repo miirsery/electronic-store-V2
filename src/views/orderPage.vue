@@ -11,21 +11,21 @@
     @invalid-submit="onInvalidSubmit"
   >
     <TextInput
-      name="name"
+      name="orderName"
       type="text"
       label="Имя"
       placeholder="Ваше имя"
       success-message="Nice to meet you!"
     />
     <TextInput
-      name="surname"
+      name="orderSurname"
       type="text"
       label="Фамилия"
       placeholder="Ваша фамилия"
       success-message="Nice to meet you!"
     />
     <TextInput
-      name="phone"
+      name="orderPhone"
       type="text"
       label="phone"
       placeholder="Ваш телефон"
@@ -50,7 +50,7 @@
     </div>
     <div class="delivery" v-if="delivery" id="delivery">
       <TextInput
-        name="address"
+        name="orderAddress"
         type="text"
         label="Адрес доставки"
         placeholder="Введите адрес доставки"
@@ -59,7 +59,7 @@
       <label
         for="additionalInformation"
         class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >Дополнительная информация</label
+      >Дополнительная информация</label
       >
       <textarea id="additionalInformation" class="resize-none rounded-md w-full" />
     </div>
@@ -84,22 +84,17 @@ export default {
   },
   data() {
     let schemaData = {
-      name: Yup.string().required(),
-      surname: Yup.string().required(),
-      phone: Yup.string().required(),
-      address: Yup.string().min(6).required(),
+      orderName: Yup.string().required(),
+      orderSurname: Yup.string().required(),
+      orderPhone: Yup.string().required(),
+      orderAddress: Yup.string().min(6).required()
     };
     return {
       delivery: true,
       disabled: true,
 
       schema: {},
-      form: {
-        name: this.name,
-        surname: this.surname,
-        phone: this.phone
-      },
-      schemaData,
+      schemaData
     };
   },
   methods: {
@@ -130,11 +125,11 @@ export default {
       }, 1000);
     },
     changeSchema(delivery) {
-      const newData = this.schemaData
+      const newData = this.schemaData;
       if (!delivery) {
-        newData['address'] = Yup.string().min(6)
+        newData["orderAddress"] = Yup.string().min(6);
       }
-      return Yup.object().shape(newData)
+      return Yup.object().shape(newData);
     }
   }
 };
