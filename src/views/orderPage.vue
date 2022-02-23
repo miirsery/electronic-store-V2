@@ -92,13 +92,13 @@ export default {
     return {
       delivery: true,
       disabled: true,
-
-      schema: {},
+      schema: schemaData,
       schemaData
     };
   },
   methods: {
     toggleType() {
+      console.log(this.schema);
       this.delivery = !this.delivery;
       this.disabled = !this.disabled;
       this.schema = this.changeSchema(this.delivery);

@@ -17,7 +17,9 @@ import Header from "@/components/Header";
 import Offers from "@/components/Offers";
 import Loader from "@/components/Loader";
 import MyFooter from "@/components/MyFooter";
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
+
+import { LOADING_SPINNER_SHOW_MUTATIONS } from "@/store/constants";
 
 export default {
   components: {
@@ -26,21 +28,19 @@ export default {
     Loader,
     MyFooter
   },
-  data() {
-    return {
-      loading: true
-    };
+  created() {
+    this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, true);
+    setTimeout(() => {
+      this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, false);
+    }, 500)
   },
-  // created() {
-  //   this.loading = true;
-  //   setTimeout(() => {
-  //     this.loading = false;
-  //   }, 2000);
-  // },
   computed: {
-    ...mapState({
-      showLoading: (state) => state.showLoading
-    })
+    ...mapMutations([
+      `${LOADING_SPINNER_SHOW_MUTATIONS}`,
+    ]),
+    ...mapState([
+      'showLoading'
+    ])
   }
 };
 </script>
