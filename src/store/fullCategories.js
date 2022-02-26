@@ -6,7 +6,7 @@ export default {
   getters: {
     all: (state) => state.items,
     itemsMap(state) {
-      let map = {};
+      const map = {};
       state.items.forEach((pr, index) => {
         map[pr.id.toString()] = index;
       });
@@ -15,45 +15,45 @@ export default {
     item: (state, getters) => (id) => state.items[getters.itemsMap[id]],
   },
   mutations: {},
-  actions: {}
+  actions: {},
 };
 
 function tmpCategories() {
   return [
     {
-      id: 'phones',
+      id: "phones",
       title: "Телефоны",
-      url: "/catalog/phones"
+      url: "/catalog/phones",
     },
     {
-      id: 'laptops',
+      id: "laptops",
       title: "Ноутбуки и компьютеры",
-      url: "/catalog/laptops"
+      url: "/catalog/laptops",
     },
     {
-      id: 'photo-and-video',
+      id: "photo-and-video",
       title: "Фото и видео",
-      url: "/catalog/photo-and-video"
+      url: "/catalog/photo-and-video",
     },
     {
-      id: 'products-for-auto',
+      id: "products-for-auto",
       title: "Товары для авто",
-      url: "/catalog/products-for-auto"
+      url: "/catalog/products-for-auto",
     },
     {
-      id: 'products-for-home',
+      id: "products-for-home",
       title: "Техника для дома",
-      url: "/catalog/products-for-home"
+      url: "/catalog/products-for-home",
     },
     {
-      id: 'products-for-home',
+      id: "products-for-home",
       title: "Техника для дома",
-      url: "/catalog/products-for-home"
+      url: "/catalog/products-for-home",
     },
     {
-      id: 'products-for-home',
+      id: "products-for-home",
       title: "Техника для дома",
-      url: "/catalog/products-for-home"
+      url: "/catalog/products-for-home",
     },
   ];
 }

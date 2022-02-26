@@ -2,7 +2,8 @@
   <h2 class="title mb-8 mt-4 font-bold text-2xl">Страница заказа</h2>
   <a
     @click="redirect"
-    class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900">
+    class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
+  >
     Вернуться назад
   </a>
   <Form
@@ -36,16 +37,18 @@
         :class="{ 'bg-blue-700': delivery }"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-6"
         type="button"
-        :disabled="disabled"
-      >Доставка
+        :disabled="delivery"
+      >
+        Доставка
       </button>
       <button
         @click="toggleType"
         :class="{ 'bg-blue-700': !delivery }"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         type="button"
-        :disabled="!disabled"
-      >Самовывоз
+        :disabled="!delivery"
+      >
+        Самовывоз
       </button>
     </div>
     <div class="delivery" v-if="delivery" id="delivery">
@@ -59,20 +62,23 @@
       <label
         for="additionalInformation"
         class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-gray-300"
-      >Дополнительная информация</label
+        >Дополнительная информация</label
       >
-      <textarea id="additionalInformation" class="resize-none rounded-md w-full" />
+      <textarea
+        id="additionalInformation"
+        class="resize-none rounded-md w-full"
+      />
     </div>
     <button
       class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
-      type="submit">
+      type="submit"
+    >
       Подтвердить
     </button>
   </Form>
 </template>
 
 <script>
-
 import { Form } from "vee-validate";
 import TextInput from "@/components/UI/TextInput";
 import * as Yup from "yup";
@@ -80,27 +86,25 @@ import * as Yup from "yup";
 export default {
   components: {
     Form,
-    TextInput
+    TextInput,
   },
   data() {
     let schemaData = {
       orderName: Yup.string().required(),
       orderSurname: Yup.string().required(),
       orderPhone: Yup.string().required(),
-      orderAddress: Yup.string().min(6).required()
+      orderAddress: Yup.string().min(6).required(),
     };
     return {
       delivery: true,
-      disabled: true,
       schema: schemaData,
-      schemaData
+      schemaData,
     };
   },
   methods: {
     toggleType() {
       console.log(this.schema);
       this.delivery = !this.delivery;
-      this.disabled = !this.disabled;
       this.schema = this.changeSchema(this.delivery);
     },
     redirect() {
@@ -109,9 +113,7 @@ export default {
     async onSubmit(data) {
       console.log("Отправка JSON", data);
       try {
-        const responseData = (
-          await this.$api.order.sendOrder(data)
-        ).data;
+        const responseData = (await this.$api.order.sendOrder(data)).data;
         console.log(responseData);
       } catch (error) {
         console.log(error.response.data);
@@ -130,11 +132,9 @@ export default {
         newData["orderAddress"] = Yup.string().min(6);
       }
       return Yup.object().shape(newData);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped lang="sass">
-
-</style>
+<style scoped lang="sass"></style>

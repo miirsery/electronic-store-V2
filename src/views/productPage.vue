@@ -2,7 +2,8 @@
   <div>
     <a
       @click="$router.go(-1)"
-      class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900">
+      class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
+    >
       Вернуться назад
     </a>
     <hr />
@@ -25,7 +26,9 @@
                 {{ item.title }}
               </h2>
               <div class="price mt-4">
-                <p class="price__bonus text-gray-400 font-light mb-4">+270 бонусов</p>
+                <p class="price__bonus text-gray-400 font-light mb-4">
+                  +270 бонусов
+                </p>
                 <p class="price__count md:text-3xl mb-6">{{ item.price }} ₽</p>
               </div>
               <button
@@ -58,9 +61,7 @@
           <div class="characteristics">
             <div class="characteristics__tabs">
               <nav class="mt-4 mb-8 mt-8">
-                <ul
-                  class="flex flex-wrap -mb-px"
-                >
+                <ul class="flex flex-wrap -mb-px">
                   <li class="mr-2" role="presentation">
                     <button
                       class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
@@ -117,8 +118,10 @@
               </nav>
             </div>
             <div class="characteristics__content">
-              <div class="about-product bg-gray-100"
-                   :class="{'hidden': openTab !== 1, 'block': openTab === 1}">
+              <div
+                class="about-product bg-gray-100"
+                :class="{ hidden: openTab !== 1, block: openTab === 1 }"
+              >
                 <div class="characteristics__content-main flex">
                   <div class="characteristics__content-title mr-16">
                     <p class="sm:text-2xl">Основное</p>
@@ -138,9 +141,14 @@
                 <div class="characteristics__content-description"></div>
                 <div class="characteristics__content-reviews"></div>
               </div>
-              <div class="characteristics" :class="{'hidden': openTab !== 2, 'block': openTab === 2}">
+              <div
+                class="characteristics"
+                :class="{ hidden: openTab !== 2, block: openTab === 2 }"
+              >
                 <div class="characteristics__item mb-8">
-                  <h2 class="characteristics__title mb-4">Общие характеристики</h2>
+                  <h2 class="characteristics__title mb-4">
+                    Общие характеристики
+                  </h2>
                   <div class="characteristics__item-w flex">
                     <div class="characteristics__item-title mr-10">
                       <p>Класс</p>
@@ -148,7 +156,7 @@
                       <p>Технология GSM 850</p>
                       <p>Технология GSM 900/1800</p>
                       <p>Технология GSM 1900</p>
-                      <p>Технология 3G </p>
+                      <p>Технология 3G</p>
                       <p>Технология 4G (LTE)</p>
                     </div>
                     <div class="characteristics__item-value">
@@ -157,14 +165,16 @@
                       <p>есть</p>
                       <p>есть</p>
                       <p>есть</p>
-                      <p>есть </p>
+                      <p>есть</p>
                       <p>есть</p>
                     </div>
                   </div>
-
                 </div>
               </div>
-              <div class="accessories" :class="{'hidden': openTab !== 3, 'block': openTab === 3}">
+              <div
+                class="accessories"
+                :class="{ hidden: openTab !== 3, block: openTab === 3 }"
+              >
                 accessories
               </div>
               <div class="characteristics__content-description"></div>
@@ -186,14 +196,14 @@ export default {
   components: { SmallImageSwiper },
   data() {
     return {
-      openTab: 1
+      openTab: 1,
     };
   },
   methods: {
     toggleTabs(tabNumber) {
       this.openTab = tabNumber;
     },
-    ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
+    ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" }),
   },
   computed: {
     ...mapGetters("products", { products: "all" }),
@@ -203,8 +213,8 @@ export default {
     },
     showCart() {
       return this.items;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -228,5 +238,4 @@ export default {
 .price
   &__bonus
     font-size: 14px
-
 </style>

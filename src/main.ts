@@ -1,16 +1,20 @@
 import { createApp } from "vue";
 import routes from "@/routes";
-import App from "./App.vue";
+import ElementPlus from "element-plus";
 import VueLazyLoad from "vue3-lazyload";
 import api from "@/api/index";
 
+import "element-plus/dist/index.css";
 import "@/assets/tailwind.css";
 import "@/assets/sass/main.sass";
 import store from "./store/index";
 import loadPlugin from "@/plugins/load";
 
+import App from "./App.vue";
+
 const app = createApp(App);
 app.use(store);
+app.use(ElementPlus);
 app.use(VueLazyLoad, {
   loading: "@/assets/loading.png"
 });

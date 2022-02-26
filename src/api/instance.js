@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: "http://localhost:8000",
   withCredentials: true,
   headers: {
-    accept: "application/json"
-  }
+    accept: "application/json",
+  },
 });
 export default instance;

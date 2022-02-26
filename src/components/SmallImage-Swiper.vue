@@ -6,7 +6,11 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide class="item cursor-pointer" v-for="image in item.smallImages" :key="image.id">
+      <swiper-slide
+        class="item cursor-pointer"
+        v-for="image in item.smallImages"
+        :key="image.id"
+      >
         <img :src="image.img" :alt="item.title" />
       </swiper-slide>
     </swiper>
@@ -20,11 +24,11 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    item: Object
+    item: Object,
   },
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -35,15 +39,15 @@ export default {
     };
     return {
       onSwiper,
-      onSlideChange
+      onSlideChange,
     };
   },
   computed: {
     ...mapGetters("products", { products: "all" }),
     id() {
       return this.$route.params.id;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -18,9 +18,7 @@ import Offers from "@/components/Offers";
 import Loader from "@/components/Loader";
 import MyFooter from "@/components/MyFooter";
 import { mapMutations, mapState } from "vuex";
-
 import { LOADING_SPINNER_SHOW_MUTATIONS } from "@/store/constants";
-
 export default {
   components: {
     Header,

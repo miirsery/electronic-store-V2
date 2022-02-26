@@ -44,16 +44,16 @@ import { mapGetters } from "vuex";
 export default {
   props: {
     product: Object,
-    displayType: String
+    displayType: String,
   },
   methods: {
     pagination() {
       console.log(this.products);
-    }
+    },
   },
   computed: {
-    ...mapGetters("products", { productProxy: "item", products: "all" })
-  }
+    ...mapGetters("products", { productProxy: "item", products: "all" }),
+  },
 };
 </script>
 

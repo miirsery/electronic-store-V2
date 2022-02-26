@@ -3,8 +3,8 @@
     <AsideCategories class="mr-8"></AsideCategories>
     <Hero></Hero>
   </div>
-  <products-swiper title="Успейте купить"/>
-  <products-swiper title="Акция месяца"/>
+  <products-swiper title="Успейте купить" />
+  <products-swiper title="Акция месяца" />
 </template>
 
 <script>
@@ -16,11 +16,9 @@ export default {
   components: {
     AsideCategories,
     Hero,
-    ProductsSwiper
-  }
+    ProductsSwiper,
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

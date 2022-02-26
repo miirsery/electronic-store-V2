@@ -1,5 +1,5 @@
 <template>
-  <div class="offers ">
+  <div class="offers">
     <h2 class="title mb-6">{{ title }}</h2>
     <div class="content">
       <swiper
@@ -27,11 +27,11 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    title: String
+    title: String,
   },
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -43,12 +43,12 @@ export default {
     return {
       onSwiper,
       onSlideChange,
-      modules: [Navigation]
+      modules: [Navigation],
     };
   },
   computed: {
-    ...mapGetters("products", { products: "all" })
-  }
+    ...mapGetters("products", { products: "all" }),
+  },
 };
 </script>
 
@@ -61,5 +61,4 @@ export default {
 
 .title
   font-size: 36px
-
 </style>

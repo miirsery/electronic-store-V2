@@ -23,7 +23,7 @@
                 @focus="focused = true"
                 @blur="focused = false"
                 @onFocus="focusThis"
-              >
+              />
             </form>
           </li>
         </ul>
@@ -32,7 +32,7 @@
         <ul class="actions__menu flex items-center">
           <li class="actions__item">
             <router-link :to="{ name: 'cart' }" class="actions__link icon cart">
-              <img :src="cartImgUrl" alt="cart">
+              <img :src="cartImgUrl" alt="cart" />
               <p class="cart__cnt">
                 {{ cartCnt }}
               </p>
@@ -48,249 +48,167 @@
               type="button"
               class="actions__link icon"
               data-micromodal-trigger="modal-1"
-              @click="toggleType"
+              @click="showModal = true"
             >
               <img src="../assets/avatar.png" alt="logo" />
             </button>
           </li>
         </ul>
-        <div class="on" v-if="!auth && mode!==auth" @close="auth = true">
-          <transition name="modal">
-            <div class="modal-mask">
-              <div class="modal-wrapper" @click="$emit('close')">
-                <div
-                  class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"
-                  >
-                  <div class="modal__top mb-3">
-                    <button
-                      :class="{ active: mode === 'signIn' }"
-                      type="button"
-                      @click="mode = isSignInForm ? 'signUp' : 'signIn'"
-                      :disabled="isSignInForm"
-                    >
-                      Вход /
-                    </button>
-                    <button
-                      :class="{ active: mode === 'signUp' }"
-                      type="button"
-                      @click="mode = isSignInForm ? 'signUp' : 'signIn'"
-                      :disabled="!isSignInForm"
-                    >
-                      Регистрация
-                    </button>
-                  </div>
-                  <Form
-                    @submit="onSubmit"
-                    :validation-schema="schemaSignIn"
-                    @invalid-submit="onInvalidSubmit"
-                    v-if="mode === 'signIn'"
-                  >
-                    <TextInput
-                      name="name"
-                      type="text"
-                      label="Username"
-                      placeholder="Your username"
-                      success-message="Nice to meet you!"
-                    />
-                    <TextInput
-                      name="password"
-                      type="password"
-                      label="Password"
-                      placeholder="Your password"
-                      success-message="Nice and secure!"
-                    />
-                    <button
-                      class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
-                      type="submit">
-                      Подтвердить
-                    </button>
-                  </Form>
-                  <Form
-                    @submit="onSubmit"
-                    :validation-schema="schema"
-                    @invalid-submit="onInvalidSubmit"
-                    v-if="mode === 'signUp'"
-                  >
-                    <TextInput
-                      name="name"
-                      type="text"
-                      label="Username"
-                      placeholder="Your username"
-                      success-message="Nice to meet you!"
-                    />
-                    <TextInput
-                      name="email"
-                      type="email"
-                      label="E-mail"
-                      placeholder="Your email address"
-                      success-message="Got it, we won't spam you!"
-                    />
-                    <TextInput
-                      name="password"
-                      type="password"
-                      label="Password"
-                      placeholder="Your password"
-                      success-message="Nice and secure!"
-                    />
-                    <TextInput
-                      name="confirm_password"
-                      type="password"
-                      label="Confirm Password"
-                      placeholder="Type it again"
-                      success-message="Glad you remembered it!"
-                    />
-                    <button
-                      class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
-                      type="submit"
-                    >
-                      Подтвердить
-                    </button>
-                  </Form>
-                </div>
-              </div>
-            </div>
-          </transition>
-        </div>
-        <div class="profile-settings" v-if="toggle && auth && mode==='auth'">
-          <h2>Здравствуйте {{ user.name }}</h2>
-          <router-link to="/" class="mb-2 mt-4 block">
-            Настройки
-          </router-link>
-          <router-link to="/" class="mb-2 block">
-            Сообщения
-          </router-link>
-          <button
-            type="button" class="cursor-pointer"
-            @click="logOut"
-          >Выход
-          </button>
-        </div>
+        <!--        <div class="on" v-if="!auth && mode !== auth" @close="auth = true">-->
+
+        <!--        </div>-->
+        <!--        <div class="profile-settings" v-if="toggle && auth && mode === 'auth'">-->
+        <!--          <h2>Здравствуйте {{ user.name }}</h2>-->
+        <!--          <router-link to="/" class="mb-2 mt-4 block"> Настройки</router-link>-->
+        <!--          <router-link to="/" class="mb-2 block"> Сообщения</router-link>-->
+        <!--          <button type="button" class="cursor-pointer" @click="logOut">-->
+        <!--            Выход-->
+        <!--          </button>-->
+        <!--        </div>-->
+        <auth
+          v-if="showModal"
+          @close="showModal = false"
+        />
       </div>
     </div>
   </header>
 </template>
-
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { Form } from "vee-validate";
-import * as Yup from "yup";
-import TextInput from "@/components/UI/TextInput";
+import Auth from "@/components/forrms/Auth";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
-    Form,
-    TextInput
-  },
-  created() {
-    this.setUser(JSON.parse(localStorage.getItem("user")));
+    Auth
   },
   data() {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string().email().required(),
-      password: Yup.string().min(6).required(),
-      confirm_password: Yup.string()
-        .required()
-        .oneOf([Yup.ref("password")], "Passwords do not match")
-    });
-    const schemaSignIn = Yup.object().shape({
-      name: Yup.string().required(),
-      password: Yup.string().min(6).required()
-    });
     return {
-      toggle: false,
       favoriteImgUrl: require("../assets/heart.svg"),
       cartImgUrl: require("../assets/cart.svg"),
-      user: {
-        username: "",
-        password: "",
-        email: "",
-        retryPassword: ""
-      },
-      mode: "signIn",
-      errors: [],
-      auth: true,
-      showModal: false,
-      schema,
-      schemaSignIn
+      showModal: false
     };
   },
-  methods: {
-    ...mapActions({
-      setUser: "user/setUser",
-      deleteUser: "user/deleteUser"
-    }),
-    onSubmit(values) {
-      if (this.isSignInForm) this.signIn(values);
-      else this.signUp(values);
-    },
-    onInvalidSubmit() {
-      const submitBtn = document.querySelector(".submit-btn");
-      submitBtn.classList.add("invalid");
-      setTimeout(() => {
-        submitBtn.classList.remove("invalid");
-      }, 1000);
-    },
-    close() {
-      this.$emit("close");
-    },
-    logOut() {
-      this.$api.auth.logout();
-      localStorage.removeItem("user");
-      this.deleteUser();
-      this.mode = "signIn";
-      this.$router.push({ name: "home" });
-    },
-    toggleType() {
-      if (this.mode !== "auth") {
-        this.auth = !this.auth;
-      }
-      if (this.mode === "auth") {
-        this.toggle = !this.toggle;
-      }
-    },
-    async signIn(data) {
-      console.log(data);
-      try {
-        const responseData = (
-          await this.$api.auth.signIn(data)
-        ).data;
-        console.log(responseData);
-        localStorage.setItem("user", JSON.stringify(responseData));
-        this.$store.dispatch("user/setUser");
-        this.$emit("close");
-        this.mode = "auth";
-        this.auth = true;
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    },
-    async signUp(data) {
-      console.log(data);
-      try {
-        const responseData = (
-          await this.$api.auth.signUp(data)
-        ).data;
-        console.log(responseData);
-        localStorage.setItem("user", JSON.stringify(responseData));
-        this.$store.dispatch("user/setUser");
-        this.$emit("close");
-        this.mode = "auth";
-        this.auth = true;
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    }
-  },
   computed: {
-    ...mapGetters("cart", { cartCnt: "length" }),
-    isSignInForm() {
-      return this.mode === "signIn";
-    }
+    ...mapGetters("cart", { cartCnt: "length" })
   }
-}
-;
+};
 </script>
+<!--<script>-->
+<!--import { mapActions, mapGetters } from "vuex";-->
+<!--import { Form } from "vee-validate";-->
+<!--import * as Yup from "yup";-->
+<!--import TextInput from "@/components/UI/TextInput";-->
+
+<!--export default {-->
+<!--  components: {-->
+<!--    Form,-->
+<!--    TextInput-->
+<!--  },-->
+<!--  created() {-->
+<!--    this.setUser(JSON.parse(localStorage.getItem("user")));-->
+<!--  },-->
+<!--  data() {-->
+<!--    const schema = Yup.object().shape({-->
+<!--      name: Yup.string().required(),-->
+<!--      email: Yup.string().email().required(),-->
+<!--      password: Yup.string().min(6).required(),-->
+<!--      confirm_password: Yup.string()-->
+<!--        .required()-->
+<!--        .oneOf([Yup.ref("password")], "Passwords do not match")-->
+<!--    });-->
+<!--    const schemaSignIn = Yup.object().shape({-->
+<!--      name: Yup.string().required(),-->
+<!--      password: Yup.string().min(6).required()-->
+<!--    });-->
+<!--    return {-->
+<!--      toggle: false,-->
+<!--      favoriteImgUrl: require("../assets/heart.svg"),-->
+<!--      cartImgUrl: require("../assets/cart.svg"),-->
+<!--      user: {-->
+<!--        username: "",-->
+<!--        password: "",-->
+<!--        email: "",-->
+<!--        retryPassword: ""-->
+<!--      },-->
+<!--      mode: "signIn",-->
+<!--      errors: [],-->
+<!--      auth: true,-->
+<!--      showModal: false,-->
+<!--      schema,-->
+<!--      schemaSignIn-->
+<!--    };-->
+<!--  },-->
+<!--  methods: {-->
+<!--    ...mapActions({-->
+<!--      setUser: "user/setUser",-->
+<!--      deleteUser: "user/deleteUser"-->
+<!--    }),-->
+<!--    onSubmit(values) {-->
+<!--      if (this.isSignInForm) this.signIn(values);-->
+<!--      else this.signUp(values);-->
+<!--    },-->
+<!--    onInvalidSubmit() {-->
+<!--      const submitBtn = document.querySelector(".submit-btn");-->
+<!--      submitBtn.classList.add("invalid");-->
+<!--      setTimeout(() => {-->
+<!--        submitBtn.classList.remove("invalid");-->
+<!--      }, 1000);-->
+<!--    },-->
+<!--    close() {-->
+<!--      this.$emit("close");-->
+<!--    },-->
+<!--    logOut() {-->
+<!--      this.$api.auth.logout();-->
+<!--      localStorage.removeItem("user");-->
+<!--      this.deleteUser();-->
+<!--      this.mode = "signIn";-->
+<!--      this.$router.push({ name: "home" });-->
+<!--    },-->
+<!--    toggleType() {-->
+<!--      if (this.mode !== "auth") {-->
+<!--        this.auth = !this.auth;-->
+<!--      }-->
+<!--      if (this.mode === "auth") {-->
+<!--        this.toggle = !this.toggle;-->
+<!--      }-->
+<!--    },-->
+<!--    async signIn(data) {-->
+<!--      console.log(data);-->
+<!--      try {-->
+<!--        const responseData = (await this.$api.auth.signIn(data)).data;-->
+<!--        console.log(responseData);-->
+<!--        localStorage.setItem("user", JSON.stringify(responseData));-->
+<!--        this.$store.dispatch("user/setUser");-->
+<!--        this.$emit("close");-->
+<!--        this.mode = "auth";-->
+<!--        this.auth = true;-->
+<!--      } catch (error) {-->
+<!--        console.log(error.response.data);-->
+<!--      }-->
+<!--    },-->
+<!--    async signUp(data) {-->
+<!--      console.log(data);-->
+<!--      try {-->
+<!--        const responseData = (await this.$api.auth.signUp(data)).data;-->
+<!--        console.log(responseData);-->
+<!--        localStorage.setItem("user", JSON.stringify(responseData));-->
+<!--        this.$store.dispatch("user/setUser");-->
+<!--        this.$emit("close");-->
+<!--        this.mode = "auth";-->
+<!--        this.auth = true;-->
+<!--      } catch (error) {-->
+<!--        console.log(error.response.data);-->
+<!--      }-->
+<!--    }-->
+<!--  },-->
+<!--  computed: {-->
+<!--    ...mapGetters("cart", { cartCnt: "length" }),-->
+<!--    isSignInForm() {-->
+<!--      return this.mode === "signIn";-->
+<!--    }-->
+<!--  }-->
+<!--};-->
+<!--</script>-->
 
 <style scoped lang="sass">
 .modal

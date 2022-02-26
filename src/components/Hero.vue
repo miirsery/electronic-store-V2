@@ -30,7 +30,7 @@ import "swiper/components/pagination/pagination.scss";
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -42,7 +42,7 @@ export default {
     return {
       onSwiper,
       onSlideChange,
-      modules: [Navigation, Scrollbar, Pagination]
+      modules: [Navigation, Scrollbar, Pagination],
     };
   },
   data() {
@@ -50,23 +50,23 @@ export default {
       items: [
         {
           id: 1,
-          src: require("../assets/hero-carousel/1.jpg")
+          src: require("../assets/hero-carousel/1.jpg"),
         },
         {
           id: 2,
-          src: require("../assets/hero-carousel/2.jpg")
+          src: require("../assets/hero-carousel/2.jpg"),
         },
         {
           id: 3,
-          src: require("../assets/hero-carousel/3.jpg")
+          src: require("../assets/hero-carousel/3.jpg"),
         },
         {
           id: 4,
-          src: require("../assets/hero-carousel/4.jpg")
-        }
-      ]
+          src: require("../assets/hero-carousel/4.jpg"),
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

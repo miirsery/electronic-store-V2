@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2 class="title mb-6 mt-6">{{ category.title }} <span>{{ filteredProducts.length }}</span></h2>
+    <h2 class="title mb-6 mt-6">
+      {{ category.title }} <span>{{ filteredProducts.length }}</span>
+    </h2>
     <div class="top w-2/3 flex justify-between">
       <a
         @click="$router.go(-1)"
@@ -11,7 +13,11 @@
         <button type="button" @click="toggleDisplayType('detailed')">
           Подробный
         </button>
-        <button type="button" @click="toggleDisplayType('shorted')" class="ml-2">
+        <button
+          type="button"
+          @click="toggleDisplayType('shorted')"
+          class="ml-2"
+        >
           Краткий
         </button>
       </div>
@@ -25,9 +31,7 @@
       <div>по названию</div>
     </form>
     <div class="container flex w-full">
-      <div class="content w-2/3"
-           :class="parentClassObject"
-      >
+      <div class="content w-2/3" :class="parentClassObject">
         <div
           class="content__product mb-4 shadow p-4"
           v-for="product in filteredProducts"
@@ -39,6 +43,7 @@
         </div>
       </div>
       <aside class="filters pt-2 pl-4 pr-4">
+        <!--        <filters />-->
         <form>
           <div class="filters__top flex justify-between">
             <h2 class="filters__title font-bold text-2xl">Фильтры</h2>
@@ -47,12 +52,24 @@
             </button>
           </div>
           <div>
-            <input class="filters__input" type="text" placeholder="Поиск по фильтрам..." />
+            <input
+              class="filters__input"
+              type="text"
+              placeholder="Поиск по фильтрам..."
+            />
           </div>
           <div class="w-full">
             <div class="values flex justify-between">
-              <input class="filters__input w-1/3 mr-1" type="text" :value="minPrice" />
-              <input class="filters__input w-1/3" type="text" :value="maxPrice" />
+              <input
+                class="filters__input w-1/3 mr-1"
+                type="text"
+                :value="minPrice"
+              />
+              <input
+                class="filters__input w-1/3"
+                type="text"
+                :value="maxPrice"
+              />
             </div>
             <div class="range-slider w-full">
               <input
@@ -84,7 +101,8 @@
             <div>
               <input id="availability-fast-pickup" type="checkbox" />
               <label class="ml-2" for="availability-fast-pickup"
-              >Забрать через 15 минут</label>
+              >Забрать через 15 минут</label
+              >
             </div>
           </div>
           <div class="mb-4">
@@ -114,6 +132,7 @@
             </div>
           </div>
         </form>
+
       </aside>
     </div>
   </div>
@@ -124,11 +143,14 @@
 import { mapGetters } from "vuex";
 import ProductSlider from "@/components/ProductSlider";
 import ProductInfo from "@/components/ProductInfo";
+// import Filters from "@/components/Filters";
 
 export default {
   components: {
     ProductSlider,
-    ProductInfo
+    ProductInfo,
+    // Filters
+
   },
 
   data() {
@@ -152,7 +174,9 @@ export default {
     sortByCategories() {
       let vm = this;
       this.sortedProducts = [...this.products];
-      this.sortedProducts = this.sortedProducts.filter(item => item.price >= vm.minPrice && item.price <= vm.maxPrice);
+      this.sortedProducts = this.sortedProducts.filter(
+        (item) => item.price >= vm.minPrice && item.price <= vm.maxPrice
+      );
     },
     clearFilters() {
       this.sortedProducts = this.products;
@@ -258,5 +282,4 @@ export default {
 
       &:hover
         color: #000
-
 </style>

@@ -4,13 +4,18 @@
       <div class="empty-cart__wrapper">
         <h2 class="empty-cart__title mb-4 font-bold">В корзине нет товаров</h2>
         <div class="search mb-4">
-          Воспользуйтесь <span class="underline text-blue-400"><span
-          class="cursor-pointer"
-        >поиском</span></span>
+          Воспользуйтесь
+          <span class="underline text-blue-400">
+            <span class="cursor-pointer">поиском</span>
+          </span>
         </div>
         <div>
-          Или же <span><router-link to="/catalog"
-                                    class="underline text-blue-400">вернитесь к категориям</router-link></span>
+          Или же
+          <span>
+            <router-link to="/catalog" class="underline text-blue-400">
+              вернитесь к категориям
+            </router-link>
+          </span>
         </div>
       </div>
     </div>
@@ -26,19 +31,20 @@
           </div>
           <div class="cart__title-block">
             <p class="cart__title mb-4">{{ product.title }}</p>
-            <button
-              @click="remove(product.id)">Удалить товар</button>
+            <button @click="remove(product.id)">Удалить товар</button>
           </div>
           <div class="cart__count flex items-center">
             <button
               class="mr-4"
-              @click="setCnt({ id: product.id, cnt: product.cnt - 1})">
+              @click="setCnt({ id: product.id, cnt: product.cnt - 1 })"
+            >
               -
             </button>
             {{ product.cnt }}
             <button
               class="ml-4"
-              @click="setCnt({ id: product.id, cnt: product.cnt + 1})">
+              @click="setCnt({ id: product.id, cnt: product.cnt + 1 })"
+            >
               +
             </button>
           </div>
@@ -53,7 +59,9 @@
         <p class="cart__availability">В наличии: в 1 магазине</p>
         <router-link
           class="order-btn block font-bold uppercase text-white bg-indigo-400 ml-auto mr-auto mt-4 pt-1 pb-1 pl-2 pr-2"
-          to="/order">Оформить заказ
+          to="/order"
+        >
+          Оформить заказ
         </router-link>
       </div>
     </div>
@@ -68,12 +76,12 @@ export default {
     ...mapGetters("cart", {
       products: "productsDetailed",
       cartTotal: "total",
-      cartCnt: "length"
-    })
+      cartCnt: "length",
+    }),
   },
   methods: {
-    ...mapActions("cart", ["setCnt", "remove"])
-  }
+    ...mapActions("cart", ["setCnt", "remove"]),
+  },
 };
 </script>
 

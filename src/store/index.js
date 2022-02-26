@@ -12,7 +12,7 @@ export default createStore({
     categories,
     products,
     fullCategories,
-    user
+    user,
   },
   state() {
     return {
@@ -25,5 +25,5 @@ export default createStore({
       state.showLoading = payload;
     },
   },
-  strict: process.env.NODE_ENV !== "production"
+  strict: process.env.NODE_ENV !== "production",
 });

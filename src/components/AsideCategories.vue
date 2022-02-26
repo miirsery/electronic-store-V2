@@ -10,10 +10,8 @@
           <div class="aside__link-img inline-block mr-1.5">
             <img :src="item.imgUrl" alt="img" />
           </div>
-          <router-link
-            :to="item.url"
-            class="aside__link"
-          >{{ item.title }}
+          <router-link :to="item.url" class="aside__link"
+            >{{ item.title }}
           </router-link>
         </li>
       </ul>
@@ -26,8 +24,8 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters("categories", { categories: "all" })
-  }
+    ...mapGetters("categories", { categories: "all" }),
+  },
 };
 </script>
 

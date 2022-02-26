@@ -1,9 +1,7 @@
 <template>
   <footer class="footer w-full bg-gray-600 h-40 mt-8 flex">
     <div class="footer__wrapper w-full container">
-      <div class="logo mr-10">
-        Logo
-      </div>
+      <div class="logo mr-10">Logo</div>
       <nav>
         <ul class="flex flex-col">
           <li class="mb-2">
@@ -18,7 +16,6 @@
         </ul>
       </nav>
     </div>
-
   </footer>
 </template>
 
@@ -26,6 +23,4 @@
 export default {};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

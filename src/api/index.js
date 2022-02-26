@@ -8,5 +8,5 @@ export default {
   auth: authModule(instance),
   products: products(instance),
   catalog: catalog(instance),
-  order: order(instance)
+  order: order(instance),
 };

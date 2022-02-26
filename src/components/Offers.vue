@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -19,7 +18,6 @@ export default {
         {
           title: "Каталог",
           url: "/catalog",
-
         },
         {
           title: "ВСЕ АКЦИИ",
@@ -27,19 +25,19 @@ export default {
         },
         {
           title: "БЫСТРАЯ ДОСТАВКА",
-          url: '/fastDelivery'
+          url: "/fastDelivery",
         },
         {
           title: "ГАРАНТИЯ НИЗКОЙ ЦЕНЫ",
-          url: '/lowPrice'
+          url: "/lowPrice",
         },
         {
           title: "ДОСТУПНЫЕ ЦЕНЫ",
-          url: '/prices'
+          url: "/prices",
         },
         {
           title: "РАССРОЧКА",
-          url: '/something'
+          url: "/something",
         },
       ],
     };

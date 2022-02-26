@@ -1,21 +1,21 @@
 export default {
   namespaced: true,
   state: {
-    items: tmpCategories()
+    items: tmpCategories(),
   },
   getters: {
     all: (state) => state.items,
     itemsMap(state) {
-      let map = {};
+      const map = {};
       state.items.forEach((pr, index) => {
         map[pr.id.toString()] = index;
       });
       return map;
     },
-    item: (state, getters) => (id) => state.items[getters.itemsMap[id]]
+    item: (state, getters) => (id) => state.items[getters.itemsMap[id]],
   },
   mutations: {},
-  actions: {}
+  actions: {},
 };
 
 function tmpCategories() {
@@ -30,70 +30,70 @@ function tmpCategories() {
           title: "Смартфоны, мобильные телефоны",
           items: [
             {
-              title: "Смартфоны"
+              title: "Смартфоны",
             },
             {
-              title: "Новинки"
+              title: "Новинки",
             },
             {
-              title: "Кнопочные телефоны"
+              title: "Кнопочные телефоны",
             },
             {
-              title: "Аксессуары для телефонов"
+              title: "Аксессуары для телефонов",
             },
             {
-              title: "Домашние телефоны"
+              title: "Домашние телефоны",
             },
             {
-              title: "Радиостанции"
-            }
-          ]
+              title: "Радиостанции",
+            },
+          ],
         },
         {
           title: "Планшеты",
           items: [
             {
-              title: "Apple iPad"
+              title: "Apple iPad",
             },
             {
-              title: "Планшеты Sasung"
+              title: "Планшеты Sasung",
             },
             {
-              title: "Планшеты Huiwei"
+              title: "Планшеты Huiwei",
             },
             {
-              title: "Планшеты на Anduxa"
+              title: "Планшеты на Anduxa",
             },
             {
-              title: "Аксессуары для планшетов"
+              title: "Аксессуары для планшетов",
             },
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
     {
       id: "laptops",
       title: "Ноутбуки и компьютеры",
       imgUrl: require("../assets/laptop.svg"),
-      url: "/catalog/laptops"
+      url: "/catalog/laptops",
     },
     {
       id: "photo-and-video",
       title: "Фото и видео",
       imgUrl: require("../assets/camera.svg"),
-      url: "/catalog/photo-and-video"
+      url: "/catalog/photo-and-video",
     },
     {
       id: "products-for-auto",
       title: "Товары для авто",
       imgUrl: require("../assets/car.svg"),
-      url: "/catalog/products-for-auto"
+      url: "/catalog/products-for-auto",
     },
     {
       id: "products-for-home",
       title: "Техника для дома",
       imgUrl: require("../assets/home.svg"),
-      url: "/catalog/products-for-home"
-    }
+      url: "/catalog/products-for-home",
+    },
   ];
 }
