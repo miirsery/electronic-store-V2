@@ -1,114 +1,10 @@
 <template>
-  <!--  <transition name="modal">-->
-  <!--    <div class="modal-mask">-->
-  <!--      <div class="modal-wrapper" @click="$emit('close')">-->
-  <!--        <div-->
-  <!--          class="modal fixed absolute bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-10"-->
-  <!--        >-->
-  <!--          <div class="modal__top mb-3 flex justify-between">-->
-  <!--            <div class="buttons flex flex-col">-->
-  <!--              <button-->
-  <!--                :class="{ active: mode === 'signIn' }"-->
-  <!--                type="button"-->
-  <!--                @click="mode = isSignInForm ? 'signUp' : 'signIn'"-->
-  <!--                :disabled="isSignInForm"-->
-  <!--              >-->
-  <!--                Вход /-->
-  <!--              </button>-->
-  <!--              <button-->
-  <!--                :class="{ active: mode === 'signUp' }"-->
-  <!--                type="button"-->
-  <!--                @click="mode = isSignInForm ? 'signUp' : 'signIn'"-->
-  <!--                :disabled="!isSignInForm"-->
-  <!--              >-->
-  <!--                Регистрация-->
-  <!--              </button>-->
-  <!--            </div>-->
-  <!--            <button type="button" @click="auth = true">X</button>-->
-  <!--          </div>-->
-  <!--          <Form-->
-  <!--            @submit="onSubmit"-->
-  <!--            :validation-schema="schemaSignIn"-->
-  <!--            @invalid-submit="onInvalidSubmit"-->
-  <!--            v-if="mode === 'signIn'"-->
-  <!--          >-->
-  <!--            <TextInput-->
-  <!--              name="name"-->
-  <!--              type="text"-->
-  <!--              label="Username"-->
-  <!--              placeholder="Your username"-->
-  <!--              success-message="Nice to meet you!"-->
-  <!--            />-->
-  <!--            <TextInput-->
-  <!--              name="password"-->
-  <!--              type="password"-->
-  <!--              label="Password"-->
-  <!--              placeholder="Your password"-->
-  <!--              success-message="Nice and secure!"-->
-  <!--            />-->
-  <!--            <button-->
-  <!--              class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"-->
-  <!--              type="submit"-->
-  <!--            >-->
-  <!--              Подтвердить-->
-  <!--            </button>-->
-  <!--          </Form>-->
-  <!--          <Form-->
-  <!--            @submit="onSubmit"-->
-  <!--            :validation-schema="schema"-->
-  <!--            @invalid-submit="onInvalidSubmit"-->
-  <!--            v-if="mode === 'signUp'"-->
-  <!--          >-->
-  <!--            <TextInput-->
-  <!--              name="name"-->
-  <!--              type="text"-->
-  <!--              label="Username"-->
-  <!--              placeholder="Your username"-->
-  <!--              success-message="Nice to meet you!"-->
-  <!--            />-->
-  <!--            <TextInput-->
-  <!--              name="email"-->
-  <!--              type="email"-->
-  <!--              label="E-mail"-->
-  <!--              placeholder="Your email address"-->
-  <!--              success-message="Got it, we won't spam you!"-->
-  <!--            />-->
-  <!--            <TextInput-->
-  <!--              name="password"-->
-  <!--              type="password"-->
-  <!--              label="Password"-->
-  <!--              placeholder="Your password"-->
-  <!--              success-message="Nice and secure!"-->
-  <!--            />-->
-  <!--            <TextInput-->
-  <!--              name="confirm_password"-->
-  <!--              type="password"-->
-  <!--              label="Confirm Password"-->
-  <!--              placeholder="Type it again"-->
-  <!--              success-message="Glad you remembered it!"-->
-  <!--            />-->
-  <!--            <button-->
-  <!--              class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"-->
-  <!--              type="submit"-->
-  <!--            >-->
-  <!--              Подтвердить-->
-  <!--            </button>-->
-  <!--          </Form>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </transition>-->
   <transition name="modal">
-    <div class="modal-mask">
+    <div class="modal-mask" v-if="showModal">
       <div class="modal-wrapper" @click="$emit('close')">
         <div class="modal-container" @click.stop>
           <div class="modal-header mb-3 flex justify-between">
             <slot name="header">
-              <!-- <div class="buttons flex flex-col justify-start justify-start">
-                 <button class="block" type="button">Вход /</button>
-                 <button class="block" type="button">Регистрация</button>
-               </div>
-               -->
               <el-tabs
                 v-model="activeName"
                 class="demo-tabs"
@@ -122,7 +18,6 @@
               </button>
             </slot>
           </div>
-
           <div class="modal-body">
             <slot name="body">
               <Form
@@ -217,6 +112,9 @@ import { mapActions } from "vuex";
 import { ref } from "vue";
 
 export default {
+  props: {
+    showModal: Boolean
+  },
   components: {
     Form,
     TextInput
@@ -277,6 +175,7 @@ export default {
       try {
         const responseData = (await this.$api.auth.signIn(data)).data;
         console.log(responseData);
+
         localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
         this.$emit("close");
@@ -296,6 +195,12 @@ export default {
       } catch (error) {
         console.log(error.response.data);
       }
+    },
+    logout() {
+      this.$api.auth.logout();
+      localStorage.removeItem("user");
+      this.deleteUser();
+      this.$router.push({ name: "home" });
     }
   },
   computed: {
@@ -356,16 +261,7 @@ export default {
   float: right;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
+.modal-enter-active {
   opacity: 0;
 }
 
@@ -375,7 +271,6 @@ export default {
 
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 </style>

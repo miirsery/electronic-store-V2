@@ -26,6 +26,7 @@ export default {
     Loader,
     MyFooter
   },
+
   created() {
     this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, true);
     setTimeout(() => {

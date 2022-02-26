@@ -1,12 +1,12 @@
 export default {
   namespaced: true,
   state: {
-    user: null,
+    user: null
   },
   getters: {
     getUser(state) {
       return state.user;
-    },
+    }
   },
   mutations: {
     SET_USER(state, payload) {
@@ -14,7 +14,7 @@ export default {
     },
     DELETE_USER(state) {
       state.user = null;
-    },
+    }
   },
   actions: {
     setUser({ commit }, payload) {
@@ -22,6 +22,6 @@ export default {
     },
     deleteUser({ commit }) {
       commit("DELETE_USER");
-    },
-  },
+    }
+  }
 };
