@@ -260,5 +260,245 @@ function tmpProducts() {
         },
       ],
     },
+    {
+      id: 6,
+      title: "IPhone Kakoi-to 1222",
+      price: 299299,
+      available: true,
+      pickup: true,
+      imgUrl: require("../assets/products/5.jpg"),
+      url: "/iphone-kakoi-to-1222-rand006",
+      description:
+        "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
+      specifications: [
+        {
+          os: "Операционная система Android 11",
+          display: 'Дисплей 6.67", IPS',
+          resolution: "2400x1080",
+          processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
+          ram: "Объем оперативной памяти 8 ГБ",
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
+        },
+      ],
+      smallImages: [
+        {
+          id: 1,
+          img: require("../assets/products/carousel/1.jpg"),
+        },
+        {
+          id: 2,
+          img: require("../assets/products/carousel/2.jpg"),
+        },
+        {
+          id: 3,
+          img: require("../assets/products/carousel/3.jpg"),
+        },
+        {
+          id: 4,
+          img: require("../assets/products/carousel/4.jpg"),
+        },
+        {
+          id: 5,
+          img: require("../assets/products/carousel/5.jpg"),
+        },
+        {
+          id: 6,
+          img: require("../assets/products/carousel/6.jpg"),
+        },
+      ],
+    },
+    {
+      id: 7,
+      title: "IPhone Kakoiww-to 1222",
+      price: 19299,
+      available: true,
+      pickup: true,
+      imgUrl: require("../assets/products/5.jpg"),
+      url: "/iphone-kakoiww-to-1222-rand007",
+      description:
+        "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
+      specifications: [
+        {
+          os: "Операционная система Android 11",
+          display: 'Дисплей 6.67", IPS',
+          resolution: "2400x1080",
+          processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
+          ram: "Объем оперативной памяти 8 ГБ",
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
+        },
+      ],
+      smallImages: [
+        {
+          id: 1,
+          img: require("../assets/products/carousel/1.jpg"),
+        },
+        {
+          id: 2,
+          img: require("../assets/products/carousel/2.jpg"),
+        },
+        {
+          id: 3,
+          img: require("../assets/products/carousel/3.jpg"),
+        },
+        {
+          id: 4,
+          img: require("../assets/products/carousel/4.jpg"),
+        },
+        {
+          id: 5,
+          img: require("../assets/products/carousel/5.jpg"),
+        },
+        {
+          id: 6,
+          img: require("../assets/products/carousel/6.jpg"),
+        },
+      ],
+    },
+    {
+      id: 8,
+      title: "IPhone Kakoiwrw-to 12r22",
+      price: 19299,
+      available: true,
+      pickup: true,
+      imgUrl: require("../assets/products/5.jpg"),
+      url: "/iphone-kakoiwrw-to-122r2-rand007",
+      description:
+        "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
+      specifications: [
+        {
+          os: "Операционная система Android 11",
+          display: 'Дисплей 6.67", IPS',
+          resolution: "2400x1080",
+          processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
+          ram: "Объем оперативной памяти 8 ГБ",
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
+        },
+      ],
+      smallImages: [
+        {
+          id: 1,
+          img: require("../assets/products/carousel/1.jpg"),
+        },
+        {
+          id: 2,
+          img: require("../assets/products/carousel/2.jpg"),
+        },
+        {
+          id: 3,
+          img: require("../assets/products/carousel/3.jpg"),
+        },
+        {
+          id: 4,
+          img: require("../assets/products/carousel/4.jpg"),
+        },
+        {
+          id: 5,
+          img: require("../assets/products/carousel/5.jpg"),
+        },
+        {
+          id: 6,
+          img: require("../assets/products/carousel/6.jpg"),
+        },
+      ],
+    },
+    {
+      id: 9,
+      title: "IPhone Kakoiwrw-to 12r22",
+      price: 129299,
+      available: true,
+      pickup: true,
+      imgUrl: require("../assets/products/5.jpg"),
+      url: "/iphone-kakoiwrw-to-122r2-rand007",
+      description:
+        "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
+      specifications: [
+        {
+          os: "Операционная система Android 11",
+          display: 'Дисплей 6.67", IPS',
+          resolution: "2400x1080",
+          processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
+          ram: "Объем оперативной памяти 8 ГБ",
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
+        },
+      ],
+      smallImages: [
+        {
+          id: 1,
+          img: require("../assets/products/carousel/1.jpg"),
+        },
+        {
+          id: 2,
+          img: require("../assets/products/carousel/2.jpg"),
+        },
+        {
+          id: 3,
+          img: require("../assets/products/carousel/3.jpg"),
+        },
+        {
+          id: 4,
+          img: require("../assets/products/carousel/4.jpg"),
+        },
+        {
+          id: 5,
+          img: require("../assets/products/carousel/5.jpg"),
+        },
+        {
+          id: 6,
+          img: require("../assets/products/carousel/6.jpg"),
+        },
+      ],
+    },
+    {
+      id: 10,
+      title: "IPhone Kakoiwrw-to 12r22",
+      price: 12345,
+      available: true,
+      pickup: true,
+      imgUrl: require("../assets/products/5.jpg"),
+      url: "/iphone-kakoiwrw-to-122r2-rand007",
+      description:
+        "Этот телефон такой-то такой. Мне очень нравится данная модель. Настоятельно не рекомендую к покупке.",
+      specifications: [
+        {
+          os: "Операционная система Android 11",
+          display: 'Дисплей 6.67", IPS',
+          resolution: "2400x1080",
+          processor: "Qualcomm Snapdragon 860, 2960МГц, 8-ми ядерный",
+          ram: "Объем оперативной памяти 8 ГБ",
+          rom: "Объем встроенной памяти 256 ГБ",
+          price: 29999,
+        },
+      ],
+      smallImages: [
+        {
+          id: 1,
+          img: require("../assets/products/carousel/1.jpg"),
+        },
+        {
+          id: 2,
+          img: require("../assets/products/carousel/2.jpg"),
+        },
+        {
+          id: 3,
+          img: require("../assets/products/carousel/3.jpg"),
+        },
+        {
+          id: 4,
+          img: require("../assets/products/carousel/4.jpg"),
+        },
+        {
+          id: 5,
+          img: require("../assets/products/carousel/5.jpg"),
+        },
+        {
+          id: 6,
+          img: require("../assets/products/carousel/6.jpg"),
+        },
+      ],
+    },
   ];
 }

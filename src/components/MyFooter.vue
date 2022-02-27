@@ -5,13 +5,14 @@
       <nav>
         <ul class="flex flex-col">
           <li class="mb-2">
-            <a href="/" class="text-white">О нас</a>
+            <a href="/" class="text-white"
+            >О нас</a>
           </li>
           <li class="mb-2">
             <a href="/" class="text-white">Доставка</a>
           </li>
           <li class="mb-2">
-            <a href="/" class="text-white">FAQ</a>
+            <router-link :to="{ name: 'faq' }" class="text-white">FAQ</router-link>
           </li>
         </ul>
       </nav>

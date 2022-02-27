@@ -132,10 +132,10 @@
             </div>
           </div>
         </form>
-
       </aside>
     </div>
   </div>
+  <el-pagination background layout="prev, pager, next" :total="pages * 10" />
   <hr />
 </template>
 
@@ -148,18 +148,19 @@ import ProductInfo from "@/components/ProductInfo";
 export default {
   components: {
     ProductSlider,
-    ProductInfo,
+    ProductInfo
     // Filters
 
   },
-
   data() {
     return {
       minPrice: 0,
       maxPrice: 3000000,
       sortedProducts: [],
       displayType: "detailed",
-      shorted: false
+      shorted: false,
+      pages: 1,
+      productsPerView: 8
     };
   },
   methods: {
@@ -186,6 +187,11 @@ export default {
     toggleDisplayType(name) {
       this.displayType = name;
       this.shorted = this.displayType === "shorted";
+    },
+    totalPages() {
+      this.pages = Math.floor(
+        this.sortedProducts.length / this.productsPerView + 1
+      );
     }
   },
   computed: {
@@ -216,10 +222,13 @@ export default {
         "flex-col": this.shorted
       };
     }
+
   },
   mounted() {
     this.sortByCategories();
+    this.totalPages()
   }
+
 };
 </script>
 

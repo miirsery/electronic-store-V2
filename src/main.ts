@@ -3,12 +3,12 @@ import routes from "@/routes";
 import ElementPlus from "element-plus";
 import VueLazyLoad from "vue3-lazyload";
 import api from "@/api/index";
+import store from "./store/index";
+import loadPlugin from "@/plugins/load";
 
 import "element-plus/dist/index.css";
 import "@/assets/tailwind.css";
 import "@/assets/sass/main.sass";
-import store from "./store/index";
-import loadPlugin from "@/plugins/load";
 
 import App from "./App.vue";
 

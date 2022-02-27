@@ -62,8 +62,8 @@
                 />
                 <TextInput
                   name="signUpUsername"
-                  type="email"
-                  label="Почта"
+                  type="text"
+                  label="Введите логин"
                   placeholder="Введите логин"
                   success-message="Got it, we won't spam you!"
                 />
