@@ -58,7 +58,7 @@
           :show-modal="showModal"
           @close="showModal = false"
         />
-        <div class="profile-settings" v-if="isAuth.user !== null">
+        <div class="profile-settings" v-if="isAuth.user !== null && showSettingsModal ===true">
           <h2>Здравствуйте qwdqwd</h2>
           <router-link to="/" class="mb-2 mt-4 block"> Настройки</router-link>
           <router-link to="/" class="mb-2 block"> Сообщения</router-link>
@@ -79,15 +79,16 @@ export default {
   components: {
     Auth
   },
-  created() {
-    if (localStorage.getItem("user") !== null)
-      this.setUser(JSON.parse(localStorage.getItem("user")));
-  },
+  // created() {
+  //   if (localStorage.getItem("user") !== null)
+  //     this.setUser(JSON.parse(localStorage.getItem("user")));
+  // },
   data() {
     return {
       favoriteImgUrl: require("../assets/heart.svg"),
       cartImgUrl: require("../assets/cart.svg"),
-      showModal: false
+      showModal: false,
+      showSettingsModal: false
     };
   },
   computed: {

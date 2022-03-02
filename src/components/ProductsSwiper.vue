@@ -7,8 +7,6 @@
         :space-between="20"
         :slides-per-view="8"
         navigation
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
         <swiper-slide v-for="product in products" :key="product.id">
           <img :src="product.imgUrl" :alt="product.title" />
@@ -27,28 +25,20 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    title: String,
+    title: String
   },
   components: {
     Swiper,
-    SwiperSlide,
+    SwiperSlide
   },
   setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
     return {
-      onSwiper,
-      onSlideChange,
-      modules: [Navigation],
+      modules: [Navigation]
     };
   },
   computed: {
-    ...mapGetters("products", { products: "all" }),
-  },
+    ...mapGetters("products", { products: "all" })
+  }
 };
 </script>
 

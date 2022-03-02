@@ -171,24 +171,31 @@ export default {
       return Yup.object().shape(newData);
     },
     async signIn(data) {
-      console.log(data);
+      console.log("1", data);
       try {
         const responseData = (await this.$api.auth.signIn(data)).data;
         console.log(responseData);
-
         localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
         this.$emit("close");
+        this.saveToken(responseData);
       } catch (error) {
         console.log(error.response.data);
       }
     },
+
     async signUp(data) {
       console.log(data);
       try {
-        const responseData = (await this.$api.auth.signUp(data)).data;
+        delete data.confirmPassword;
+        const newData = {
+          username: data.signUpUsername,
+          password: data.signUpPassword,
+          email: data.signUpEmail
+        };
+        let responseData = (await this.$api.auth.signUp(newData)).data;
         console.log(responseData);
-        console.log(responseData);
+        console.log("Success");
         localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
         this.$emit("close");
@@ -201,6 +208,9 @@ export default {
       localStorage.removeItem("user");
       this.deleteUser();
       this.$router.push({ name: "home" });
+    },
+    saveToken(token) {
+      sessionStorage.setItem("tokenData", JSON.stringify(token));
     }
   },
   computed: {

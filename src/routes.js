@@ -12,6 +12,11 @@ const routes = [
     component: () => import("@/views/cartPage"),
   },
   {
+    path: "/about",
+    name: "about",
+    component: () => import("@/views/aboutPage"),
+  },
+  {
     path: "/faq",
     name: "faq",
     component: () => import("@/views/faqPage"),

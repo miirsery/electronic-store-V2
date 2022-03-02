@@ -8,8 +8,6 @@
         navigation
         :pagination="{ clickable: true }"
         :scrollbar="{ draggable: true }"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
         <swiper-slide v-for="item in items" :key="item.id">
           <img :src="item.src" :alt="item.title" />
@@ -30,19 +28,12 @@ import "swiper/components/pagination/pagination.scss";
 export default {
   components: {
     Swiper,
-    SwiperSlide,
+    SwiperSlide
   },
   setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
+
     return {
-      onSwiper,
-      onSlideChange,
-      modules: [Navigation, Scrollbar, Pagination],
+      modules: [Navigation, Scrollbar, Pagination]
     };
   },
   data() {
@@ -50,23 +41,23 @@ export default {
       items: [
         {
           id: 1,
-          src: require("../assets/hero-carousel/1.jpg"),
+          src: require("../assets/hero-carousel/1.jpg")
         },
         {
           id: 2,
-          src: require("../assets/hero-carousel/2.jpg"),
+          src: require("../assets/hero-carousel/2.jpg")
         },
         {
           id: 3,
-          src: require("../assets/hero-carousel/3.jpg"),
+          src: require("../assets/hero-carousel/3.jpg")
         },
         {
           id: 4,
-          src: require("../assets/hero-carousel/4.jpg"),
-        },
-      ],
+          src: require("../assets/hero-carousel/4.jpg")
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 
