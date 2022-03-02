@@ -1,10 +1,12 @@
+import axios from "axios";
+
 export default function(instance) {
   return {
     signIn(payload) {
-      let token = sessionStorage.getItem("tokenData");
+      let token = sessionStorage.getItem("tokenData").replace(/['"«»]/g, "");
       return instance.post("/api/user/token-create/", payload, {
         headers: {
-          Authorization: `token ${token}`
+          Authorization: `Bearer ${token}`
         }
       });
     },
@@ -12,7 +14,8 @@ export default function(instance) {
       return instance.post("api/auth/users/", payload);
     },
     logout() {
-      return instance.delete("auth/logout/");
+      // return instance.delete("auth/logout/");
+      return axios.get("https://jsonplaceholder.typicode.com/users");
     }
   };
 }

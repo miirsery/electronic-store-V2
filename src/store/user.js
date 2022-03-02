@@ -1,7 +1,8 @@
 export default {
   namespaced: true,
   state: {
-    user: null
+    user: null,
+    isAuth: false
   },
   getters: {
     getUser(state) {
@@ -14,6 +15,9 @@ export default {
     },
     DELETE_USER(state) {
       state.user = null;
+    },
+    IS_AUTH(state, payload) {
+      state.isAuth = payload;
     }
   },
   actions: {
@@ -22,6 +26,9 @@ export default {
     },
     deleteUser({ commit }) {
       commit("DELETE_USER");
+    },
+    IS_AUTH({ commit }, payload) {
+      commit("IS_AUTH", payload);
     }
   }
 };

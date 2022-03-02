@@ -31,7 +31,6 @@ export default {
     SwiperSlide
   },
   setup() {
-
     return {
       modules: [Navigation, Scrollbar, Pagination]
     };

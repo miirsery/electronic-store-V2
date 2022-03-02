@@ -129,7 +129,8 @@ export default {
       mode: "signIn",
       activeName: ref("signIn"),
       schema,
-      schemaData
+      schemaData,
+      isAuth: false
     };
   },
   methods: {
@@ -171,12 +172,12 @@ export default {
       return Yup.object().shape(newData);
     },
     async signIn(data) {
-      console.log("1", data);
+      console.log(data);
       try {
         const responseData = (await this.$api.auth.signIn(data)).data;
-        console.log(responseData);
         localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
+        this.$store.dispatch("user/IS_AUTH", true);
         this.$emit("close");
         this.saveToken(responseData);
       } catch (error) {
@@ -196,8 +197,6 @@ export default {
         let responseData = (await this.$api.auth.signUp(newData)).data;
         console.log(responseData);
         console.log("Success");
-        localStorage.setItem("user", JSON.stringify(responseData));
-        this.$store.dispatch("user/setUser");
         this.$emit("close");
       } catch (error) {
         console.log(error.response.data);
@@ -206,11 +205,12 @@ export default {
     logout() {
       this.$api.auth.logout();
       localStorage.removeItem("user");
-      this.deleteUser();
+      this.$store.dispatch("user/deleteUser");
+      this.$store.dispatch("user/IS_AUTH", false);
       this.$router.push({ name: "home" });
     },
     saveToken(token) {
-      sessionStorage.setItem("tokenData", JSON.stringify(token));
+      sessionStorage.setItem("tokenData", JSON.stringify(token.token));
     }
   },
   computed: {
