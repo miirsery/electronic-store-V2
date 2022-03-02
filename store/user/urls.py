@@ -8,7 +8,7 @@ router.register(r'user', views.UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    
-    # По вот этому происходит авторизация
+
+    # По вот этому происходит авторизаци
     path('token-create/', obtain_jwt_token, name='obtain_jwt_token'),
 ]
