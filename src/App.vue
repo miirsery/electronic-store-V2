@@ -19,6 +19,7 @@ import Loader from "@/components/Loader";
 import MyFooter from "@/components/MyFooter";
 import { mapMutations, mapState } from "vuex";
 import { LOADING_SPINNER_SHOW_MUTATIONS } from "@/store/constants";
+
 export default {
   components: {
     Header,
@@ -31,14 +32,19 @@ export default {
     this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, true);
     setTimeout(() => {
       this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, false);
-    }, 500)
+    }, 500);
+    if (localStorage.getItem("user") !== null)
+      this.$store.dispatch(
+        "user/setUser",
+        JSON.parse(localStorage.getItem("user"))
+      );
   },
   computed: {
     ...mapMutations([
-      `${LOADING_SPINNER_SHOW_MUTATIONS}`,
+      `${LOADING_SPINNER_SHOW_MUTATIONS}`
     ]),
     ...mapState([
-      'showLoading'
+      "showLoading"
     ])
   }
 };

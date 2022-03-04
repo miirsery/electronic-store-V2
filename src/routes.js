@@ -4,57 +4,62 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import("@/views/home"),
+    component: () => import("@/views/home")
   },
   {
     path: "/cart",
     name: "cart",
-    component: () => import("@/views/cartPage"),
+    component: () => import("@/views/cartPage")
   },
   {
     path: "/about",
     name: "about",
-    component: () => import("@/views/aboutPage"),
+    component: () => import("@/views/aboutPage")
   },
   {
     path: "/faq",
     name: "faq",
-    component: () => import("@/views/faqPage"),
+    component: () => import("@/views/faqPage")
   },
   {
     path: "/catalog",
     name: "catalog",
     components: {
       default: () => import("@/views/fullCategories"),
-      catalogItem: () => import("@/views/catalogItem"),
-    },
+      catalogItem: () => import("@/views/catalogItem")
+    }
   },
   {
     path: "/catalog/:id",
     name: "catalogItem",
     components: {
       default: import("@/views/catalogItem"),
-      catalog: () => import("@/views/fullCategories"),
-    },
+      catalog: () => import("@/views/fullCategories")
+    }
   },
   {
     path: "/product/:id",
     name: "productId",
-    component: () => import("@/views/productPage"),
+    component: () => import("@/views/productPage")
   },
   {
     path: "/order",
     name: "order",
-    component: () => import("@/views/orderPage"),
+    component: () => import("@/views/orderPage")
+  },
+  {
+    path: "/account/settings",
+    name: "accountSettings",
+    component: () => import("@/views/accountSettings")
   },
   {
     path: "/:PathMatch(.*)*",
     name: "errorPage",
-    component: () => import("@/views/ePage"),
-  },
+    component: () => import("@/views/ePage")
+  }
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 });
 export default router;

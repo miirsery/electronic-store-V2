@@ -110,6 +110,7 @@ import TextInput from "@/components/UI/TextInput";
 import * as Yup from "yup";
 import { mapActions } from "vuex";
 import { ref } from "vue";
+import instance from "@/api/instance";
 
 export default {
   props: {
@@ -143,6 +144,7 @@ export default {
       this.schema = this.changeSchema(tab.props.name);
       console.log(this.schema);
     },
+
     onInvalidSubmit() {
       const submitBtn = document.querySelector(".submit-btn");
       submitBtn.classList.add("invalid");
@@ -171,11 +173,12 @@ export default {
       }
       return Yup.object().shape(newData);
     },
+    async test() {
+      await this.$api.auth.test()
+    },
     async signIn(data) {
-      console.log(data);
       try {
         const responseData = (await this.$api.auth.signIn(data)).data;
-        localStorage.setItem("user", JSON.stringify(responseData));
         this.$store.dispatch("user/setUser");
         this.$store.dispatch("user/IS_AUTH", true);
         this.$emit("close");
@@ -211,6 +214,8 @@ export default {
     },
     saveToken(token) {
       sessionStorage.setItem("tokenData", JSON.stringify(token.token));
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token.token}`
+      this.test()
     }
   },
   computed: {
