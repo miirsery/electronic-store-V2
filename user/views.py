@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -17,5 +16,6 @@ class UserCreateAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
         data = request.data.copy()
-        data['owner'] = request.user.id
-        return Response({'user_id': data['owner']})
+        data['owner_name'] = request.user.username
+        data['owner_email'] = request.user.email
+        return Response({'username': data['owner_name'], 'email': data['owner_email']})

@@ -4,6 +4,7 @@ from . import views
 from rest_framework_jwt.views import obtain_jwt_token
 from .views import (
     UserCreateAPIView,
+    UserViewSet,
 )
 
 router = routers.DefaultRouter()
