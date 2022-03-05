@@ -5,6 +5,8 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.conf import settings
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -36,6 +38,12 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
+    avatar = ProcessedImageField (upload_to='avatar',
+                                      processors=[ResizeToFill(36, 36)],
+                                      format='JPEG',
+                                      options={'quality': 60},
+                                      blank=True,
+                                      null=True)
     is_active = models.BooleanField(
         default=True
     )

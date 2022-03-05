@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'rest_framework.authtoken',
+    'imagekit',
     
     # local
     'user',
@@ -91,8 +92,8 @@ WSGI_APPLICATION = 'store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv("DJANGO_DB_ENGINE", 'django.db.backends.sqlite3'),
+        'NAME':  os.getenv("DJANGO_DB_DATABASE", os.path.join(BASE_DIR, 'db.sqlite3')),
     }
 }
 
