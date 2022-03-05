@@ -1,5 +1,7 @@
 # backend
 
+## Это первый опыт по этому не судите строго, приятного просмотра
+
 ## Клонируем реппозиторий
 ```
 git clone https://github.com/miirsery/electronic-store-V2.git
