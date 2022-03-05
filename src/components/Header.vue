@@ -55,17 +55,13 @@
           </li>
         </ul>
         <auth
-          :show-modal="showModal && isUser.user === null"
+          :show-modal="showModal && isUser.isAuth === false"
           @close="showModal = !showModal"
         />
-        <div class="profile-settings" v-if="isUser.user !== null && showModal ===true">
-          <h2>Здравствуйте {{ isUser.user.email }}</h2>
-          <router-link to="/" class="mb-2 mt-4 block"> Настройки</router-link>
-          <router-link to="/" class="mb-2 block"> Сообщения</router-link>
-          <button type="button" class="cursor-pointer" @click="logout">
-            Выход
-          </button>
-        </div>
+        <profile-settings
+          :show-modal="showModal && isUser.isAuth !== false"
+          @close="showModal = !showModal"
+        />
       </div>
     </div>
   </header>
@@ -73,10 +69,12 @@
 <script>
 import Auth from "@/components/forrms/Auth";
 import { mapGetters } from "vuex";
+import ProfileSettings from "@/components/ProfileSettings";
 
 export default {
   components: {
-    Auth
+    Auth,
+    ProfileSettings
   },
   data() {
     return {
@@ -91,17 +89,8 @@ export default {
     isUser() {
       return this.$store.state.user;
     }
-  },
-  methods: {
-    logout() {
-      this.$api.auth.logout();
-      localStorage.removeItem("user");
-      this.$store.dispatch("user/deleteUser");
-      this.$store.dispatch("user/IS_AUTH", false);
-      this.showModal = false;
-      this.$router.push({ name: "home" });
-    }
   }
+
 };
 </script>
 

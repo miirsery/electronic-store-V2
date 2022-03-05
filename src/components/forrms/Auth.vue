@@ -10,8 +10,12 @@
                 class="demo-tabs"
                 @tab-click="handleClick"
               >
-                <el-tab-pane label="Авторизация" name="signIn">Авторизация</el-tab-pane>
-                <el-tab-pane label="Регистрация" name="signUp">Регистрация</el-tab-pane>
+                <el-tab-pane label="Авторизация" name="signIn"
+                  >Авторизация</el-tab-pane
+                >
+                <el-tab-pane label="Регистрация" name="signUp"
+                  >Регистрация</el-tab-pane
+                >
               </el-tabs>
               <button class="block" type="button" @click="$emit('close')">
                 X
@@ -114,16 +118,16 @@ import instance from "@/api/instance";
 
 export default {
   props: {
-    showModal: Boolean
+    showModal: Boolean,
   },
   components: {
     Form,
-    TextInput
+    TextInput,
   },
   data() {
     let schemaData = {
       email: Yup.string().required(),
-      password: Yup.string().min(6).required()
+      password: Yup.string().min(6).required(),
     };
     let schema = Yup.object().shape(schemaData);
     return {
@@ -131,13 +135,13 @@ export default {
       activeName: ref("signIn"),
       schema,
       schemaData,
-      isAuth: false
+      isAuth: false,
     };
   },
   methods: {
     ...mapActions({
       setUser: "user/setUser",
-      deleteUser: "user/deleteUser"
+      deleteUser: "user/deleteUser",
     }),
     handleClick(tab) {
       this.mode = tab.props.name;
@@ -165,7 +169,7 @@ export default {
           signUpPassword: Yup.string().min(6).required(),
           confirmPassword: Yup.string()
             .required()
-            .oneOf([Yup.ref("signUpPassword")], "Passwords do not match")
+            .oneOf([Yup.ref("signUpPassword")], "Passwords do not match"),
         };
       }
       if (name === "signIn") {
@@ -174,12 +178,13 @@ export default {
       return Yup.object().shape(newData);
     },
     async test() {
-      await this.$api.auth.test()
+      await this.$api.auth.test();
+      console.log(await this.$api.auth.test());
     },
     async signIn(data) {
       try {
         const responseData = (await this.$api.auth.signIn(data)).data;
-        this.$store.dispatch("user/setUser");
+        this.$store.dispatch("user/setUser", data);
         this.$store.dispatch("user/IS_AUTH", true);
         this.$emit("close");
         this.saveToken(responseData);
@@ -195,7 +200,7 @@ export default {
         const newData = {
           username: data.signUpUsername,
           password: data.signUpPassword,
-          email: data.signUpEmail
+          email: data.signUpEmail,
         };
         let responseData = (await this.$api.auth.signUp(newData)).data;
         console.log(responseData);
@@ -206,23 +211,25 @@ export default {
       }
     },
     logout() {
-      this.$api.auth.logout();
       localStorage.removeItem("user");
       this.$store.dispatch("user/deleteUser");
       this.$store.dispatch("user/IS_AUTH", false);
       this.$router.push({ name: "home" });
     },
     saveToken(token) {
-      sessionStorage.setItem("tokenData", JSON.stringify(token.token));
-      instance.defaults.headers.common['Authorization'] = `Bearer ${token.token}`
-      this.test()
-    }
+      localStorage.setItem("tokenData", JSON.stringify(token.token));
+      instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token.token}`;
+      this.test();
+      // this.$store.dispatch("user/setUser", this.test());
+    },
   },
   computed: {
     isSignInForm() {
       return this.mode === "signIn";
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     user: null,
-    isAuth: false
+    isAuth: false,
   },
   getters: {
     getUser(state) {
