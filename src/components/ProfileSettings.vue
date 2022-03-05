@@ -1,7 +1,7 @@
 <template>
   <transition name="profile-settings">
     <div class="profile-settings-mask" v-if="showModal">
-      <h2>Здравствуйте, {{ isUser.isAuth }}</h2>
+      <h2>Здравствуйте, {{ isUser.user.username }}</h2>
       <router-link to="/" class="mb-2 mt-4 block"> Настройки</router-link>
       <router-link to="/" class="mb-2 block"> Сообщения</router-link>
       <button type="button" class="cursor-pointer" @click="logout">

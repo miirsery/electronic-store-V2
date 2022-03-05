@@ -11,10 +11,12 @@
                 @tab-click="handleClick"
               >
                 <el-tab-pane label="Авторизация" name="signIn"
-                  >Авторизация</el-tab-pane
+                >Авторизация
+                </el-tab-pane
                 >
                 <el-tab-pane label="Регистрация" name="signUp"
-                  >Регистрация</el-tab-pane
+                >Регистрация
+                </el-tab-pane
                 >
               </el-tabs>
               <button class="block" type="button" @click="$emit('close')">
@@ -44,6 +46,8 @@
                   placeholder="Введите пароль"
                   success-message="Nice and secure!"
                 />
+
+                <router-link to="/" class="button mb-4 block">Забыли пароль?</router-link>
                 <button
                   class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
                   type="submit"
@@ -94,14 +98,6 @@
               </Form>
             </slot>
           </div>
-          <div class="modal-footer">
-            <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
-            </slot>
-          </div>
         </div>
       </div>
     </div>
@@ -118,16 +114,16 @@ import instance from "@/api/instance";
 
 export default {
   props: {
-    showModal: Boolean,
+    showModal: Boolean
   },
   components: {
     Form,
-    TextInput,
+    TextInput
   },
   data() {
     let schemaData = {
       email: Yup.string().required(),
-      password: Yup.string().min(6).required(),
+      password: Yup.string().min(6).required()
     };
     let schema = Yup.object().shape(schemaData);
     return {
@@ -135,13 +131,13 @@ export default {
       activeName: ref("signIn"),
       schema,
       schemaData,
-      isAuth: false,
+      isAuth: false
     };
   },
   methods: {
     ...mapActions({
       setUser: "user/setUser",
-      deleteUser: "user/deleteUser",
+      deleteUser: "user/deleteUser"
     }),
     handleClick(tab) {
       this.mode = tab.props.name;
@@ -169,7 +165,7 @@ export default {
           signUpPassword: Yup.string().min(6).required(),
           confirmPassword: Yup.string()
             .required()
-            .oneOf([Yup.ref("signUpPassword")], "Passwords do not match"),
+            .oneOf([Yup.ref("signUpPassword")], "Passwords do not match")
         };
       }
       if (name === "signIn") {
@@ -179,7 +175,9 @@ export default {
     },
     async test() {
       await this.$api.auth.test();
-      console.log(await this.$api.auth.test());
+      console.log(
+        await this.$api.auth.test().then((response) => response.data)
+      );
     },
     async signIn(data) {
       try {
@@ -187,7 +185,7 @@ export default {
         this.$store.dispatch("user/setUser", data);
         this.$store.dispatch("user/IS_AUTH", true);
         this.$emit("close");
-        this.saveToken(responseData);
+        await this.saveToken(responseData);
       } catch (error) {
         console.log(error.response.data);
       }
@@ -200,7 +198,7 @@ export default {
         const newData = {
           username: data.signUpUsername,
           password: data.signUpPassword,
-          email: data.signUpEmail,
+          email: data.signUpEmail
         };
         let responseData = (await this.$api.auth.signUp(newData)).data;
         console.log(responseData);
@@ -216,20 +214,23 @@ export default {
       this.$store.dispatch("user/IS_AUTH", false);
       this.$router.push({ name: "home" });
     },
-    saveToken(token) {
+    async saveToken(token) {
       localStorage.setItem("tokenData", JSON.stringify(token.token));
       instance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${token.token}`;
-      this.test();
-      // this.$store.dispatch("user/setUser", this.test());
-    },
+      await this.test();
+      this.$store.dispatch(
+        "user/setUser",
+        await this.$api.auth.test().then((response) => response.data)
+      );
+    }
   },
   computed: {
     isSignInForm() {
       return this.mode === "signIn";
-    },
-  },
+    }
+  }
 };
 </script>
 

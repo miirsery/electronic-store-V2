@@ -1,15 +1,13 @@
 <template>
-  <div class="wrapper">
-    <Header />
-    <main class="main container">
-      <Offers />
-      <Loader v-if="showLoading" />
-      <router-view />
-      <router-view name="catalogItem" />
-      <router-view name="productId" />
-    </main>
-    <my-footer />
-  </div>
+  <Header />
+  <main class="main container">
+    <Offers />
+    <Loader v-if="showLoading" />
+    <router-view />
+    <router-view name="catalogItem" />
+    <router-view name="productId" />
+  </main>
+  <my-footer />
 </template>
 
 <script>
