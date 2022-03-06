@@ -26,6 +26,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      defaultAvatar: require("../assets/avatar.png")
+    };
+  },
   props: {
     showModal: Boolean
   },
@@ -34,6 +39,7 @@ export default {
       localStorage.clear();
       this.$store.dispatch("user/deleteUser");
       this.$store.dispatch("user/IS_AUTH", false);
+      this.$store.dispatch("user/changeAvatar", this.defaultAvatar);
       this.$router.push({ name: "home" });
     }
   },

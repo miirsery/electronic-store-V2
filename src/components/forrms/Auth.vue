@@ -136,7 +136,8 @@ export default {
       activeName: ref("signIn"),
       schema,
       schemaData,
-      isAuth: false
+      isAuth: false,
+      photoField: ""
     };
   },
   methods: {
@@ -173,9 +174,7 @@ export default {
             .oneOf([Yup.ref("signUpPassword")], "Passwords do not match")
         };
       }
-      if (name === "signIn") {
-        newData = this.schemaData;
-      }
+      if (name === "signIn") newData = this.schemaData;
       return Yup.object().shape(newData);
     },
     async test() {
@@ -195,7 +194,6 @@ export default {
         console.log(error.response.data);
       }
     },
-
     async signUp(data) {
       try {
         delete data.confirmPassword;
@@ -226,7 +224,7 @@ export default {
         userData
       );
       localStorage.setItem("user", JSON.stringify(userData));
-    },
+    }
   },
   computed: {
     isSignInForm() {

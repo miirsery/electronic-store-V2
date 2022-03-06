@@ -50,7 +50,7 @@
               data-micromodal-trigger="modal-1"
               @click="toggleModal"
             >
-              <img src="../assets/avatar.png" alt="logo" />
+              <img :src="isUser.user.avatar" alt="logo" />
             </button>
           </li>
         </ul>
@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       favoriteImgUrl: require("../assets/heart.svg"),
-      cartImgUrl: require("../assets/cart.svg")
+      cartImgUrl: require("../assets/cart.svg"),
     };
   },
   methods: {
