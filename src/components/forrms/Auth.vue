@@ -47,7 +47,12 @@
                   success-message="Nice and secure!"
                 />
 
-                <router-link to="/" class="button mb-4 block">Забыли пароль?</router-link>
+                <router-link
+                  :to="{ name: 'passwordRecovery' }"
+                  @click="$emit('close')"
+                  class="button mb-4 block">
+                  Забыли пароль?
+                </router-link>
                 <button
                   class="submit-btn bg-indigo-400 pt-2 pb-2 pr-4 pl-4 text-xl text-white font-bold uppercase hover:bg-indigo-500"
                   type="submit"
@@ -218,7 +223,7 @@ export default {
       localStorage.setItem("tokenData", JSON.stringify(token.token));
       instance.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${token.token}`;
+        ] = `Bearer ${token.token}`;
       await this.test();
       this.$store.dispatch(
         "user/setUser",

@@ -48,7 +48,7 @@
               type="button"
               class="actions__link icon"
               data-micromodal-trigger="modal-1"
-              @click="showModal = true"
+              @click="toggleModal"
             >
               <img src="../assets/avatar.png" alt="logo" />
             </button>
@@ -56,11 +56,11 @@
         </ul>
         <auth
           :show-modal="showModal && isUser.isAuth === false"
-          @close="showModal = !showModal"
+          @close="toggleModal"
         />
         <profile-settings
           :show-modal="showModal && isUser.isAuth !== false"
-          @close="showModal = !showModal"
+          @close="toggleModal"
         />
       </div>
     </div>
@@ -79,18 +79,23 @@ export default {
   data() {
     return {
       favoriteImgUrl: require("../assets/heart.svg"),
-      cartImgUrl: require("../assets/cart.svg"),
-      showModal: false,
-      showSettingsModal: false
+      cartImgUrl: require("../assets/cart.svg")
     };
+  },
+  methods: {
+    toggleModal() {
+      this.$store.dispatch("toggleModal")
+    }
   },
   computed: {
     ...mapGetters("cart", { cartCnt: "length" }),
     isUser() {
       return this.$store.state.user;
+    },
+    showModal() {
+      return this.$store.state.showAuthModal;
     }
   }
-
 };
 </script>
 

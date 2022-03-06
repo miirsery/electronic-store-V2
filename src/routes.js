@@ -53,6 +53,11 @@ const routes = [
     component: () => import("@/views/accountSettings")
   },
   {
+    path: "/password-recovery",
+    name: "passwordRecovery",
+    component: () => import("@/views/passwordRecovery")
+  },
+  {
     path: "/:PathMatch(.*)*",
     name: "errorPage",
     component: () => import("@/views/ePage")
