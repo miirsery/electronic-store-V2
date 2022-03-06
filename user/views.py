@@ -18,4 +18,5 @@ class UserCreateAPIView(APIView):
         data = request.data.copy()
         data['owner_name'] = request.user.username
         data['owner_email'] = request.user.email
-        return Response({'username': data['owner_name'], 'email': data['owner_email']})
+        data['owner_avatar'] = f"/{request.user.avatar}"
+        return Response({'username': data['owner_name'], 'email': data['owner_email'], 'avatar': data['owner_avatar']})
