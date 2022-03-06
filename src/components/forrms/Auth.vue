@@ -197,7 +197,6 @@ export default {
     },
 
     async signUp(data) {
-      console.log(data);
       try {
         delete data.confirmPassword;
         const newData = {
@@ -213,27 +212,21 @@ export default {
         console.log(error.response.data);
       }
     },
-    logout() {
-      localStorage.removeItem("user");
-      localStorage.removeItem("tokenData");
-      this.$store.dispatch("user/deleteUser");
-      this.$store.dispatch("user/IS_AUTH", false);
-      this.$router.push({ name: "home" });
-    },
     async saveToken(token) {
       localStorage.setItem("tokenData", JSON.stringify(token.token));
       instance.defaults.headers.common[
         "Authorization"
         ] = `Bearer ${token.token}`;
       await this.test();
-      let userData = await this.$api.auth.test().then((response) => response.data);
-      console.log("userData", userData);
+      let userData = await this.$api.auth
+        .test()
+        .then((response) => response.data);
       this.$store.dispatch(
         "user/setUser",
         userData
       );
       localStorage.setItem("user", JSON.stringify(userData));
-    }
+    },
   },
   computed: {
     isSignInForm() {
@@ -271,7 +264,7 @@ export default {
 
 .modal-container {
   width: 300px;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;

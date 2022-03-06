@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("tokenData");
+      localStorage.clear();
       this.$store.dispatch("user/deleteUser");
       this.$store.dispatch("user/IS_AUTH", false);
       this.$router.push({ name: "home" });
