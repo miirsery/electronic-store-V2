@@ -31,11 +31,12 @@ export default {
     setTimeout(() => {
       this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, false);
     }, 500);
-    if (localStorage.getItem("tokenData") !== null)
-      this.$store.dispatch(
-        "user/setUser",
-        JSON.parse(localStorage.getItem("tokenData"))
-      );
+    let userData = JSON.parse(localStorage.getItem("user")) ;
+    if (userData !== null) {
+      console.log(userData);
+      this.$store.dispatch("user/setUser", userData);
+      this.$store.dispatch("user/IS_AUTH", true);
+    }
   },
   computed: {
     ...mapMutations([

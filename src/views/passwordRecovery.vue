@@ -34,7 +34,9 @@
           <button type="button" class="text-white bg-blue-400 block p-4 uppercase bold">Восстановить</button>
         </form>
         <div class="password-recovery__actions mt-4">
-          <a href="/" class="block">У меня есть пароль. Войти на сайт</a>
+          <button @click="toggleModal" type="button" class="block">
+            У меня есть пароль. Войти на сайт
+          </button>
           <button @click="toggleModal" type="button" class="block">
             Я хочу зарегистрироваться
           </button>

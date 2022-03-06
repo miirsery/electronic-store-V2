@@ -215,6 +215,7 @@ export default {
     },
     logout() {
       localStorage.removeItem("user");
+      localStorage.removeItem("tokenData");
       this.$store.dispatch("user/deleteUser");
       this.$store.dispatch("user/IS_AUTH", false);
       this.$router.push({ name: "home" });
@@ -225,10 +226,13 @@ export default {
         "Authorization"
         ] = `Bearer ${token.token}`;
       await this.test();
+      let userData = await this.$api.auth.test().then((response) => response.data);
+      console.log("userData", userData);
       this.$store.dispatch(
         "user/setUser",
-        await this.$api.auth.test().then((response) => response.data)
+        userData
       );
+      localStorage.setItem("user", JSON.stringify(userData));
     }
   },
   computed: {
