@@ -31,10 +31,10 @@ export default {
     setTimeout(() => {
       this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, false);
     }, 500);
-    if (localStorage.getItem("user") !== null)
+    if (localStorage.getItem("tokenData") !== null)
       this.$store.dispatch(
         "user/setUser",
-        JSON.parse(localStorage.getItem("user"))
+        JSON.parse(localStorage.getItem("tokenData"))
       );
   },
   computed: {

@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     toggleModal() {
-      this.$store.dispatch("toggleModal")
+      this.$store.dispatch("toggleModal");
     }
   },
   computed: {
@@ -178,6 +178,8 @@ export default {
       text-align: left
       z-index: -1
 
+.actions
+  position: relative
 
 .profile-settings
   background-color: #fff
