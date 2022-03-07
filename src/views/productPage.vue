@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="product-breadcrumbs">
+      <router-link :to="{ name: 'home' }">Home</router-link>
+      /
+      <router-link to="/catalog/phones">каталог</router-link>
+    </div>
     <a
       @click="$router.go(-1)"
       class="ml-2 cursor-pointer text-lg leading-6 font-medium text-gray-900"
@@ -196,14 +201,14 @@ export default {
   components: { SmallImageSwiper },
   data() {
     return {
-      openTab: 1,
+      openTab: 1
     };
   },
   methods: {
     toggleTabs(tabNumber) {
       this.openTab = tabNumber;
     },
-    ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" }),
+    ...mapActions("cart", { addToCart: "add", removeFromCart: "remove" })
   },
   computed: {
     ...mapGetters("products", { products: "all" }),
@@ -213,8 +218,8 @@ export default {
     },
     showCart() {
       return this.items;
-    },
-  },
+    }
+  }
 };
 </script>
 

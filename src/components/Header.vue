@@ -43,7 +43,7 @@
               <img :src="favoriteImgUrl" alt="favorite" />
             </a>
           </li>
-          <li class="actions__item ml-4">
+          <li class="actions__item actions__item-avatar ml-4">
             <button
               type="button"
               class="actions__link icon"
@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       favoriteImgUrl: require("../assets/heart.svg"),
-      cartImgUrl: require("../assets/cart.svg"),
+      cartImgUrl: require("../assets/cart.svg")
     };
   },
   methods: {
@@ -190,4 +190,16 @@ export default {
 
 .submit-btn
   transition: ease-in-out all 300ms
+
+.actions
+  &__item
+    &-avatar
+      width: 36px
+      height: 36px
+
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        border-radius: 50%
 </style>

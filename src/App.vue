@@ -2,6 +2,7 @@
   <Header />
   <main class="main container">
     <Offers />
+    <bread-crumb />
     <Loader v-if="showLoading" />
     <router-view />
     <router-view name="catalogItem" />
@@ -15,6 +16,7 @@ import Header from "@/components/Header";
 import Offers from "@/components/Offers";
 import Loader from "@/components/Loader";
 import MyFooter from "@/components/MyFooter";
+import BreadCrumb from "@/components/UI/BreadCrumb";
 import { mapMutations, mapState } from "vuex";
 import { LOADING_SPINNER_SHOW_MUTATIONS } from "@/store/constants";
 
@@ -23,7 +25,8 @@ export default {
     Header,
     Offers,
     Loader,
-    MyFooter
+    MyFooter,
+    BreadCrumb
   },
 
   created() {
@@ -31,7 +34,7 @@ export default {
     setTimeout(() => {
       this.$store.commit(`${LOADING_SPINNER_SHOW_MUTATIONS}`, false);
     }, 500);
-    let userData = JSON.parse(localStorage.getItem("user")) ;
+    let userData = JSON.parse(localStorage.getItem("user"));
     if (userData !== null) {
       this.$store.dispatch("user/setUser", userData);
       this.$store.dispatch("user/IS_AUTH", true);
