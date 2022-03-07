@@ -22,7 +22,6 @@ export default {
         });
         return breadcrumbArray;
       }, []);
-      console.log(breadcrumbs);
       return breadcrumbs;
     }
   }

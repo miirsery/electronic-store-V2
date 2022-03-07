@@ -20,9 +20,6 @@
                 class="border-none bg-transparent"
                 type="text"
                 placeholder="Начать поиск..."
-                @focus="focused = true"
-                @blur="focused = false"
-                @onFocus="focusThis"
               />
             </form>
           </li>

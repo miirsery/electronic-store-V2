@@ -3,8 +3,7 @@
     <swiper
       :slides-per-view="4"
       :space-between="10"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
+
     >
       <swiper-slide
         class="item cursor-pointer"
@@ -24,30 +23,18 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    item: Object,
+    item: Object
   },
   components: {
     Swiper,
-    SwiperSlide,
-  },
-  setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-    };
+    SwiperSlide
   },
   computed: {
     ...mapGetters("products", { products: "all" }),
     id() {
       return this.$route.params.id;
-    },
-  },
+    }
+  }
 };
 </script>
 

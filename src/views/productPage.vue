@@ -3,7 +3,7 @@
     <div class="product-breadcrumbs">
       <router-link :to="{ name: 'home' }">Home</router-link>
       /
-      <router-link to="/catalog/phones">каталог</router-link>
+      <router-link :to="lastPath"> Телефоны</router-link>
     </div>
     <a
       @click="$router.go(-1)"
@@ -201,9 +201,14 @@ export default {
   components: { SmallImageSwiper },
   data() {
     return {
-      openTab: 1
+      openTab: 1,
+      lastPath: null
     };
   },
+  created() {
+    this.lastPath = this.$router.options.history.state.back;
+  },
+
   methods: {
     toggleTabs(tabNumber) {
       this.openTab = tabNumber;
@@ -218,6 +223,9 @@ export default {
     },
     showCart() {
       return this.items;
+    },
+    prevRoutePatch() {
+      return this.lastPath ? this.lastPath : "/catalog";
     }
   }
 };
