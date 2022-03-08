@@ -1,14 +1,19 @@
 <template>
   <transition name="menu">
     <div class="menu__wrapper" v-if="showModal">
-      <div class="menu__w cursor-pointer" @click="$emit('close')"></div>
+      <div class="menu__w cursor-pointer" @click="$emit('close'), onUpload()"></div>
       <div class="menu__content absolute left-0">
-        <div class="menu__content-item">
+        <form class="menu__content-item">
           <label class="file">
-            <input type="file" id="file" aria-label="File browser example">
+            <input
+              @change="onFileSelected"
+              type="file"
+              id="file"
+              aria-label="File browser"
+            />
             <span class="block file-custom">Upload file...</span>
           </label>
-        </div>
+        </form>
         <form class="menu__content-item">
           <button class="block" type="button">
             Remove photo
@@ -23,6 +28,22 @@
 export default {
   props: {
     showModal: Boolean
+  },
+  data() {
+    return {
+      selectedFile: null
+    };
+  },
+  methods: {
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0];
+    },
+    onUpload() {
+      const fd = new FormData();
+      fd.append("image", this.selectedFile, this.selectedFile.name);
+      this.$api.user.uploadPhoto(fd)
+        .then(res => console.log(res));
+    }
   }
 };
 </script>
@@ -35,7 +56,7 @@ export default {
     bottom: 0
 
   &__content
-    bottom: -5.5rem
+    bottom: -4.5rem
     width: 150px
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33)
     z-index: 120

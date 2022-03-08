@@ -9,6 +9,7 @@
               <router-link
                 :to="{ name: 'accountSettings' }"
                 class="mb-2 mt-4 block"
+                @click="$emit('close')"
               >
                 Настройки
               </router-link>
@@ -47,7 +48,7 @@ export default {
     isUser() {
       return this.$store.state.user;
     }
-  }
+  },
 };
 </script>
 
