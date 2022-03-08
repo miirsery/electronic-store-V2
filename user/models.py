@@ -41,9 +41,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = ProcessedImageField (
         upload_to='avatars',
         format='JPEG',
-        processors=[
-            ResizeToFill(36, 36)
-        ],
         verbose_name='Аватарка пользователя',
         blank=True,
         null=True
