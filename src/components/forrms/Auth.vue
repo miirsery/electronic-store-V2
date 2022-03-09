@@ -177,10 +177,10 @@ export default {
       if (name === "signIn") newData = this.schemaData;
       return Yup.object().shape(newData);
     },
-    async test() {
-      await this.$api.auth.test();
+    async getInfo() {
+      await this.$api.auth.getInfo();
       console.log(
-        await this.$api.auth.test().then((response) => response.data)
+        await this.$api.auth.getInfo().then((response) => response.data)
       );
     },
     async signIn(data) {
@@ -215,9 +215,9 @@ export default {
       instance.defaults.headers.common[
         "Authorization"
         ] = `Bearer ${token.token}`;
-      await this.test();
+      await this.getInfo();
       let userData = await this.$api.auth
-        .test()
+        .getInfo()
         .then((response) => response.data);
       this.$store.dispatch(
         "user/setUser",

@@ -4,7 +4,7 @@ export default function(instance) {
       return instance.post("api/upload-photo/", payload);
     },
     updateProfile(payload) {
-      return instance.post("api/update-profile/", payload);
+      return instance.patch("api/update-profile/", payload);
     },
   };
 }

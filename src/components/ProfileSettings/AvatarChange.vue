@@ -3,9 +3,10 @@
     <div class="menu__wrapper" v-if="showModal">
       <div class="menu__w cursor-pointer" @click="$emit('close'), onUpload()"></div>
       <div class="menu__content absolute left-0">
-        <form class="menu__content-item">
+        <form class="menu__content-item menu__content-item-upload">
           <label class="file">
             <input
+              @click="$emit('crop')"
               @change="onFileSelected"
               type="file"
               id="file"
@@ -26,6 +27,7 @@
 
 <script>
 export default {
+  name: "AvatarChange",
   props: {
     showModal: Boolean
   },
@@ -39,9 +41,28 @@ export default {
       this.selectedFile = event.target.files[0];
     },
     onUpload() {
-      const fd = new FormData();
-      fd.append("image", this.selectedFile, this.selectedFile.name);
-      this.$api.user.uploadPhoto(fd)
+      const formData = new FormData();
+      const token = localStorage.getItem("tokenData");
+      const data = {
+        avatar: this.selectedFile,
+        token: token,
+      };
+      for (let dataKey in data) {
+        if (dataKey === "avatar"){
+
+          // Append all data
+
+          // for (let previewKey in data[dataKey]) {
+          //   // formData.append(`avatar[${previewKey}]`, data[dataKey][previewKey])
+          //
+          // }
+
+          // Append all data binary
+          formData.append("avatar", this.selectedFile, this.selectedFile.name);
+        }
+        else formData.append(dataKey, data[dataKey])
+      }
+      this.$api.user.uploadPhoto(formData)
         .then(res => console.log(res));
     }
   }

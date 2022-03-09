@@ -33,8 +33,11 @@
         />
       </div>
     </div>
-    <div class="general__img">
-      <img :src="isUser.user.avatar" alt="avatar" />
+    <div class="general__img" >
+      <!--      <img :src="isUser.user.avatar" alt="avatar" />-->
+      <image-cropper
+        :is-crop="isCrop"
+        :src="isUser.user.avatar" />
       <button
         @click="toggleModal"
         class="general__img-button cursor-pointer"
@@ -56,6 +59,7 @@
         <span>Edit</span>
       </button>
       <avatar-change
+        @crop="onCropSize"
         :show-modal="showModal"
         @close="toggleModal"
       />
@@ -65,25 +69,32 @@
 
 <script>
 import AvatarChange from "@/components/ProfileSettings/AvatarChange";
+import ImageCropper from "@/components/ImageCropper";
 
 export default {
   components: {
-    AvatarChange
+    AvatarChange,
+    ImageCropper
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
+      isCrop: false
     };
   },
   methods: {
     toggleModal() {
       this.showModal = !this.showModal;
+    },
+    onCropSize() {
+      this.isCrop = !this.isCrop;
     }
   },
   computed: {
     isUser() {
       return this.$store.state.user;
     }
+
   }
 };
 </script>
@@ -91,8 +102,6 @@ export default {
 <style scoped lang="sass">
 .general
   &__img
-    width: 200px
-    height: 200px
     position: relative
 
     &-button
@@ -105,6 +114,7 @@ export default {
       border-radius: 10px
       border: 1px solid rgba(0, 0, 0, 0.5)
       align-items: center
+      z-index: 120
 
       span
         display: block

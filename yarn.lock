@@ -3266,6 +3266,11 @@
     "safe-buffer" "^5.0.1"
     "sha.js" "^2.4.8"
 
+"cropperjs@^1.5.12":
+  "integrity" "sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw=="
+  "resolved" "https://registry.npmjs.org/cropperjs/-/cropperjs-1.5.12.tgz"
+  "version" "1.5.12"
+
 "cross-spawn@^5.0.1":
   "integrity" "sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk="
   "resolved" "https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz"

@@ -27,6 +27,7 @@
 
 <script>
 export default {
+
   data() {
     return {
       defaultAvatar: require("../assets/avatar.png")
@@ -48,7 +49,7 @@ export default {
     isUser() {
       return this.$store.state.user;
     }
-  },
+  }
 };
 </script>
 

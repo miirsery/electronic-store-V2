@@ -13,7 +13,9 @@
       <div class="settings__fields w-2/3">
         <form>
           <div class="settings__wrapper flex">
-            <component :is="currentTabComponent" class="tab"></component>
+            <keep-alive>
+              <component :is="currentTabComponent" class="tab"></component>
+            </keep-alive>
           </div>
           <button
             @click="onSubmit"
@@ -35,6 +37,7 @@ import SettingsContact from "@/components/ProfileSettings/SettingsContact.vue";
 
 export default {
   name: "accountSettings",
+
   data() {
     return {
       currentTab: "SettingsGeneral",
@@ -61,11 +64,11 @@ export default {
     },
     isUser() {
       return this.$store.state.user;
-    },
+    }
   },
   methods: {
     onSubmit() {
-      this.$api.user.updateProfile(this.userData)
+      this.$api.user.updateProfile(this.userData);
     }
   }
 };

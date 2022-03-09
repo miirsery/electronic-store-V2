@@ -47,7 +47,7 @@
               data-micromodal-trigger="modal-1"
               @click="toggleModal"
             >
-              <img :src="isUser.user.avatar" alt="logo" />
+              <img class="actions__item-img" :src="isUser.user.avatar" alt="logo" />
             </button>
           </li>
         </ul>
@@ -121,8 +121,8 @@ export default {
   width: 100%
 
 .icon
-  max-width: 36px
-  max-height: 36px
+  width: 36px
+  height: 36px
   display: block
 
   img
@@ -177,6 +177,8 @@ export default {
 
 .actions
   position: relative
+  &__item
+    &-img
 
 .profile-settings
   background-color: #fff

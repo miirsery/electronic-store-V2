@@ -6,6 +6,7 @@ import api from "@/api/index";
 import store from "./store/index";
 import loadPlugin from "@/plugins/load";
 
+import "cropperjs/src/index.scss"
 import "element-plus/dist/index.css";
 import "@/assets/tailwind.css";
 import "@/assets/sass/main.sass";

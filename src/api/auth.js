@@ -6,7 +6,7 @@ export default function (instance) {
     signUp(payload) {
       return instance.post("api/auth/users/", payload);
     },
-    test() {
+    getInfo() {
       return instance.get("api/user/user-auth/");
     }
   };
