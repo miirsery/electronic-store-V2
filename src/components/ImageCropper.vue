@@ -28,8 +28,8 @@ export default {
     url: String
   },
   mounted() {
+    console.log("MOUNTED");
     this.image = this.$refs.image;
-    console.log(this.image);
     this.cropper = new Cropper(this.image, {
       zoomable: false,
       scalable: false,
@@ -49,11 +49,31 @@ export default {
       newImage: {},
       selectedFile: null,
       newFile: null,
-      newUrl: null
+      newUrl: null,
     };
   },
+  watch: {
+    image(value) {
+      console.log("value", value);
+    },
+  },
   methods: {
+    updateAll() {
+      this.image = this.$refs.image;
+      console.log(this.image);
+      this.newUrl = localStorage.getItem("url");
+      this.cropper = new Cropper(this.image, {
+        zoomable: false,
+        scalable: false,
+        aspectRatio: 1,
+        crop: () => {
+          const canvas = this.cropper.getCroppedCanvas();
+          this.destination = canvas.toDataURL("image/png");
+        }
+      });
+    },
     onUpload() {
+      this.updateAll();
       this.selectedFile = this.getAvatar;
       this.newUrl = localStorage.getItem("url");
 
