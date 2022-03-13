@@ -2,18 +2,18 @@
 
 ## Это первый опыт по этому не судите строго, приятного просмотра
 
-## Клонируем реппозиторий
+## Клонируем реппозиторий:
 ```
 git clone https://github.com/miirsery/electronic-store-V2.git
 cd store
 ```
 
-## Ставим виртуальное окружение и заходим в него для linux
+## Ставим виртуальное окружение и заходим в него для linux:
 ```
 python -m venv venv
 source venv/bin/activate
 ```
-## Ставим виртуальное окружение и заходим в него для Windows
+## Ставим виртуальное окружение и заходим в него для Windows:
 ```
 python -m venv venv
 source venv/Scripts/activate
@@ -24,18 +24,18 @@ source venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
-## Делаем миграции
+## Делаем миграции:
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-## Запускаем сервер
+## Запускаем сервер:
 ```
 python manage.py runserver
 ```
 
-## Выход из виртуального окружения
+## Выход из виртуального окружения:
 ```
 deactivate
 ```
