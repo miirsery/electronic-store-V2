@@ -1,7 +1,7 @@
 <template>
   <transition name="menu">
     <div class="menu__wrapper" v-if="showModal">
-      <div class="menu__w cursor-pointer" @click="onUpload"></div>
+      <div class="menu__w cursor-pointer" @click="$emit('close')"></div>
       <div class="menu__content absolute left-0">
         <form class="menu__content-item menu__content-item-upload">
           <label class="file">
@@ -15,60 +15,50 @@
           </label>
         </form>
         <form class="menu__content-item">
-          <button class="block" type="button">
-            Remove photo
-          </button>
+          <button class="block" type="button">Remove photo</button>
         </form>
       </div>
     </div>
   </transition>
+  <image-cropper
+    v-if="isCropped"
+    :src="avatar"
+  />
 </template>
 
 <script>
+import ImageCropper from "@/components/ImageCropper";
 
 export default {
   name: "AvatarChange",
+  components: {
+    ImageCropper
+  },
   props: {
     showModal: Boolean
   },
   data() {
     return {
-      selectedFile: null
+      selectedFile: null,
+      avatar: null,
+      isCrop: false
     };
   },
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      if (this.selectedFile !== null) {
-        this.$emit("crop");
-        const reader = new FileReader();
-        let url = "";
-        reader.addEventListener("load", function() {
-          url = this.result;
-        });
-        this.$store.commit("user/UPLOAD_AVATAR", this.selectedFile);
-        setTimeout(() => {
-          this.$store.dispatch("user/setUrl", url);
-          localStorage.setItem("url", url);
-        }, 500);
-        reader.readAsDataURL(this.selectedFile);
-      }
-    },
-    onUpload() {
-      const formData = new FormData();
-      const token = localStorage.getItem("tokenData");
-      const data = {
-        avatar: this.selectedFile,
-        token: token
+      this.$store.commit("user/SET_IMAGE_FILE", this.selectedFile);
+      let reader = new FileReader();
+      reader.readAsDataURL(this.selectedFile);
+      reader.onload = (event) => {
+        this.avatar = event.target.result;
       };
-      for (let dataKey in data) {
-        if (dataKey === "avatar") {
-          formData.append("avatar", this.selectedFile, this.selectedFile.name);
-        } else formData.append(dataKey, data[dataKey]);
-      }
-      this.$api.user.uploadPhoto(formData)
-        .then(res => console.log(res));
-      this.$emit("close");
+      this.$store.commit("user/TOGGLE_CROP", true);
+    }
+  },
+  computed: {
+    isCropped() {
+      return this.$store.state.user.isCrop;
     }
   }
 };
@@ -125,5 +115,4 @@ export default {
     background-color: transparent
     border-radius: 0.25rem
     user-select: none
-
 </style>

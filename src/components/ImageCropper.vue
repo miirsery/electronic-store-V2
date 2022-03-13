@@ -1,18 +1,19 @@
 <template>
   <div class="image-cropper">
-    <div class="img__wrapper" v-show="isCrop">
-      <!--      <img class="img__avatar&#45;&#45;new" ref="image" :src="src" alt="image" />-->
-
-      <!--      <img class="img__avatar&#45;&#45;old" ref="image" :src="src" alt="image" v-if="url === null" />-->
-      <img class="img__avatar--new" ref="image" :src="url" alt="img__avatar--new" />
+    <div class="img__wrapper">
+      <img
+        class="img__avatar--new"
+        ref="image"
+        :src="src"
+        alt="img__avatar--new"
+      />
       <button
-        @click="onUpload"
-        type="button" class="block img__save bg-blue-400 text-white pt-2 pb-2 pl-3 pr-3">
+        @click="onSubmit"
+        type="button"
+        class="block img__save bg-blue-400 text-white pt-2 pb-2 pl-3 pr-3"
+      >
         Save
       </button>
-    </div>
-    <div class="img__destination">
-      <img :src="destination" alt="" />
     </div>
   </div>
 </template>
@@ -23,45 +24,33 @@ import Cropper from "cropperjs";
 export default {
   name: "ImageCropper",
   props: {
-    src: String,
-    isCrop: Boolean,
-    url: String
-  },
-  mounted() {
-    console.log("MOUNTED");
-    this.image = this.$refs.image;
-    this.cropper = new Cropper(this.image, {
-      zoomable: false,
-      scalable: false,
-      aspectRatio: 1,
-      crop: () => {
-        const canvas = this.cropper.getCroppedCanvas();
-        this.destination = canvas.toDataURL("image/png");
-      }
-    });
-    this.newUrl = localStorage.getItem("url");
+    src: String
   },
   data() {
     return {
       cropper: {},
       destination: {},
       image: {},
-      newImage: {},
-      selectedFile: null,
-      newFile: null,
-      newUrl: null,
+      newDestination: {},
+      currentFile: null
     };
   },
   watch: {
-    image(value) {
-      console.log("value", value);
-    },
+    destination(val, newVal) {
+      this.newDestination = newVal;
+    }
+  },
+  mounted() {
+    console.log("MOUNTED");
+    if (this.image)
+      setTimeout(() => {
+        this.changeAvatar();
+      }, 100);
   },
   methods: {
-    updateAll() {
+    changeAvatar() {
+      console.log("CHANGE");
       this.image = this.$refs.image;
-      console.log(this.image);
-      this.newUrl = localStorage.getItem("url");
       this.cropper = new Cropper(this.image, {
         zoomable: false,
         scalable: false,
@@ -72,65 +61,35 @@ export default {
         }
       });
     },
-    onUpload() {
-      this.updateAll();
-      this.selectedFile = this.getAvatar;
-      this.newUrl = localStorage.getItem("url");
+    onSubmit() {
+      setTimeout(() => {
+        this.currentFile = this.isUser.user.selectedFile;
+        console.log(this.currentFile);
+        const token = localStorage.getItem("tokenData");
+        const formData = new FormData();
 
-      const formData = new FormData();
-      const token = localStorage.getItem("tokenData");
-
-      this.$api.user.uploadPhoto(formData)
-        .then(res => console.log(res));
-
-      this.$emit("crop");
-      let myBlob = this.dataURItoBlob(this.destination);
-      let name = this.selectedFile.name;
-      // For send
-      this.newFile = new File([myBlob], name);
-      const data = {
-        avatar: this.selectedFile,
-        token: token
-      };
-      for (let dataKey in data) {
-        if (dataKey === "avatar") {
-          formData.append("avatar", this.selectedFile, this.selectedFile.name);
-        } else formData.append(dataKey, data[dataKey]);
-      }
-    },
-    dataURItoBlob(dataURI) {
-      // convert base64/URLEncoded data component to raw binary data held in a string
-      let byteString;
-      if (dataURI.split(",")[0].indexOf("base64") >= 0)
-        byteString = atob(dataURI.split(",")[1]);
-      else
-        byteString = unescape(dataURI.split(",")[1]);
-
-      // separate out the mime component
-      let mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
-
-      // write the bytes of the string to a typed array
-      let ia = new Uint8Array(byteString.length);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-
-      return new Blob([ia], { type: mimeString });
+        const data = {
+          avatar: this.currentFile,
+          token: token
+        };
+        for (let dataKey in data) {
+          if (dataKey === "avatar") {
+            formData.append(
+              "avatar",
+              this.currentFile,
+              this.currentFile.name
+            );
+          } else formData.append(dataKey, data[dataKey]);
+        }
+        this.$api.user.uploadPhoto(formData).then((res) => console.log(res));
+        this.$store.dispatch("user/setAvatarFile", this.destination);
+        this.$store.commit("user/TOGGLE_CROP", false);
+      }, 500);
     }
   },
-
   computed: {
-    changeCropState() {
-      return !this.isCrop;
-    },
     isUser() {
       return this.$store.state.user;
-    },
-    getAvatar() {
-      return this.$store.state.user.selectedFile;
-    },
-    getNewAvatar() {
-      return this.$store.state.user.url;
     }
   }
 };
