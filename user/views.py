@@ -8,6 +8,9 @@ from .serializers import (
 )
 from .models import User
 from rest_framework import status
+from django.conf import settings
+
+import os
 
 
 # Create your views here.
@@ -34,3 +37,19 @@ class UserUpdateView(APIView):
         if serializer.is_valid():
             serializer.update(request.user, request.data)
             return Response(UserUpdateSerializer(request.user, context={"request": request}).data, status.HTTP_200_OK)
+
+    def patch(self, request):
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.update(request.user, request.data)
+            return Response(UserSerializer(request.user, context={"request": request}).data, status.HTTP_200_OK)
+
+class UserDeleteView(APIView):
+    queryset = User.objects.filter(is_active=True)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        user.avatar = 'avatars/Алакшин.jpg'
+        user.save()
+        return Response(UserSerializer(user, context={"request": request}).data, status.HTTP_200_OK)

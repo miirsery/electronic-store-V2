@@ -6,6 +6,7 @@ from .views import (
     UserCreateAPIView,
     UserViewSet,
     UserUpdateView,
+    UserDeleteView,
 )
 
 
@@ -20,4 +21,6 @@ urlpatterns = [
     path('token-create/', obtain_jwt_token, name='obtain_jwt_token'),
     path('user-auth/', UserCreateAPIView.as_view()),
     path('upload-photo/', UserUpdateView.as_view()),
+    path('del-photo/', UserDeleteView.as_view()),
+    path('upload-username/', UserUpdateView.as_view()),
 ]

@@ -45,6 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='Аватарка пользователя',
         blank=True,
         null=True,
+        default='avatars/Алакшин.jpg',
     )
     is_active = models.BooleanField(
         default=True,

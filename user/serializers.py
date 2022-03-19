@@ -1,10 +1,13 @@
 from rest_framework import serializers
 from .models import User
 
+from django.conf import settings
+import os
+
 
 class UserSerializer(serializers.ModelSerializer):
     avatar = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = User
         fields = (
@@ -22,7 +25,9 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('avatar',)
+        fields = (
+            'avatar',
+        )
 
     def get_avatar(self, user):
         request = self.context.get('request')
