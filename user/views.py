@@ -50,6 +50,6 @@ class UserDeleteView(APIView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        user.avatar = 'avatars/Алакшин.jpg'
+        user.avatar = 'avatars/defalt.jpg'
         user.save()
         return Response(UserSerializer(user, context={"request": request}).data, status.HTTP_200_OK)
