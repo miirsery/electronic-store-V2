@@ -62,6 +62,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(
         auto_now=True
     )
+    password_change_key = models.CharField(
+        verbose_name='Ключ смены пароля', 
+        max_length=100,
+        default=''
+    )
 
     def __str__(self):
         return self.username

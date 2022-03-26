@@ -33,3 +33,18 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         avatar = user.avatar.url
         return request.build_absolute_uri(avatar)
+
+class UserEmailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('email',)
+
+
+# class UserPasswordUpdateSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = User
+#         fields = (
+#             'password',
+#         )

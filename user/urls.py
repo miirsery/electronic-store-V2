@@ -7,6 +7,7 @@ from .views import (
     UserViewSet,
     UserUpdateView,
     UserDeleteView,
+    UserUpdatePasswordView,
 )
 
 
@@ -23,4 +24,6 @@ urlpatterns = [
     path('upload-photo/', UserUpdateView.as_view()),
     path('del-photo/', UserDeleteView.as_view()),
     path('upload-username/', UserUpdateView.as_view()),
+    path('sending-key/', UserUpdateView.as_view()),
+    path('key-verification/', UserUpdatePasswordView.as_view()),
 ]

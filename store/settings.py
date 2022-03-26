@@ -175,3 +175,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+# EMAIL SETTINGS
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'griga2888@mail.ru'
+EMAIL_HOST_PASSWORD = 'KZgQKiR9yBBTY3Tty9MQ'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
