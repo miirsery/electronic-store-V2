@@ -8,6 +8,7 @@ from .serializers import (
     UserSerializer,
     UserUpdateSerializer,
     UserEmailSerializer,
+    # UserPasswordUpdateSerializer,
 )
 from .models import User
 from rest_framework import status
