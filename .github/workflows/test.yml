@@ -1,6 +1,14 @@
 name: Linter and Application Test
 
-on: [push]
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - 'backend'
+  push:
+    branches:
+      - 'backend'
+
 
 jobs:
   build:
