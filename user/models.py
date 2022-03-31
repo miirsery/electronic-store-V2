@@ -4,9 +4,7 @@ from django.contrib.auth.models import (
     PermissionsMixin
 )
 from django.db import models
-from django.conf import settings
 from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
 # Create your models here.
 
 
@@ -37,9 +35,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(verbose_name='Логин пользователя',max_length=50)
+    username = models.CharField(verbose_name='Логин пользователя',
+                                max_length=50)
     email = models.EmailField(max_length=100, unique=True)
-    avatar = ProcessedImageField (
+    avatar = ProcessedImageField(
         upload_to='avatars',
         format='JPEG',
         verbose_name='Аватарка пользователя',
@@ -62,11 +61,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(
         auto_now=True
     )
-    password_change_key = models.CharField(
-        verbose_name='Ключ смены пароля', 
-        max_length=100,
-        default=''
-    )
 
     def __str__(self):
         return self.username
@@ -76,11 +70,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-
     class Meta:
         # verbose_name - наименование модели в единственном числе
         verbose_name = 'User'
         # verbose_name_plural - название в множественном числе
         verbose_name_plural = 'Users'
-
-    

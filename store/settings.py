@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'imagekit',
-    
     # local
     'user',
 ]
@@ -93,7 +92,10 @@ WSGI_APPLICATION = 'store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.getenv("DJANGO_DB_ENGINE", 'django.db.backends.sqlite3'),
-        'NAME':  os.getenv("DJANGO_DB_DATABASE", os.path.join(BASE_DIR, 'db.sqlite3')),
+        'NAME':  os.getenv(
+                            "DJANGO_DB_DATABASE",
+                            os.path.join(BASE_DIR, 'db.sqlite3')
+                        ),
     }
 }
 
@@ -104,16 +106,20 @@ AUTH_USER_MODEL = 'user.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation \
+                .UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation \
+                .MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation \
+                .CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation \
+                 .NumericPasswordValidator',
     },
 ]
 
@@ -177,9 +183,18 @@ REST_FRAMEWORK = {
 }
 
 # EMAIL SETTINGS
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'griga2888@mail.ru'
-EMAIL_HOST_PASSWORD = 'KZgQKiR9yBBTY3Tty9MQ'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'gregdev77@gmail.com'
+EMAIL_HOST_PASSWORD = 'uvubus7788'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+
+# DJOSER settings
+DJOSER = {
+    # the reset link
+    "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "#/username/reset/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": True,
+    "SERIALISERS": {},
+}

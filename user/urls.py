@@ -4,10 +4,10 @@ from . import views
 from rest_framework_jwt.views import obtain_jwt_token
 from .views import (
     UserCreateAPIView,
-    UserViewSet,
+    # UserViewSet,
     UserUpdateView,
     UserDeleteView,
-    UserUpdatePasswordView,
+    # UserUpdatePasswordView,
 )
 
 
@@ -25,5 +25,5 @@ urlpatterns = [
     path('del-photo/', UserDeleteView.as_view()),
     path('upload-username/', UserUpdateView.as_view()),
     path('sending-key/', UserUpdateView.as_view()),
-    path('key-verification/', UserUpdatePasswordView.as_view()),
+    # path('key-verification/', UserUpdatePasswordView.as_view()),
 ]
