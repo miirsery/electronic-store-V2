@@ -22,7 +22,7 @@ urlpatterns = [
 
     path('auth/', include('djoser.urls')),
     re_path('auth/', include('djoser.urls.authtoken')),
-    path('auth/', include('djoser.urls.jwt')),
+    # path('auth/', include('djoser.urls.jwt')),
 
     path('account/', include('user.urls')),
     path('store/', include('store.urls')),

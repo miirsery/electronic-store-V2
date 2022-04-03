@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from store.models import Category, Product
+from store.models import Category, Product, Comment
 
 
 # -------------------------------------------------
@@ -24,6 +24,19 @@ class CategoryDetailSerializers(serializers.ModelSerializer):
 
 
 # -------------------------------------------------
+# Comment
+# -------------------------------------------------
+
+class CommentSerializers(serializers.ModelSerializer):
+    """Comment Product """
+    owner = serializers.CharField(source='owner.username', read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+# -------------------------------------------------
 # Product List and Detail
 # -------------------------------------------------
 
@@ -38,6 +51,8 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 class ProductDetailSerializers(serializers.ModelSerializer):
     """ Product Detail """
+    comment = CommentSerializers(many=True)
+
     class Meta:
         model = Product
         fields = '__all__'

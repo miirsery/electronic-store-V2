@@ -1,15 +1,16 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 
-from store.models import Category, Product
+from store.models import Category, Product, Comment
+from store.permissons import IsOwnerOrAdmin
 from store.serializers import CategoryDetailSerializers, CategoryListSerializers, ProductDetailSerializers, \
-    ProductListSerializer
+    ProductListSerializer, CommentSerializers
 
 
 # -------------------------------------------------
-# Category
+# Category Product
 # -------------------------------------------------
 
 
@@ -77,3 +78,37 @@ class ProductCRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductDetailSerializers
     queryset = Product
     permission_classes = (IsAdminUser,)
+
+
+# -------------------------------------------------
+# Comment
+# -------------------------------------------------
+
+
+class CommentCreateAPIView(generics.CreateAPIView):
+    """Create comment product"""
+
+    serializer_class = CommentSerializers
+    permission_classes = (IsAuthenticated, )
+    queryset = Comment.objects.filter(active=True)
+
+    def perform_create(self, serializer):
+        serializer.validated_data['owner'] = self.request.user
+        serializer.save()
+
+
+class CommentRetrieveAPIView(generics.RetrieveAPIView):
+    """Retrieve Comment """
+
+    serializer_class = CommentSerializers
+    permission_classes = (IsAuthenticated,)
+    queryset = Comment.objects.filter(active=True)
+
+
+class CommentUpdateAPIView(generics.UpdateAPIView):
+    """ Update Comment"""
+
+    serializer_class = CommentSerializers
+    permission_classes = (IsOwnerOrAdmin,)
+    queryset = Comment.objects.filter(active=True)
+

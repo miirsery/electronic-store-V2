@@ -13,7 +13,7 @@ class Product(models.Model):
     name = models.CharField(verbose_name='Наименование', max_length=255, unique=True)
     description = models.TextField(verbose_name='Описание товара', max_length=1024, null=True, blank=True)
     short_description = models.CharField(verbose_name='Краткое описание', max_length=500, blank=True)
-    specifications = models.JSONField(verbose_name='Характеристики', blank=True)
+    specifications = models.JSONField(verbose_name='Характеристики', blank=True, null=True)
     price_now = models.FloatField(verbose_name='Текущая цена товара')
     price_old = models.FloatField(verbose_name='Старая цена товара', null=True, blank=True)
     quantity = models.PositiveIntegerField(verbose_name='Колличество товара на складе')
@@ -61,13 +61,24 @@ class Subcategory(models.Model):
 
 
 class Comment(models.Model):
+    RATE_CHOICES = (
+        (1, '1 - Terribly'),
+        (2, '2 - Bad'),
+        (3, '3 - Normal'),
+        (4, '4 - Okay'),
+        (5, '5 - Amazing')
+    )
+
     owner = models.ForeignKey(User, verbose_name='Автор комментария', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name='Продукт', on_delete=models.CASCADE,
-                                related_name='comments_products')
+                                related_name='comment')
     body = models.TextField(verbose_name='Комментарий')
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Дата последнего обновления', auto_now=True)
     active = models.BooleanField(verbose_name='Активный', default=True)
+    parent = models.ForeignKey('self', verbose_name='Родитель', blank=True, null=True, on_delete=models.SET_NULL,
+                               help_text='Ответ на коментарий "Родителя"')
+    rate = models.PositiveIntegerField(choices=RATE_CHOICES, null=True)
 
     class Meta:
         ordering = ('created_at',)
