@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAdminUser, AllowAny
 
 from store.models import Category, Product
@@ -25,14 +26,9 @@ class CategoryProductListAPIView(generics.ListAPIView):
     serializer_class = CategoryListSerializers
     queryset = Category.objects.all()
     permission_classes = (AllowAny,)
-
-
-class CategoryProductDetailAPIView(generics.RetrieveAPIView):
-    """ View Category Product Detail """
-
-    serializer_class = CategoryDetailSerializers
-    queryset = Category
-    permission_classes = (AllowAny,)
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['id', 'name']
+    ordering_fields = ['id', 'name']
 
 
 class CategoryProductCRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -41,6 +37,7 @@ class CategoryProductCRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategoryDetailSerializers
     queryset = Category
     permission_classes = (IsAdminUser,)
+
 
 # -------------------------------------------------
 # Product
@@ -60,6 +57,10 @@ class ProductListAPIView(generics.ListAPIView):
     serializer_class = ProductListSerializer
     queryset = Product.objects.all()
     permission_classes = (AllowAny,)
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_fields = ['price_now', 'status', 'discount', ]
+    search_fields = ['id', 'name', ]
+    ordering_fields = ['id', 'name', ]
 
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
@@ -76,5 +77,3 @@ class ProductCRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductDetailSerializers
     queryset = Product
     permission_classes = (IsAdminUser,)
-
-
