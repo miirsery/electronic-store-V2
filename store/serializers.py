@@ -29,7 +29,7 @@ class CategoryDetailSerializers(serializers.ModelSerializer):
 
 class CommentSerializers(serializers.ModelSerializer):
     """Comment Product """
-    owner = serializers.CharField(source='owner.username', read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Comment

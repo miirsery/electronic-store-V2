@@ -2,7 +2,7 @@ from django.urls import path
 
 from store.views import CategoryProductCreateAPIView, CategoryProductListAPIView, \
     ProductCreateAPIView, ProductListAPIView, ProductDetailAPIView, CategoryProductCRUDAPIView, ProductCRUDAPIView, \
-    CommentCreateAPIView, CommentRetrieveAPIView, CommentUpdateAPIView
+    CommentCreateAPIView, CommentListAPIView, CommentRUDAPIView
 
 urlpatterns = [
     # CATEGORY URLS
@@ -18,6 +18,6 @@ urlpatterns = [
 
     # COMMENT URLS
     path('commentcreate/', CommentCreateAPIView.as_view()),
-    path('commentupdate/<int:pk>', CommentUpdateAPIView.as_view()),
-    path('comment/<int:pk>', CommentRetrieveAPIView.as_view()),
+    path('commentrud/<int:pk>', CommentRUDAPIView.as_view()),
+    path('comment/', CommentListAPIView.as_view()),
 ]

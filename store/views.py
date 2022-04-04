@@ -4,7 +4,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 
 from store.models import Category, Product, Comment
-from store.permissons import IsOwnerOrAdmin
+from store.permissons import IsOwnerOrAdminOrReadOnly
 from store.serializers import CategoryDetailSerializers, CategoryListSerializers, ProductDetailSerializers, \
     ProductListSerializer, CommentSerializers
 
@@ -97,18 +97,22 @@ class CommentCreateAPIView(generics.CreateAPIView):
         serializer.save()
 
 
-class CommentRetrieveAPIView(generics.RetrieveAPIView):
-    """Retrieve Comment """
+class CommentListAPIView(generics.ListAPIView):
+    """List Comment """
 
     serializer_class = CommentSerializers
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny, )
     queryset = Comment.objects.filter(active=True)
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_fields = ['active', 'rate', 'product', 'owner', ]
+    search_fields = ['owner', 'product', ]
+    ordering_fields = ['updated_at', 'rate', ]
 
 
-class CommentUpdateAPIView(generics.UpdateAPIView):
+class CommentRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     """ Update Comment"""
 
     serializer_class = CommentSerializers
-    permission_classes = (IsOwnerOrAdmin,)
+    permission_classes = (IsOwnerOrAdminOrReadOnly,)
     queryset = Comment.objects.filter(active=True)
 
