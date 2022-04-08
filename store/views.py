@@ -72,8 +72,8 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
 
 
-class ProductCRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
-    """ CRUD Product """
+class ProductRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+    """ RUD Product """
 
     serializer_class = ProductDetailSerializers
     queryset = Product
@@ -105,7 +105,7 @@ class CommentListAPIView(generics.ListAPIView):
     queryset = Comment.objects.filter(active=True)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filter_fields = ['active', 'rate', 'product', 'owner', ]
-    search_fields = ['owner', 'product', ]
+    search_fields = ['owner', 'product', 'rate', ]
     ordering_fields = ['updated_at', 'rate', ]
 
 
