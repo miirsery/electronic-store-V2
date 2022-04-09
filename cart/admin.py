@@ -30,8 +30,8 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'first_name', 'last_name', 'phone', 'cart', 'address', 'status', 'buying_type',
+    list_display = ('owner', 'first_name', 'last_name', 'phone', 'cart', 'address', 'status', 'buying_type',
                     'created_at', 'order_date')
-    list_display_links = ('customer',)
-    search_fields = ('customer',)
+    list_display_links = ('owner',)
+    search_fields = ('owner',)
     list_filter = ('status', 'buying_type',)

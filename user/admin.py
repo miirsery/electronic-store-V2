@@ -19,3 +19,4 @@ class UserAdmin(admin.ModelAdmin):
         return mark_safe(f'<img src={obj.avatar.url} width="150" height="100"')
 
     get_image.short_description = 'Фото профиля'
+

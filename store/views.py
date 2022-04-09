@@ -4,7 +4,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 
 from store.models import Category, Product, Comment
-from store.permissons import IsOwnerOrAdminOrReadOnly
+from store.permissons import IsOwnerOrAdminOrReadOnly, IsAdminOrReadOnly
 from store.serializers import CategoryDetailSerializers, CategoryListSerializers, ProductDetailSerializers, \
     ProductListSerializer, CommentSerializers
 
@@ -64,20 +64,12 @@ class ProductListAPIView(generics.ListAPIView):
     ordering_fields = ['id', 'name', ]
 
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
-    """ View Product Detail """
-
-    serializer_class = ProductDetailSerializers
-    queryset = Product
-    permission_classes = (AllowAny,)
-
-
 class ProductRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     """ RUD Product """
 
     serializer_class = ProductDetailSerializers
     queryset = Product
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminOrReadOnly,)
 
 
 # -------------------------------------------------

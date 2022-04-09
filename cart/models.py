@@ -21,7 +21,7 @@ class CartProduct(models.Model):
         self.final_price = self.qty * self.product.price_now
         super().save(*args, **kwargs)
         self.cart.products.add(self)
-        self.cart.save()
+        self.cart.update()
 
     def delete(self, using=None, keep_parents=False):
         self.cart.products.remove(self)
@@ -33,14 +33,14 @@ class CartProduct(models.Model):
 
 class Cart(models.Model):
     owner = models.ForeignKey('Customer', verbose_name='Владелец', on_delete=models.CASCADE, null=True)
-    products = models.ManyToManyField(CartProduct, verbose_name='Товар корзины', blank=True,
+    products = models.ManyToManyField(CartProduct, verbose_name='Товар корзины', blank=True, null=True,
                                       related_name='related_cart')
     total_products = models.PositiveIntegerField(verbose_name='Общее колличество товаров', default=0)
     final_price = models.IntegerField(verbose_name='Финальная цена', default=0)
     in_order = models.BooleanField(verbose_name='Заказ', default=False)
     for_anonymous_user = models.BooleanField(verbose_name='Анонимный пользователь ', default=False)
 
-    def save(self, *args, **kwargs):
+    def update(self, *args, **kwargs):
         total_price = 0
         for i in range(len(list(self.products.values()))):
             total_price += self.products.values()[i]['final_price']
@@ -92,7 +92,7 @@ class Order(models.Model):
         (BUYING_TYPE_DELIVERY, 'Доставка'),
     )
 
-    customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.CASCADE,
+    owner = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.CASCADE,
                                  related_name='related_orders')
     first_name = models.CharField(verbose_name='Имя', max_length=255)
     last_name = models.CharField(verbose_name='Фамилия', max_length=255, null=True, blank=True)
@@ -113,3 +113,12 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Заказ - {self.id}'
+
+    def save(self, *args, **kwargs):
+        self.cart.in_order = True
+        self.cart.update()
+        super().save(*args, **kwargs)
+        self.owner.orders.add(self)
+        Cart.objects.create(owner=self.owner)
+
+

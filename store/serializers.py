@@ -51,7 +51,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 class ProductDetailSerializers(serializers.ModelSerializer):
     """ Product Detail """
-    comment = CommentSerializers(many=True)
+    comment = CommentSerializers(many=True, default=None)
 
     class Meta:
         model = Product

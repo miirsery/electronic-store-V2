@@ -1,7 +1,7 @@
 from django.urls import path
 
 from store.views import CategoryProductCreateAPIView, CategoryProductListAPIView, \
-    ProductCreateAPIView, ProductListAPIView, ProductDetailAPIView, CategoryProductCRUDAPIView, ProductRUDAPIView, \
+    ProductCreateAPIView, ProductListAPIView, CategoryProductCRUDAPIView, ProductRUDAPIView, \
     CommentCreateAPIView, CommentListAPIView, CommentRUDAPIView
 
 urlpatterns = [
@@ -13,8 +13,7 @@ urlpatterns = [
     # PRODUCT URLS
     path('productcreated/', ProductCreateAPIView.as_view()),
     path('productlist/', ProductListAPIView.as_view()),
-    path('productdetaiel/<int:pk>', ProductDetailAPIView.as_view()),
-    path('productcrud/<int:pk>', ProductRUDAPIView.as_view()),
+    path('productrud/<int:pk>', ProductRUDAPIView.as_view()),
 
     # COMMENT URLS
     path('commentcreate/', CommentCreateAPIView.as_view()),

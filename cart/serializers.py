@@ -1,11 +1,13 @@
 from rest_framework import serializers
 
-from cart.models import Cart, Customer, CartProduct
+from cart.models import Cart, Customer, CartProduct, Order
 
+from store.models import Product
 
 # -------------------------------------------------
 # Customer
 # -------------------------------------------------
+
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,14 +31,23 @@ class CartViewOnCustomerSerializers(serializers.ModelSerializer):
 
 class CartViewOnCartProductSerializers(serializers.ModelSerializer):
     """ Serializers Cart for CartProductCreateRetrieveSerializer"""
+
     class Meta:
         model = Cart
-        fields = ('cart',)
+        fields = ('id',)
+
+
+class CartProductOnProductSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = ('name', 'price_now', 'price_old', 'photo', 'discount', )
 
 
 class CartProductCreateRetrieveSerializer(serializers.ModelSerializer):
     owner = CartViewOnCustomerSerializers(read_only=True)
-    cart = CartViewOnCartProductSerializers
+    cart = CartViewOnCartProductSerializers(read_only=True)
+    product = CartProductOnProductSerializers()
     final_price = serializers.ReadOnlyField()
 
     class Meta:
@@ -55,7 +66,7 @@ class CartProductUpdateSerializer(serializers.ModelSerializer):
 # -------------------------------------------------
 
 class CartSerializer(serializers.ModelSerializer):
-    owner = CustomerSerializer
+    owner = CartViewOnCustomerSerializers(read_only=True)
     products = CartProductCreateRetrieveSerializer(many=True)
     total_products = serializers.ReadOnlyField()
     final_price = serializers.ReadOnlyField()
@@ -65,3 +76,28 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = '__all__'
+
+
+class CartCreateSerializer(serializers.ModelSerializer):
+    owner = CustomerSerializer
+
+    class Meta:
+        model = Cart
+        fields = ('owner',)
+
+
+# -------------------------------------------------
+# Order
+# -------------------------------------------------
+
+
+class OrderSerializerRetrieve(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = "__all__"
+
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        exclude = ('owner', 'status', )

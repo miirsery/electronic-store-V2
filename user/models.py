@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
         user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
         user.save()
+        # Customer.objects.create(user=self, phone=self.phone, address=self.address)
         return user
 
     def create_superuser(self, username, email, password):
@@ -26,6 +27,7 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save()
+        # Customer.objects.create(user=self, phone=self.phone, address=self.address)
         return user
 
 
@@ -62,3 +64,5 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.username
+
+
