@@ -98,6 +98,8 @@ class OrderSerializerRetrieve(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
+    cart = CartViewOnCartProductSerializers(read_only=True)
+
     class Meta:
         model = Order
         exclude = ('owner', 'status', )

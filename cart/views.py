@@ -9,6 +9,10 @@ from cart.serializers import CartSerializer, CartProductCreateRetrieveSerializer
     OrderSerializerRetrieve, CartCreateSerializer, OrderCreateSerializer
 
 
+# -------------------------------------------------
+# Cart
+# -------------------------------------------------
+
 class CartCreateAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
@@ -37,6 +41,10 @@ class CartListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, ]
     filter_fields = ['in_order', 'for_anonymous_user', ]
 
+
+# -------------------------------------------------
+# CartProduct
+# -------------------------------------------------
 
 class CartProductAPIView(APIView):
     """CRUD CartProduct. An instance is created for each cart product in the Cart product table"""
@@ -77,6 +85,11 @@ class CartProductAPIView(APIView):
                                  "'pk' if the method is called 'DELETE' ")
 
 
+# -------------------------------------------------
+# Order
+# -------------------------------------------------
+
+
 class OrderAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
     permission_classes = (IsOwnerOrAdmin,)
@@ -89,7 +102,7 @@ class OrderCreateAPIView(APIView):
         serializer = OrderCreateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['owner'] = Customer.objects.get(user=request.user)
+            serializer.validated_data['cart'] = Cart.objects.get(owner__user=request.user, in_order=False)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
