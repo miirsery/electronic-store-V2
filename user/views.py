@@ -6,11 +6,14 @@ from rest_framework.views import APIView
 
 from cart.models import Customer
 from user.models import User
+from user.permissions import IsOwner
 from user.serializers import UserSerializer
 
 
 class UserUpdateAPIView(APIView):
     """ User Update View"""
+
+    permission_classes = (IsOwner, )
 
     def put(self, request, *args, **kwargs):
         serializer = UserSerializer(User.objects.filter(pk=kwargs['pk']).first(), data=request.data, partial=True)

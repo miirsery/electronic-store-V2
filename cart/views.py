@@ -18,6 +18,8 @@ class CartCreateAPIView(APIView):
     def post(self, request, *args, **kwargs):
         Customer.objects.get_or_create(user=request.user, phone=request.user.phone,
                                        address=request.user.address)
+        if Cart.objects.count():
+            Cart.objects.get(owner__user=request.user, in_order=False).delete()
         serializer = CartCreateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['owner'] = Customer.objects.get(user=request.user)
@@ -49,6 +51,8 @@ class CartListAPIView(generics.ListAPIView):
 class CartProductAPIView(APIView):
     """CRUD CartProduct. An instance is created for each cart product in the Cart product table"""
 
+    permission_classes = (IsOwner, )
+
     def get(self, request, *args, **kwargs):
         if kwargs.get('pk') is None:
             serializer = CartProductCreateRetrieveSerializer(CartProduct.objects.all(), many=True)
@@ -60,7 +64,7 @@ class CartProductAPIView(APIView):
         serializer = CartProductCreateRetrieveSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['owner'] = Customer.objects.get(user=request.user)
-            serializer.validated_data['cart'] = Cart.objects.get(owner__user=request.user, in_order=False)
+            serializer.validated_data['cart'] = Cart.objects.get_or_create(owner__user=request.user, in_order=False)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -97,6 +101,8 @@ class OrderAPIView(generics.RetrieveAPIView):
 
 
 class OrderCreateAPIView(APIView):
+
+    permission_classes = (IsOwner, )
 
     def post(self, request, *args, **kwargs):
         serializer = OrderCreateSerializer(data=request.data)
