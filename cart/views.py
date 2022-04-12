@@ -14,6 +14,7 @@ from cart.serializers import CartSerializer, CartProductCreateRetrieveSerializer
 # -------------------------------------------------
 
 class CartCreateAPIView(APIView):
+    permission_classes = (IsOwner,)
 
     def post(self, request, *args, **kwargs):
         Customer.objects.get_or_create(user=request.user, phone=request.user.phone,
