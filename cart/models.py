@@ -70,6 +70,11 @@ class Customer(models.Model):
     def __str__(self):
         return f'Покупатель {self.user.username}'
 
+    def update(self, *args, **kwargs):
+        self.address = self.user.address
+        self.phone = self.user.phone
+        super().save(*args, **kwargs)
+
 
 class Order(models.Model):
     STATUS_NEW = 'new'
