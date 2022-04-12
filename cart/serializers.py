@@ -92,6 +92,9 @@ class CartCreateSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializerRetrieve(serializers.ModelSerializer):
+    cart = CartViewOnCartProductSerializers(read_only=True)
+    owner = CartViewOnCustomerSerializers(read_only=True)
+
     class Meta:
         model = Order
         fields = "__all__"
