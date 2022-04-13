@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -19,9 +21,9 @@ class CartCreateAPIView(APIView):
     def post(self, request, *args, **kwargs):
         Customer.objects.get_or_create(user=request.user, phone=request.user.phone,
                                        address=request.user.address)
-        if Cart.objects.count():
-            Cart.objects.get(owner__user=request.user, in_order=False).delete()
         serializer = CartCreateSerializer(data=request.data)
+        if Cart.objects.filter(owner__user=request.user).count():
+            Cart.objects.get(owner__user=request.user, in_order=False).delete()
         if serializer.is_valid():
             serializer.validated_data['owner'] = Customer.objects.get(user=request.user)
             serializer.save()
@@ -65,7 +67,7 @@ class CartProductAPIView(APIView):
         serializer = CartProductCreateRetrieveSerializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['owner'] = Customer.objects.get(user=request.user)
-            serializer.validated_data['cart'] = Cart.objects.get_or_create(owner__user=request.user, in_order=False)
+            serializer.validated_data['cart'] = Cart.objects.get(owner__user=request.user, in_order=False)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -111,5 +113,8 @@ class OrderCreateAPIView(APIView):
             serializer.validated_data['owner'] = Customer.objects.get(user=request.user)
             serializer.validated_data['cart'] = Cart.objects.get(owner__user=request.user, in_order=False)
             serializer.save()
+            send_mail('A cool subject', f'You order it\'s ready.', settings.EMAIL_HOST_USER, [request.user.email])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

@@ -19,6 +19,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('oauth/', include('social_django.urls')),
 
     path('auth/', include('djoser.urls')),
     re_path('auth/', include('djoser.urls.authtoken')),

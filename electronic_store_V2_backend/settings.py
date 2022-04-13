@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,13 +44,18 @@ INSTALLED_APPS = [
     'djoser',
     'rest_framework.authtoken',
     'django_filters',
+    'social_django',
+
+
 
 
     'user.apps.UserConfig',
     'store.apps.StoreConfig',
     'cart.apps.CartConfig',
+    'sendemail.apps.SendemailConfig',
 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,6 +81,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -142,6 +149,24 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '********'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = '*************'
+
+SOCIAL_AUTH_GITHUB_KEY = '********'
+SOCIAL_AUTH_GITHUB_SECRET = '*************'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '********'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '*************'
+
+
 REST_FRAMEWORK = {
 
     'DEFAULT_RENDERER_CLASSES': [
@@ -164,12 +189,15 @@ REST_FRAMEWORK = {
 
 }
 
+env = environ.Env()
+environ.Env.read_env()
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'your password'
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'your email'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+RECIPIENT_ADDRESS = env('RECIPIENT_ADDRESS')
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/{uid}/{token}',
@@ -213,3 +241,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 
 }
+
+LOGIN_REDIRECT_URL = '/'

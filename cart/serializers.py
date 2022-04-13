@@ -47,7 +47,7 @@ class CartProductOnProductSerializers(serializers.ModelSerializer):
 class CartProductCreateRetrieveSerializer(serializers.ModelSerializer):
     owner = CartViewOnCustomerSerializers(read_only=True)
     cart = CartViewOnCartProductSerializers(read_only=True)
-    product = CartProductOnProductSerializers()
+    product = CartProductOnProductSerializers
     final_price = serializers.ReadOnlyField()
 
     class Meta:

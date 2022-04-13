@@ -33,7 +33,7 @@ class CartProduct(models.Model):
 
 class Cart(models.Model):
     owner = models.ForeignKey('Customer', verbose_name='Владелец', on_delete=models.CASCADE, null=True)
-    products = models.ManyToManyField(CartProduct, verbose_name='Товар корзины', blank=True, null=True,
+    products = models.ManyToManyField(CartProduct, verbose_name='Товар корзины', blank=True,
                                       related_name='related_cart')
     total_products = models.PositiveIntegerField(verbose_name='Общее колличество товаров', default=0)
     final_price = models.IntegerField(verbose_name='Финальная цена', default=0)
