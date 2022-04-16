@@ -16,16 +16,25 @@ class MailingLetters(models.Model):
 
     subject = models.CharField(max_length=75)
     message = models.TextField(max_length=1024)
-    attachments = models.FileField()
+    attachments = models.FileField(null=True, blank=True)
     users = models.ManyToManyField(User)
     is_send = models.CharField(choices=send, max_length=255)
-
 
     class Meta:
         verbose_name = 'Писмо'
         verbose_name_plural = 'Письма'
 
 
+class CustomerLetters(models.Model):
+
+    subject = models.CharField(max_length=75)
+    message = models.TextField(max_length=1024)
+    attachments = models.FileField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = 'Писмо от пользователя'
+        verbose_name_plural = 'Письма от пользвателей'
 
 
 

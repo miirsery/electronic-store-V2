@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.core.mail import send_mail
 
-from sendemail.models import MailingLetters
+from sendemail.models import MailingLetters, CustomerLetters
 
 
 @admin.register(MailingLetters)
@@ -15,13 +15,19 @@ class EmailAdmin(admin.ModelAdmin):
         super(EmailAdmin, self).save_related(request, form, formsets, change)
         if form.instance.is_send == 'SEND':
             user_list = []
-            print(MailingLetters.objects.get(id=form.instance.id).users.all())
-            print(form.instance.users.all())
             for user in form.instance.users.all():
                 user_list.append(user.email)
             send_mail(str(form.instance.subject), str(form.instance.message), settings.EMAIL_HOST_USER, user_list)
-            print(form.instance.is_send)
-            print(user_list)
+
+
+@admin.register(CustomerLetters)
+class CustomerLettersAdmin(admin.ModelAdmin):
+    list_display = ('user', 'subject', )
+    search_fields = ('subject',)
+
+
+
+
 
 
 
