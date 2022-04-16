@@ -11,17 +11,19 @@ class EmailAdmin(admin.ModelAdmin):
     search_fields = ('subject',)
     list_filter = ('is_send',)
 
-    def save_model(self, request, obj, form, change):
-        obj.save()
-        print(obj.users)
-        if obj.is_send == 'SEND':
-            # user_list = []
-            # print(obj.users.all())
-            # for user in obj.users.all():
-            #     user_list.append(user.email)
+    def save_related(self, request, form, formsets, change):
+        super(EmailAdmin, self).save_related(request, form, formsets, change)
+        if form.instance.is_send == 'SEND':
+            user_list = []
+            print(MailingLetters.objects.get(id=form.instance.id).users.all())
+            print(form.instance.users.all())
+            for user in form.instance.users.all():
+                user_list.append(user.email)
+            send_mail(str(form.instance.subject), str(form.instance.message), settings.EMAIL_HOST_USER, user_list)
+            print(form.instance.is_send)
+            print(user_list)
 
-            send_mail(str(obj.subject), str(obj.message), settings.EMAIL_HOST_USER, [obj.users.email])
-            print(obj.is_send)
-            # print(user_list)
+
+
 
 
