@@ -52,6 +52,10 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductDetailSerializers(serializers.ModelSerializer):
     """ Product Detail """
 
+    comment = CommentSerializers(many=True)
+
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('id',  'name', 'description', 'short_description', 'price_now', 'quantity', 'photo', 'status',
+                  'specifications', 'cat', 'discount', 'comment')
+
