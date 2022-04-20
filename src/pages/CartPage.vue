@@ -2,10 +2,12 @@
   <div>This is a cart page</div>
 </template>
 
-<script>
-export default {
-  name: 'Cart',
-}
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'CartPage',
+})
 </script>
 
 <style scoped>

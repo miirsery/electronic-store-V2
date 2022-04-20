@@ -33,27 +33,35 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { authApi } from '@/api/auth.api'
-import axios from 'axios'
+import { UserType } from '@/types/user.type'
 
 export default defineComponent({
   name: 'SignIn',
   setup() {
     const email = ref<string>()
-    const password = ref<string>()
+    const password = ref<string | number>()
 
-    const signInData = reactive({
+    const signInData: Partial<Omit<UserType, 'username'>> = reactive({
       email,
       password,
     })
 
+    const saveToken = async (token): Promise<void> => {
+      localStorage.setItem('tokenData', JSON.stringify(token))
+      await signIn(token)
+    }
+
+    const tokenCreate = async (): Promise<void> => {
+      const [_, tokenData] = await authApi.tokenCreate(signInData)
+      await saveToken(tokenData.token)
+    }
+
+    const signIn = async (token): Promise<void> => {
+      await authApi.signIn(token)
+    }
+
     const handleSubmit = async (): Promise<void> => {
-      const sendSignInData = await authApi.signIn(signInData)
-      // const sendSignInData = await axios({
-      //   method: 'POST',
-      //   url: 'http://localhost:8000/api/token-create',
-      //   data: { email, password },
-      // })
-      console.log(sendSignInData)
+      await tokenCreate()
     }
 
     return {
@@ -74,6 +82,14 @@ export default defineComponent({
 
   &__label {
     margin-bottom: 0.5rem;
+  }
+
+  &__button {
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 18px;
+    color: $color-white;
+    background-color: $color-accent;
   }
 }
 </style>

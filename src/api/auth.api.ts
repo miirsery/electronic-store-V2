@@ -9,23 +9,25 @@ class AuthApi extends AxiosService {
   public tokenCreate(payload) {
     return this.axiosCall({
       method: 'post',
-      url: '/api/token-create/',
+      url: '/api/user/token-create/',
       data: payload,
     })
   }
 
   public signIn(payload) {
     return this.axiosCall({
-      method: 'post',
-      url: '/api/auth/users/',
-      data: payload,
+      method: 'get',
+      url: '/api/user/user-auth/',
+      headers: {
+        Authorization: `Bearer ${payload}`,
+      },
     })
   }
 
   public signUp(payload) {
     return this.axiosCall({
       method: 'post',
-      url: '/api/users/',
+      url: '/api/auth/users/',
       data: payload,
     })
   }

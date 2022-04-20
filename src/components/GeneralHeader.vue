@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <div class="header__container header__wrapper">
-      <div class="header__logo">
+      <router-link to="/" class="header__logo">
         <icon-template name="logo" width="36" height="36" />
-      </div>
+      </router-link>
       <nav class="header__menu">
         <ul class="header__menu-wrapper">
           <li class="header__menu-item">
@@ -13,7 +13,9 @@
             <auth-modal @close="handleToggleModal" v-if="isAuthModalVisible" />
           </li>
           <li class="header__menu-item">
-            <button class="header__menu-button">Car</button>
+            <router-link :to="{ name: 'CartPage' }" class="header__menu-button">
+              Cart
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -58,6 +60,10 @@ export default defineComponent({
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    &-button {
+      color: $color-black;
     }
 
     &-item {

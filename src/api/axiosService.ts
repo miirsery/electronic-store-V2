@@ -7,12 +7,12 @@ export class AxiosService {
   constructor(config?: AxiosRequestConfig) {
     this.axiosInstance = axios.create(config)
 
-    this.axiosInstance.interceptors.request.use((config) => {
-      config.xsrfCookieName = 'XSRF-TOKEN'
-      config.xsrfHeaderName = 'X-XSRF-TOKEN'
-
-      return config
-    })
+    // this.axiosInstance.interceptors.request.use((config) => {
+    //   config.xsrfCookieName = 'XSRF-TOKEN'
+    //   config.xsrfHeaderName = 'X-XSRF-TOKEN'
+    //
+    //   return config
+    // })
     this.axiosInstance.interceptors.response.use(
       (response) => {
         return response

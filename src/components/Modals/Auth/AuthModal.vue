@@ -86,7 +86,7 @@ export default defineComponent({
     border-radius: 10px;
     padding: 10px 30px;
     width: 400px;
-    height: 300px;
+    min-height: 300px;
     background-color: $color-white;
     transform: translate(-50%, -50%);
   }

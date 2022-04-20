@@ -5,7 +5,6 @@ import router from './router'
 
 import * as components from 'vuetify/lib/components/index'
 import * as directives from 'vuetify/lib/directives/index'
-import * as icons from 'vuetify/lib/index'
 import 'vuetify/lib/styles/main.sass'
 import IconTemplate from '@/components/IconTemplate.vue'
 import '@/styles/main.scss'
