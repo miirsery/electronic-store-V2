@@ -8,7 +8,7 @@
         <ul class="header__menu-wrapper">
           <li class="header__menu-item">
             <button class="header__menu-button" @click="handleToggleModal">
-              Open
+              <img :src="avatar" alt="avatar" />
             </button>
             <auth-modal @close="handleToggleModal" v-if="isAuthModalVisible" />
           </li>
@@ -24,7 +24,8 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, ref } from 'vue'
+import { defineAsyncComponent, defineComponent, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -34,14 +35,30 @@ export default defineComponent({
   },
   setup() {
     const isAuthModalVisible = ref(false)
+    const avatar = ref<string>()
+    const store = useStore()
 
     const handleToggleModal = (): void => {
       isAuthModalVisible.value = !isAuthModalVisible.value
     }
 
+    watch(
+      (): string => store.state.profileImage,
+      (val, _): void => {
+        avatar.value = val
+      }
+    )
+
+    // adding anon profile
+
+    // onMounted(() => {
+    //   avatar.value =
+    // })
+
     return {
       isAuthModalVisible,
       handleToggleModal,
+      avatar,
     }
   },
 })

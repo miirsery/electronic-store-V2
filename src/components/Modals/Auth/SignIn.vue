@@ -35,6 +35,7 @@ import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { authApi } from '@/api/auth.api'
 import { UserType } from '@/types/user.type'
 import { useStore } from 'vuex'
+import { MutationTypes } from '@/store/store'
 
 export default defineComponent({
   name: 'SignIn',
@@ -42,6 +43,7 @@ export default defineComponent({
   setup(_, { emit }) {
     const email = ref<string>()
     const password = ref<string | number>()
+    const avatar = ref<string>(null)
     const store = useStore()
 
     const signInData: Partial<Omit<UserType, 'username'>> = reactive({
@@ -58,9 +60,13 @@ export default defineComponent({
       const [_, tokenData] = await authApi.tokenCreate(signInData)
       await saveToken(tokenData.token)
     }
+    const setProfileImage = async (avatar): Promise<void> => {
+      store.commit(MutationTypes.SET_PROFILE_IMAGE, avatar)
+    }
 
     const signIn = async (token): Promise<void> => {
-      await authApi.signIn(token)
+      const [_, responseData] = await authApi.signIn(token)
+      await setProfileImage(responseData.avatar)
     }
 
     const closeModal = async (): Promise<void> => {

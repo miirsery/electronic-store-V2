@@ -5,15 +5,21 @@ import {
   createStore,
   GetterTree,
   MutationTree,
-  Store as VuexStore,
 } from 'vuex'
 
-export type State = { counter: number }
+export type State = {
+  counter: number
+  profileImage: string
+}
 
-const state: State = { counter: 0 }
+const state: State = {
+  counter: 0,
+  profileImage: null,
+}
 
 export enum MutationTypes {
   INC_COUNTER = 'SET_COUNTER',
+  SET_PROFILE_IMAGE = 'SET_PROFILE_IMAGE',
 }
 
 export enum ActionTypes {
@@ -22,12 +28,16 @@ export enum ActionTypes {
 
 export type Mutations<S = State> = {
   [MutationTypes.INC_COUNTER](state: S, payload: number): void
+  [MutationTypes.SET_PROFILE_IMAGE](state: S, payload: string): void
 }
 
 // define mutations
 const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.INC_COUNTER](state: State, payload: number) {
     state.counter += payload
+  },
+  [MutationTypes.SET_PROFILE_IMAGE](state: State, payload: string) {
+    state.profileImage = payload
   },
 }
 
@@ -70,16 +80,3 @@ export const store = createStore({
   actions,
   plugins: [createLogger()],
 })
-// export const store = createStore({
-//   state,
-//   mutations: {
-//     increment(state, payload) {
-//       state.counter++
-//     },
-//   },
-//   actions: {
-//     increment({ commit }) {
-//       commit('increment')
-//     },
-//   },
-// })
