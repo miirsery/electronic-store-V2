@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify/'
+import { store } from '@/store/store'
 import App from './App.vue'
 import router from './router'
 
@@ -16,6 +17,7 @@ const vuetify = createVuetify({
 })
 
 app.use(vuetify)
+app.use(store)
 app.use(router).mount('#app')
 
 const requireAll = (requireContext) => requireContext.keys().map(requireContext)

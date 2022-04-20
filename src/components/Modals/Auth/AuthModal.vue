@@ -20,7 +20,7 @@
         </button>
       </div>
       <div class="auth-modal__body">
-        <keep-alive>
+        <keep-alive @close="handleCloseModal">
           <component :is="authType" />
         </keep-alive>
       </div>

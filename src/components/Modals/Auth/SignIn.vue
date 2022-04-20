@@ -34,12 +34,15 @@
 import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { authApi } from '@/api/auth.api'
 import { UserType } from '@/types/user.type'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'SignIn',
-  setup() {
+  emits: ['close'],
+  setup(_, { emit }) {
     const email = ref<string>()
     const password = ref<string | number>()
+    const store = useStore()
 
     const signInData: Partial<Omit<UserType, 'username'>> = reactive({
       email,
@@ -60,8 +63,13 @@ export default defineComponent({
       await authApi.signIn(token)
     }
 
+    const closeModal = async (): Promise<void> => {
+      emit('close')
+    }
+
     const handleSubmit = async (): Promise<void> => {
       await tokenCreate()
+      await closeModal()
     }
 
     return {

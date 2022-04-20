@@ -9,7 +9,7 @@
           v-model="username"
           type="text"
           id="signUpUsername"
-          placeholder="Your email..."
+          placeholder="Your username..."
           class="sign-up__input input"
         />
       </div>
@@ -61,7 +61,8 @@ import { UserType } from '@/types/user.type'
 
 export default defineComponent({
   name: 'SignUp',
-  setup() {
+  emits: ['close'],
+  setup(_, { emit }) {
     const username = ref<string>()
     const email = ref<string>()
     const password = ref<string | number>()
@@ -73,9 +74,14 @@ export default defineComponent({
       password,
     })
 
+    const closeModal = async (): Promise<void> => {
+      emit('close')
+    }
+
     const handleSubmit = async (): Promise<void> => {
       try {
         await authApi.signUp(signUpData)
+        await closeModal()
       } catch (error) {
         console.error(error.response.data)
       }
@@ -84,6 +90,7 @@ export default defineComponent({
     return {
       handleSubmit,
       retryPassword,
+      closeModal,
       ...toRefs(signUpData),
     }
   },
