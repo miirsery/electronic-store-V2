@@ -10,16 +10,19 @@ import {
 export type State = {
   counter: number
   profileImage: string
+  authorized: boolean
 }
 
 const state: State = {
   counter: 0,
   profileImage: null,
+  authorized: false,
 }
 
 export enum MutationTypes {
   INC_COUNTER = 'SET_COUNTER',
   SET_PROFILE_IMAGE = 'SET_PROFILE_IMAGE',
+  TOGGLE_AUTHORIZATION = 'TOGGLE_AUTHORIZATION',
 }
 
 export enum ActionTypes {
@@ -29,6 +32,7 @@ export enum ActionTypes {
 export type Mutations<S = State> = {
   [MutationTypes.INC_COUNTER](state: S, payload: number): void
   [MutationTypes.SET_PROFILE_IMAGE](state: S, payload: string): void
+  [MutationTypes.TOGGLE_AUTHORIZATION](state: S, payload: boolean): void
 }
 
 // define mutations
@@ -38,6 +42,9 @@ const mutations: MutationTree<State> & Mutations = {
   },
   [MutationTypes.SET_PROFILE_IMAGE](state: State, payload: string) {
     state.profileImage = payload
+  },
+  [MutationTypes.TOGGLE_AUTHORIZATION](state: State, payload: boolean) {
+    state.authorized = payload
   },
 }
 

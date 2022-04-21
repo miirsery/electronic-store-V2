@@ -43,7 +43,6 @@ export default defineComponent({
   setup(_, { emit }) {
     const email = ref<string>()
     const password = ref<string | number>()
-    const avatar = ref<string>(null)
     const store = useStore()
 
     const signInData: Partial<Omit<UserType, 'username'>> = reactive({
@@ -67,6 +66,7 @@ export default defineComponent({
     const signIn = async (token): Promise<void> => {
       const [_, responseData] = await authApi.signIn(token)
       await setProfileImage(responseData.avatar)
+      store.commit(MutationTypes.TOGGLE_AUTHORIZATION, true)
     }
 
     const closeModal = async (): Promise<void> => {
