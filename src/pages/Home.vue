@@ -1,8 +1,10 @@
 <template>
   <div class="home">
-    <div class="home__wrapper">This is home page.</div>
-    <div class="counter" @click="increment">
-      {{ count.counter }}
+    <div class="home__container home__wrapper">
+      This is home page.
+      <div class="counter" @click="increment">
+        {{ count.counter }}
+      </div>
     </div>
   </div>
 </template>
